@@ -1,0 +1,337 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Button Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente fundamental para acciones del usuario. Incluye múltiples variantes, 
+        tamaños, estados de carga y soporte completo para iconos con PrimeIcons.
+      </p>
+    </div>
+  </section>
+
+  <!-- API Overview -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">4 Variantes</h3>
+        <p class="text-sm text-muted-color">primary, secondary, danger, success</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">3 Tamaños</h3>
+        <p class="text-sm text-muted-color">small, medium, large</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Estados</h3>
+        <p class="text-sm text-muted-color">disabled, loading, focused</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Características</h3>
+        <p class="text-sm text-muted-color">Iconos, labels, eventos click</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variantes Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Variantes Disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="primary" (clicked)="onButtonClick('primary')">
+          Primary
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="primary"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="secondary" (clicked)="onButtonClick('secondary')">
+          Secondary
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="secondary"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="danger" (clicked)="onButtonClick('danger')">
+          Danger
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="danger"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="success" (clicked)="onButtonClick('success')">
+          Success
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="success"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tamaños Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños Disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-button size="small" (clicked)="onButtonClick('small')">
+          Small
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="small"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button size="medium" (clicked)="onButtonClick('medium')">
+          Medium
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="medium"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button size="large" (clicked)="onButtonClick('large')">
+          Large
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="large"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botones con Iconos -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Botones con Iconos</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-plus" variant="primary" (clicked)="onButtonClick('add')">
+          Añadir
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">icon="pi pi-plus"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-trash" variant="danger" (clicked)="onButtonClick('delete')">
+          Eliminar
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">icon="pi pi-trash"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-download" variant="secondary" (clicked)="onButtonClick('download')">
+          Descargar
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">icon="pi pi-download"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-check" variant="success" (clicked)="onButtonClick('confirm')">
+          Confirmar
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">icon="pi pi-check"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solo Iconos -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Botones Solo Icono</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-cog" variant="secondary" (clicked)="onButtonClick('settings')">
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">Solo icono</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-heart" variant="danger" size="small" (clicked)="onButtonClick('like')">
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">Icono pequeño</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button icon="pi pi-search" variant="primary" size="large" (clicked)="onButtonClick('search')">
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">Icono grande</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estados Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Estados del Botón</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="primary" (clicked)="onButtonClick('normal')">
+          Normal
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">Estado normal</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="primary" [disabled]="true">
+          Disabled
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[disabled]="true"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-button variant="primary" [loading]="true" (clicked)="onButtonClick('loading')">
+          Loading
+        </app-button>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[loading]="true"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Casos de Uso -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Casos de Uso Comunes</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold">Acciones Principales</h3>
+        <div class="flex flex-col gap-3">
+          <app-button variant="primary" icon="pi pi-save" (clicked)="onButtonClick('save')">
+            Guardar
+          </app-button>
+          <app-button variant="primary" icon="pi pi-send" (clicked)="onButtonClick('send')">
+            Enviar
+          </app-button>
+          <app-button variant="success" icon="pi pi-check" (clicked)="onButtonClick('submit')">
+            Confirmar
+          </app-button>
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold">Acciones Secundarias</h3>
+        <div class="flex flex-col gap-3">
+          <app-button variant="secondary" icon="pi pi-times" (clicked)="onButtonClick('cancel')">
+            Cancelar
+          </app-button>
+          <app-button variant="secondary" icon="pi pi-arrow-left" (clicked)="onButtonClick('back')">
+            Volver
+          </app-button>
+          <app-button variant="secondary" icon="pi pi-external-link" (clicked)="onButtonClick('view')">
+            Ver Detalles
+          </app-button>
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold">Acciones Destructivas</h3>
+        <div class="flex flex-col gap-3">
+          <app-button variant="danger" icon="pi pi-trash" (clicked)="onButtonClick('delete-item')">
+            Eliminar
+          </app-button>
+          <app-button variant="danger" icon="pi pi-ban" (clicked)="onButtonClick('block')">
+            Bloquear
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mejores Prácticas -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Mejores Prácticas</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-green-500/10 rounded-lg p-6 border border-green-500/30">
+        <h3 class="text-lg font-semibold text-green-700 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Recomendado
+        </h3>
+        <ul class="space-y-2 text-sm text-muted-color">
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Usar variant="primary" para acciones principales</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Combinar iconos con labels descriptivos</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Usar loading state para operaciones asíncronas</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Mantener consistencia en tamaños por contexto</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Usar variant="danger" para acciones destructivas</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-red-500/10 rounded-lg p-6 border border-red-500/30">
+        <h3 class="text-lg font-semibold text-red-700 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Evitar
+        </h3>
+        <ul class="space-y-2 text-sm text-muted-color">
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Múltiples botones primary en la misma vista</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Botones sin feedback visual al hacer clic</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Labels muy largos que rompan el diseño</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Iconos sin significado claro</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Botones disabled sin explicación al usuario</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Código de Ejemplo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Botón básico --&gt;
+&lt;app-button variant="primary" (clicked)="handleClick()"&gt;
+  Guardar
+&lt;/app-button&gt;
+
+&lt;!-- Botón con icono --&gt;
+&lt;app-button 
+  variant="success" 
+  icon="pi-check" 
+  (clicked)="confirm()"&gt;
+  Confirmar
+&lt;/app-button&gt;
+
+&lt;!-- Botón con estado de carga --&gt;
+&lt;app-button 
+  variant="primary" 
+  [loading]="isLoading" 
+  [disabled]="isLoading"
+  (clicked)="submit()"&gt;
+  Enviar
+&lt;/app-button&gt;</code></pre>
+  </section>
+</div>

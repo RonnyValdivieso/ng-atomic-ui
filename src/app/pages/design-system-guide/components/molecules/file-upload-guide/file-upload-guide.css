@@ -1,0 +1,45 @@
+.guide-section {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.guide-header {
+	border-bottom: 1px solid var(--p-surface-200);
+	padding-bottom: 1rem;
+}
+
+.guide-description {
+	color: var(--p-text-muted-color);
+	margin-top: 0.5rem;
+}
+
+.guide-examples {
+	display: grid;
+	gap: 2rem;
+}
+
+.example-card {
+	border: 1px solid var(--p-surface-200);
+	border-radius: 0.5rem;
+	padding: 1.5rem;
+	background: var(--p-surface-0);
+}
+
+.example-card h3 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.log-box {
+	background: var(--p-surface-50);
+	padding: 1rem;
+	border-radius: 0.25rem;
+	font-family: monospace;
+}
+
+.text-muted {
+	color: var(--p-text-muted-color);
+}

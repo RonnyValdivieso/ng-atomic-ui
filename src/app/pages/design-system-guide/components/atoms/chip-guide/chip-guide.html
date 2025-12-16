@@ -1,0 +1,113 @@
+<div class="flex flex-col gap-8">
+	<!-- Hero Section -->
+	<section class="flex flex-col gap-4">
+		<div class="flex flex-col gap-2">
+			<h1 class="text-5xl font-bold text-balance">Chip Component</h1>
+			<p class="text-xl text-muted-color text-pretty">
+				Componente compacto para mostrar etiquetas, contactos o filtros.
+			</p>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+		<h2 class="text-3xl font-semibold">Características Principales</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+					<i class="pi pi-tag text-lg text-primary"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Etiquetas</h3>
+				<p class="text-sm text-muted-color">Visualización compacta de datos.</p>
+			</div>
+
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+					<i class="pi pi-image text-lg text-cyan-600"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Media</h3>
+				<p class="text-sm text-muted-color">Soporte para iconos e imágenes.</p>
+			</div>
+
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+					<i class="pi pi-times-circle text-lg text-green-600"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Removible</h3>
+				<p class="text-sm text-muted-color">Opción para eliminar el chip.</p>
+			</div>
+
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+					<i class="pi pi-palette text-lg text-purple-600"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Estilos</h3>
+				<p class="text-sm text-muted-color">Adaptable al tema y modo oscuro.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Examples -->
+	<section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+		<h2 class="text-3xl font-semibold">Ejemplos de Uso</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<!-- Basic -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+				<h3 class="text-lg font-semibold mb-4">Básico</h3>
+				<div class="flex flex-wrap gap-2">
+					<app-chip label="Action"></app-chip>
+					<app-chip label="Comedy"></app-chip>
+					<app-chip label="Drama"></app-chip>
+					<app-chip label="Thriller"></app-chip>
+				</div>
+			</div>
+
+			<!-- With Icon -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+				<h3 class="text-lg font-semibold mb-4">Con Iconos</h3>
+				<div class="flex flex-wrap gap-2">
+					<app-chip label="Apple" icon="pi pi-apple"></app-chip>
+					<app-chip label="Facebook" icon="pi pi-facebook"></app-chip>
+					<app-chip label="Google" icon="pi pi-google"></app-chip>
+				</div>
+			</div>
+
+			<!-- With Image -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+				<h3 class="text-lg font-semibold mb-4">Con Imágenes</h3>
+				<div class="flex flex-wrap gap-2">
+					<app-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"></app-chip>
+					<app-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"></app-chip>
+				</div>
+			</div>
+
+			<!-- Removable -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+				<h3 class="text-lg font-semibold mb-4">Removible</h3>
+				<div class="flex flex-wrap gap-2">
+					<app-chip label="Tag 1" [removable]="true" (onRemove)="onRemove($event)"></app-chip>
+					<app-chip label="Tag 2" [removable]="true" icon="pi pi-tag" (onRemove)="onRemove($event)"></app-chip>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Code Examples -->
+	<section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+		<h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+		<pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico --&gt;
+&lt;app-chip label="Action"&gt;&lt;/app-chip&gt;
+
+&lt;!-- Con Icono --&gt;
+&lt;app-chip label="Facebook" icon="pi pi-facebook"&gt;&lt;/app-chip&gt;
+
+&lt;!-- Removible --&gt;
+&lt;app-chip 
+	label="Tag 1" 
+	[removable]="true" 
+	(onRemove)="onRemove($event)"&gt;
+&lt;/app-chip&gt;</code></pre>
+	</section>
+</div>

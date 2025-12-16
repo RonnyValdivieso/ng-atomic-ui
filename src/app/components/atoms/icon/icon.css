@@ -1,0 +1,246 @@
+/* Icon Component Styles */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+  vertical-align: middle;
+  font-style: normal;
+}
+
+/* Size Variants */
+.icon--size-xs {
+  font-size: 0.75rem; /* 12px */
+}
+
+.icon--size-sm {
+  font-size: 0.875rem; /* 14px */
+}
+
+.icon--size-base {
+  font-size: 1rem; /* 16px - default */
+}
+
+.icon--size-lg {
+  font-size: 1.25rem; /* 20px */
+}
+
+.icon--size-xl {
+  font-size: 1.5rem; /* 24px */
+}
+
+.icon--size-2xl {
+  font-size: 2rem; /* 32px */
+}
+
+.icon--size-3xl {
+  font-size: 3rem; /* 48px */
+}
+
+/* Color Variants using PrimeNG variables */
+.icon--color-primary {
+  color: var(--p-primary-500);
+}
+
+.icon--color-secondary {
+  color: var(--p-surface-500);
+}
+
+.icon--color-success {
+  color: var(--p-green-500);
+}
+
+.icon--color-danger {
+  color: var(--p-red-500);
+}
+
+.icon--color-warning {
+  color: var(--p-orange-500);
+}
+
+.icon--color-info {
+  color: var(--p-blue-500);
+}
+
+.icon--color-muted {
+  color: var(--p-text-muted-color);
+}
+
+.icon--color-inherit {
+  color: inherit;
+}
+
+/* States */
+.icon--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.icon--clickable {
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.icon--clickable:hover:not(.icon--disabled) {
+  background-color: var(--p-surface-100);
+  transform: scale(1.05);
+}
+
+.icon--clickable:active:not(.icon--disabled) {
+  transform: scale(0.95);
+  background-color: var(--p-surface-200);
+}
+
+.icon--clickable:focus:not(.icon--disabled) {
+  outline: 2px solid var(--p-primary-500);
+  outline-offset: 2px;
+  background-color: var(--p-surface-100);
+}
+
+/* Animation States */
+.icon--spin {
+  animation: icon-spin 1s linear infinite;
+}
+
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hover effects for colored icons */
+.icon--color-primary:hover:not(.icon--disabled) {
+  color: var(--p-primary-600);
+}
+
+.icon--color-secondary:hover:not(.icon--disabled) {
+  color: var(--p-surface-600);
+}
+
+.icon--color-success:hover:not(.icon--disabled) {
+  color: var(--p-green-600);
+}
+
+.icon--color-danger:hover:not(.icon--disabled) {
+  color: var(--p-red-600);
+}
+
+.icon--color-warning:hover:not(.icon--disabled) {
+  color: var(--p-orange-600);
+}
+
+.icon--color-info:hover:not(.icon--disabled) {
+  color: var(--p-blue-600);
+}
+
+/* Context-specific adjustments */
+.icon--clickable.icon--size-xs {
+  padding: 0.125rem;
+}
+
+.icon--clickable.icon--size-sm {
+  padding: 0.1875rem;
+}
+
+.icon--clickable.icon--size-lg {
+  padding: 0.375rem;
+}
+
+.icon--clickable.icon--size-xl {
+  padding: 0.5rem;
+}
+
+.icon--clickable.icon--size-2xl {
+  padding: 0.75rem;
+}
+
+.icon--clickable.icon--size-3xl {
+  padding: 1rem;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .icon--clickable:focus:not(.icon--disabled) {
+    outline: 3px solid var(--p-primary-500);
+    outline-offset: 3px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+  }
+  
+  .icon--spin {
+    animation: none;
+  }
+  
+  .icon--clickable:hover:not(.icon--disabled) {
+    transform: none;
+  }
+  
+  .icon--clickable:active:not(.icon--disabled) {
+    transform: none;
+  }
+}
+
+/* Dark mode specific adjustments (handled by CSS variables) */
+:host-context(.dark-mode) .icon--clickable:hover:not(.icon--disabled) {
+  background-color: var(--p-surface-700);
+}
+
+:host-context(.dark-mode) .icon--clickable:active:not(.icon--disabled) {
+  background-color: var(--p-surface-600);
+}
+
+:host-context(.dark-mode) .icon--clickable:focus:not(.icon--disabled) {
+  background-color: var(--p-surface-700);
+}
+
+/* Integration with form controls */
+.form-control .icon {
+  pointer-events: none;
+}
+
+/* Integration with buttons */
+.p-button .icon {
+  margin-right: 0.5rem;
+}
+
+.p-button .icon:only-child {
+  margin-right: 0;
+}
+
+/* Utility classes for common layouts */
+.icon-with-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-stack {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-stack .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Print styles */
+@media print {
+  .icon--spin {
+    animation: none;
+  }
+}

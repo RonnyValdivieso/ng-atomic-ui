@@ -1,0 +1,29 @@
+<div class="flex flex-col gap-2 w-full">
+  <!-- Label -->
+  @if (label()) {
+    <label class="text-sm font-medium text-color">{{ label() }}</label>
+  }
+
+  <!-- Dropdown -->
+  <p-select
+    [options]="options()"
+    [optionLabel]="optionLabel()"
+    [optionValue]="optionValue()"
+    [placeholder]="placeholder()"
+    [filter]="filter()"
+    [showClear]="showClear()"
+    [disabled]="disabled() || isDisabled()"
+    [loading]="loading()"
+    [ngModel]="value()"
+    (onChange)="onValueChange($event)"
+    (onBlur)="onBlur()"
+    [styleClass]="'w-full atomic-dropdown ' + styleClass()"
+    [panelStyleClass]="'atomic-dropdown-panel'"
+    appendTo="body">
+  </p-select>
+
+  <!-- Error Message -->
+  @if (error()) {
+    <small class="text-red-500 text-xs">{{ error() }}</small>
+  }
+</div>

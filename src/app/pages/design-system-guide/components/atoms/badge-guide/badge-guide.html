@@ -1,0 +1,529 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex items-center gap-4">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-5xl font-bold text-balance">Badge</h1>
+        <p class="text-xl text-muted-color">
+          Indicadores versátiles para notificaciones, estados, contadores y etiquetas con múltiples variantes y opciones de posicionamiento
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características Principales -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-lg shrink-0">
+          <i class="pi pi-palette text-xl text-primary"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Múltiples Variantes</h3>
+          <p class="text-muted-color">Cuatro estilos disponibles: solid, outline, soft y dot para diferentes niveles de énfasis visual</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-cyan-500/20 rounded-lg shrink-0">
+          <i class="pi pi-hashtag text-xl text-cyan-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Contadores Inteligentes</h3>
+          <p class="text-muted-color">Formateo automático de contadores con valores máximos personalizables y opción de mostrar cero</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-green-500/20 rounded-lg shrink-0">
+          <i class="pi pi-map-marker text-xl text-green-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Posicionamiento Flexible</h3>
+          <p class="text-muted-color">Sistema de posicionamiento en cuatro esquinas para badges de notificación superpuestos</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-purple-500/20 rounded-lg shrink-0">
+          <i class="pi pi-bolt text-xl text-purple-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Animación y Interactividad</h3>
+          <p class="text-muted-color">Soporte para animación de pulso y manejadores de eventos click con estados disabled</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños</h2>
+    <p class="text-muted-color">Cuatro variantes de tamaño desde extra pequeño hasta grande para diferentes contextos de uso.</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="XS" size="xs" color="primary" variant="solid"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Extra Small</span>
+          <span class="text-sm text-muted-color">Uso mínimo</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="SM" size="sm" color="primary" variant="solid"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Small</span>
+          <span class="text-sm text-muted-color">Compacto</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="MD" size="md" color="primary" variant="solid"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Medium</span>
+          <span class="text-sm text-muted-color">Por defecto</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="LG" size="lg" color="primary" variant="solid"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Large</span>
+          <span class="text-sm text-muted-color">Énfasis alto</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colores -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Paleta de Colores</h2>
+    <p class="text-muted-color">Siete colores semánticos que mantienen consistencia visual con el sistema de diseño.</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Primary" color="primary" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Primary</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Secondary" color="secondary" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Secondary</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Success" color="success" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Success</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Danger" color="danger" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Danger</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Warning" color="warning" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Warning</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Info" color="info" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Info</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <app-badge text="Neutral" color="neutral" variant="solid" size="sm"></app-badge>
+        <span class="text-sm text-muted-color">Neutral</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variantes de Estilo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Variantes de Estilo</h2>
+    <p class="text-muted-color">Cuatro variantes visuales para diferentes niveles de énfasis y contextos de uso.</p>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="Solid" variant="solid" color="primary" size="md"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Solid</span>
+          <span class="text-sm text-muted-color text-center">Alto énfasis, acciones principales</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="Outline" variant="outline" color="primary" size="md"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Outline</span>
+          <span class="text-sm text-muted-color text-center">Énfasis medio, con bordes</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge text="Soft" variant="soft" color="primary" size="md"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Soft</span>
+          <span class="text-sm text-muted-color text-center">Bajo énfasis, fondo sutil</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge variant="dot" color="primary" size="md"></app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Dot</span>
+          <span class="text-sm text-muted-color text-center">Indicador mínimo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold mb-4">Comparación por Color</h3>
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-4 p-4 bg-surface-0 rounded-lg border border-surface-200">
+          <span class="w-24 font-semibold text-sm">Success</span>
+          <div class="flex gap-3 flex-wrap">
+            <app-badge text="Solid" variant="solid" color="success" size="sm"></app-badge>
+            <app-badge text="Outline" variant="outline" color="success" size="sm"></app-badge>
+            <app-badge text="Soft" variant="soft" color="success" size="sm"></app-badge>
+            <app-badge variant="dot" color="success" size="sm"></app-badge>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 p-4 bg-surface-0 rounded-lg border border-surface-200">
+          <span class="w-24 font-semibold text-sm">Danger</span>
+          <div class="flex gap-3 flex-wrap">
+            <app-badge text="Solid" variant="solid" color="danger" size="sm"></app-badge>
+            <app-badge text="Outline" variant="outline" color="danger" size="sm"></app-badge>
+            <app-badge text="Soft" variant="soft" color="danger" size="sm"></app-badge>
+            <app-badge variant="dot" color="danger" size="sm"></app-badge>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 p-4 bg-surface-0 rounded-lg border border-surface-200">
+          <span class="w-24 font-semibold text-sm">Warning</span>
+          <div class="flex gap-3 flex-wrap">
+            <app-badge text="Solid" variant="solid" color="warning" size="sm"></app-badge>
+            <app-badge text="Outline" variant="outline" color="warning" size="sm"></app-badge>
+            <app-badge text="Soft" variant="soft" color="warning" size="sm"></app-badge>
+            <app-badge variant="dot" color="warning" size="sm"></app-badge>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Badges de Notificación -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Badges de Notificación</h2>
+    <p class="text-muted-color">Badges con contadores para indicar cantidad de notificaciones, mensajes o elementos pendientes.</p>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Ejemplos de Contadores</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        @for (count of notificationCounts; track count) {
+          <div class="flex flex-col items-center gap-3">
+            <div class="relative">
+              <button class="px-4 py-2 bg-surface-100 rounded-lg hover:bg-surface-200 transition-colors">
+                Mensajes
+                @if (count > 0 || count === 0) {
+                  <app-badge 
+                    [count]="count"
+                    variant="solid"
+                    color="danger"
+                    size="xs"
+                    position="top-right"
+                    [showZero]="count === 0"
+                    [ariaLabel]="formatNotificationText(count)">
+                  </app-badge>
+                }
+              </button>
+            </div>
+            <span class="text-sm text-muted-color">{{ count === 0 ? 'Cero' : count }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold mb-4">Variantes de Posición</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="relative inline-flex items-center justify-center w-24 h-24 bg-surface-100 rounded-lg">
+            <span class="text-sm">Elemento</span>
+            <app-badge 
+              [count]="3"
+              variant="solid"
+              color="danger"
+              size="xs"
+              position="top-right">
+            </app-badge>
+          </div>
+          <span class="text-sm text-muted-color">Arriba Derecha</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="relative inline-flex items-center justify-center w-24 h-24 bg-surface-100 rounded-lg">
+            <span class="text-sm">Elemento</span>
+            <app-badge 
+              [count]="5"
+              variant="solid"
+              color="danger"
+              size="xs"
+              position="top-left">
+            </app-badge>
+          </div>
+          <span class="text-sm text-muted-color">Arriba Izquierda</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="relative inline-flex items-center justify-center w-24 h-24 bg-surface-100 rounded-lg">
+            <span class="text-sm">Elemento</span>
+            <app-badge 
+              [count]="2"
+              variant="solid"
+              color="danger"
+              size="xs"
+              position="bottom-right">
+            </app-badge>
+          </div>
+          <span class="text-sm text-muted-color">Abajo Derecha</span>
+        </div>
+        <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="relative inline-flex items-center justify-center w-24 h-24 bg-surface-100 rounded-lg">
+            <span class="text-sm">Elemento</span>
+            <app-badge 
+              [count]="1"
+              variant="solid"
+              color="danger"
+              size="xs"
+              position="bottom-left">
+            </app-badge>
+          </div>
+          <span class="text-sm text-muted-color">Abajo Izquierda</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Indicadores de Estado -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Indicadores de Estado</h2>
+    <p class="text-muted-color">Badges tipo dot para mostrar estados de disponibilidad, conexión o actividad con animación opcional.</p>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Estados con Dots</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        @for (status of statusItems; track status.label) {
+          <div class="flex items-center gap-3 p-4 bg-surface-0 rounded-lg border border-surface-200">
+            <app-badge 
+              variant="dot"
+              [color]="status.color"
+              [pulse]="status.pulse"
+              size="md"
+              [ariaLabel]="getStatusLabel(status.color) + ' status'">
+            </app-badge>
+            <div class="flex flex-col">
+              <span class="font-semibold text-sm">{{ status.label }}</span>
+              @if (status.pulse) {
+                <span class="text-xs text-muted-color">Pulsando</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold mb-4">Etiquetas de Categoría</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        @for (category of categoryBadges; track category.text) {
+          <div class="p-4 bg-surface-0 rounded-lg border border-surface-200">
+            <div class="flex flex-col gap-3">
+              <div class="flex items-start justify-between">
+                <h4 class="font-semibold">Producto</h4>
+                <app-badge 
+                  [text]="category.text"
+                  [variant]="category.variant"
+                  [color]="category.color"
+                  size="sm">
+                </app-badge>
+              </div>
+              <p class="text-sm text-muted-color">Descripción del producto aquí</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Badges Interactivos -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Badges Interactivos</h2>
+    <p class="text-muted-color">Badges con capacidad de responder a eventos click para acciones como eliminar filtros o abrir notificaciones.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge 
+          text="Filtro: Activo"
+          variant="soft"
+          color="primary"
+          size="md"
+          [clickable]="true"
+          (clicked)="handleBadgeClick('filter')"
+          ariaLabel="Filtro activo, clic para remover">
+        </app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Badge de Filtro</span>
+          <span class="text-sm text-muted-color text-center">Clic para remover filtro</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge 
+          [count]="7"
+          variant="solid"
+          color="danger"
+          size="sm"
+          [clickable]="true"
+          (clicked)="toggleNotification()"
+          ariaLabel="7 notificaciones, clic para ver">
+        </app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Notificación</span>
+          <span class="text-sm text-muted-color text-center">Clic para ver todas</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-badge 
+          text="Premium"
+          variant="outline"
+          color="warning"
+          size="md"
+          [clickable]="true"
+          [disabled]="true"
+          (clicked)="handleBadgeClick('premium')"
+          ariaLabel="Badge premium, actualmente deshabilitado">
+        </app-badge>
+        <div class="flex flex-col items-center gap-1">
+          <span class="font-semibold">Deshabilitado</span>
+          <span class="text-sm text-muted-color text-center">Estado no interactivo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Accesibilidad</h2>
+    <p class="text-muted-color">Características de accesibilidad integradas para garantizar una experiencia inclusiva.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (feature of accessibilityFeatures; track feature.feature) {
+        <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">{{ feature.feature }}</h3>
+            <span class="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-700 rounded-full">
+              {{ feature.status }}
+            </span>
+          </div>
+          <p class="text-sm text-muted-color">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Mejores Prácticas -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Mejores Prácticas</h2>
+    <p class="text-muted-color">Recomendaciones para el uso efectivo de badges en tu aplicación.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (practice of bestPracticesItems; track practice.title) {
+        <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <h3 class="text-lg font-semibold">{{ practice.title }}</h3>
+          <p class="text-sm text-muted-color">{{ practice.description }}</p>
+          @if (practice.example) {
+            <pre class="mt-2 p-3 bg-surface-900 text-surface-50 rounded-lg text-xs overflow-x-auto">{{ practice.example }}</pre>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Referencia API -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Referencia API</h2>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Propiedades</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-surface-200">
+              <th class="text-left p-3 font-semibold">Propiedad</th>
+              <th class="text-left p-3 font-semibold">Tipo</th>
+              <th class="text-left p-3 font-semibold">Por Defecto</th>
+              <th class="text-left p-3 font-semibold">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (prop of propsData; track prop.prop) {
+              <tr class="border-b border-surface-200">
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ prop.prop }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ prop.type }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ prop.default }}</code></td>
+                <td class="p-3 text-sm text-muted-color">{{ prop.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Eventos</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-surface-200">
+              <th class="text-left p-3 font-semibold">Evento</th>
+              <th class="text-left p-3 font-semibold">Tipo</th>
+              <th class="text-left p-3 font-semibold">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (event of eventsData; track event.event) {
+              <tr class="border-b border-surface-200">
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ event.event }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ event.type }}</code></td>
+                <td class="p-3 text-sm text-muted-color">{{ event.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ejemplos de Código -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    
+    <div class="flex flex-col gap-4">
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Uso Básico</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ basicUsageCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Badge con Contador</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ countBadgeCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Indicador de Estado (Dot)</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ statusDotCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Ejemplos de Variantes</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ variantExamplesCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Badge Interactivo</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ interactiveCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Badge Posicionado</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ positionedCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Mejores Prácticas de Accesibilidad</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ accessibilityCode }}</code></pre>
+      </div>
+    </div>
+  </section>
+</div>

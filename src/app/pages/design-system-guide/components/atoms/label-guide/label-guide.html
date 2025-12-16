@@ -1,0 +1,243 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Label Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Semantic and accessible labels for form controls and UI elements. 
+        Supports multiple sizes, variants, and proper form association.
+      </p>
+    </div>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Semantic HTML -->
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Semantic HTML</h3>
+        <p class="text-sm text-muted-color">Proper form association</p>
+      </div>
+
+      <!-- Variants -->
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">3 Variantes</h3>
+        <p class="text-sm text-muted-color">default, secondary, accent</p>
+      </div>
+
+      <!-- Required Indication -->
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Required Fields</h3>
+        <p class="text-sm text-muted-color">Visual indication (*)</p>
+      </div>
+
+      <!-- Accessibility -->
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Accessible</h3>
+        <p class="text-sm text-muted-color">Screen reader ready</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sizes Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños Disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Small Label" size="small" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="small"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Medium Label" size="medium" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="medium"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Large Label" size="large" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="large"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variants Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Variantes de Color</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Default Label" variant="default" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="default"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Secondary Label" variant="secondary" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="secondary"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Accent Label" variant="accent" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="accent"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- States Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Estados</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Required Field" [required]="true" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[required]="true"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Disabled Label" [disabled]="true" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[disabled]="true"</code>
+      </div>
+      <div class="flex flex-col gap-3 items-center">
+        <app-label text="Required + Secondary" variant="secondary" [required]="true" [for]="exampleFormId"></app-label>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">Combined</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accessibility Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">♿ Características de Accesibilidad</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (feature of accessibilityFeatures; track feature.feature) {
+        <div class="bg-surface-0 rounded-lg p-6 flex gap-4 border border-surface-200">
+          <div class="shrink-0 w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold mb-2">{{ feature.feature }}</h4>
+            <p class="text-sm text-muted-color mb-2">{{ feature.description }}</p>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/20 text-green-600">
+              {{ feature.status }}
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Best Practices Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">🎯 Mejores Prácticas</h2>
+    <div class="grid grid-cols-1 gap-4">
+      @for (practice of bestPracticesItems; track practice.title) {
+        <div class="bg-surface-0 border-l-4 border-primary rounded-lg p-6">
+          <h4 class="text-lg font-semibold mb-2">{{ practice.title }}</h4>
+          <p class="text-muted-color mb-3">{{ practice.description }}</p>
+          @if (practice.example) {
+            <code class="inline-block px-3 py-1 bg-surface-100 rounded text-sm">{{ practice.example }}</code>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- API Reference Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">⚙️ Referencia de API</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-surface-200">
+            <th class="text-left py-3 px-4 font-semibold">Property</th>
+            <th class="text-left py-3 px-4 font-semibold">Type</th>
+            <th class="text-left py-3 px-4 font-semibold">Default</th>
+            <th class="text-left py-3 px-4 font-semibold">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (prop of propsData; track prop.prop) {
+            <tr class="border-b border-surface-100">
+              <td class="py-3 px-4">
+                <code class="px-2 py-1 bg-surface-100 rounded text-sm">{{ prop.prop }}</code>
+              </td>
+              <td class="py-3 px-4">
+                <code class="px-2 py-1 bg-surface-100 rounded text-sm">{{ prop.type }}</code>
+              </td>
+              <td class="py-3 px-4">
+                <code class="px-2 py-1 bg-surface-100 rounded text-sm">{{ prop.default }}</code>
+              </td>
+              <td class="py-3 px-4 text-muted-color">{{ prop.description }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Interactive Example Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">🔍 Ejemplo Interactivo</h2>
+    <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+      <div class="flex flex-col gap-6 max-w-md">
+        <div class="flex flex-col gap-2">
+          <app-label text="Email Address" [for]="exampleFormId" [required]="true"></app-label>
+          <input [id]="exampleFormId" type="email" placeholder="Enter your email" 
+                 class="px-4 py-2 border border-surface-300 rounded-lg bg-surface-0 focus:outline-none focus:ring-2 focus:ring-primary">
+        </div>
+        
+        <div class="flex flex-col gap-2">
+          <app-label text="Newsletter Subscription" [for]="exampleCheckboxId" variant="secondary"></app-label>
+          <div class="flex items-center gap-2">
+            <input [id]="exampleCheckboxId" type="checkbox" 
+                   class="w-4 h-4 text-primary border-surface-300 rounded focus:ring-primary" 
+                   aria-label="Newsletter subscription checkbox">
+            <span class="text-muted-color">I want to receive updates</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples Section -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">💻 Ejemplos de Código</h2>
+    
+    <div class="flex flex-col gap-6">
+      <div>
+        <h3 class="text-xl font-semibold mb-3">Uso Básico</h3>
+        <pre class="bg-surface-900 text-surface-50 p-6 rounded-lg overflow-x-auto"><code>{{ basicUsageCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold mb-3">Campo Requerido</h3>
+        <pre class="bg-surface-900 text-surface-50 p-6 rounded-lg overflow-x-auto"><code>{{ requiredLabelCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold mb-3">Ejemplos de Variantes</h3>
+        <pre class="bg-surface-900 text-surface-50 p-6 rounded-lg overflow-x-auto"><code>{{ variantExamplesCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold mb-3">Implementación de Accesibilidad</h3>
+        <pre class="bg-surface-900 text-surface-50 p-6 rounded-lg overflow-x-auto"><code>{{ accessibilityCode }}</code></pre>
+      </div>
+    </div>
+  </section>
+</div>

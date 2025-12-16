@@ -1,0 +1,631 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Card Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente contenedor versátil para agrupar información relacionada. 
+        Incluye soporte para header, subheader, footer, diferentes tamaños y elevaciones.
+      </p>
+    </div>
+  </section>
+
+  <!-- API Overview -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">3 Variantes</h3>
+        <p class="text-sm text-muted-color">default, outlined, elevated</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">3 Tamaños</h3>
+        <p class="text-sm text-muted-color">small, medium, large</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">6 Elevaciones</h3>
+        <p class="text-sm text-muted-color">De 0 a 5 niveles de sombra</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Estructura</h3>
+        <p class="text-sm text-muted-color">Header, subheader, content, footer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Implementaciones Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Implementación</h2>
+    
+    <!-- Simple -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Simple (Header + Content)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <app-card header="Notificación">
+            Tienes 3 mensajes nuevos sin leer en tu bandeja de entrada.
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card header="Notificación"&gt;
+  Tienes 3 mensajes nuevos...
+&lt;/app-card&gt;
+          </code>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <app-card header="Estado del Sistema">
+            Todos los servicios están operando normalmente. Última verificación: hace 2 minutos.
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card header="Estado del Sistema"&gt;
+  Todos los servicios...
+&lt;/app-card&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intermedio -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Intermedio (Header + Subheader + Content)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <app-card 
+            header="Nueva Actualización"
+            subheader="Versión 2.5.0 disponible">
+            Incluye mejoras de rendimiento, corrección de errores y nuevas funcionalidades para una mejor experiencia de usuario.
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card 
+  header="Nueva Actualización"
+  subheader="Versión 2.5.0 disponible"&gt;
+  Incluye mejoras de rendimiento...
+&lt;/app-card&gt;
+          </code>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <app-card 
+            header="Tutorial Completado"
+            subheader="Nivel: Principiante">
+            Has completado exitosamente el tutorial básico. Ahora puedes acceder a funciones avanzadas.
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card 
+  header="Tutorial Completado"
+  subheader="Nivel: Principiante"&gt;
+  Has completado exitosamente...
+&lt;/app-card&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avanzado -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Avanzado (Header + Subheader + Content + Footer)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <app-card 
+            header="Artículo de Blog"
+            subheader="Publicado el 13 de noviembre, 2025"
+            footer="Por María González • 8 min de lectura • 245 vistas">
+            Descubre las mejores prácticas para implementar componentes reutilizables en Angular. En este artículo exploramos patrones de diseño y arquitectura.
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card 
+  header="Artículo de Blog"
+  subheader="Publicado el 13 de nov, 2025"
+  footer="Por María González • 8 min"&gt;
+  Descubre las mejores prácticas...
+&lt;/app-card&gt;
+          </code>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <app-card 
+            header="Producto Premium"
+            subheader="Plan Empresarial"
+            footer="$199/mes • Facturación anual disponible">
+            Acceso completo a todas las funciones premium, soporte prioritario 24/7, y almacenamiento ilimitado para tu equipo.
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card 
+  header="Producto Premium"
+  subheader="Plan Empresarial"
+  footer="$199/mes • Facturación anual"&gt;
+  Acceso completo a todas...
+&lt;/app-card&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solo Content -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Mínimo (Solo Content)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <app-card>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                <i class="pi pi-check text-primary text-xl"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold">Operación Exitosa</h4>
+                <p class="text-sm text-muted-color">Los cambios se guardaron correctamente</p>
+              </div>
+            </div>
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card&gt;
+  &lt;div class="flex items-center gap-4"&gt;
+    &lt;!-- Contenido personalizado --&gt;
+  &lt;/div&gt;
+&lt;/app-card&gt;
+          </code>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <app-card>
+            <div class="text-center py-4">
+              <i class="pi pi-star text-yellow-500 text-4xl mb-3"></i>
+              <p class="font-medium">¡Felicitaciones!</p>
+              <p class="text-sm text-muted-color">Has alcanzado un nuevo nivel</p>
+            </div>
+          </app-card>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-card&gt;
+  &lt;div class="text-center py-4"&gt;
+    &lt;!-- Contenido centrado --&gt;
+  &lt;/div&gt;
+&lt;/app-card&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tamaños Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños Disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3">
+        <app-card 
+          header="Card Pequeño"
+          subheader="Size: small"
+          size="small">
+          Este es un card pequeño con padding reducido, ideal para espacios limitados o información concisa.
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="small"</code>
+      </div>
+      
+      <div class="flex flex-col gap-3">
+        <app-card 
+          header="Card Mediano"
+          subheader="Size: medium"
+          size="medium">
+          Este es un card de tamaño mediano, el tamaño por defecto y más común para la mayoría de los casos de uso.
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="medium"</code>
+      </div>
+      
+      <div class="flex flex-col gap-3">
+        <app-card 
+          header="Card Grande"
+          subheader="Size: large"
+          size="large">
+          Este es un card grande con padding generoso, perfecto para contenido importante o destacado.
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="large"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variantes Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Variantes Disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3">
+        <app-card 
+          header="Default Card"
+          subheader="Variant: default"
+          variant="default">
+          Card con sombra sutil y borde. Esta es la variante por defecto.
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="default"</code>
+      </div>
+      
+      <div class="flex flex-col gap-3">
+        <app-card 
+          header="Outlined Card"
+          subheader="Variant: outlined"
+          variant="outlined">
+          Card sin sombra con borde más pronunciado. Más discreto visualmente.
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="outlined"</code>
+      </div>
+      
+      <div class="flex flex-col gap-3">
+        <app-card 
+          header="Elevated Card"
+          subheader="Variant: elevated"
+          variant="elevated">
+          Card sin borde con sombra pronunciada. Destaca del fondo.
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">variant="elevated"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Elevaciones Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Niveles de Elevación</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div class="flex flex-col gap-2">
+        <app-card header="Level 0" [elevation]="0">
+          Sin sombra
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[elevation]="0"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-card header="Level 1" [elevation]="1">
+          Sombra mínima
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[elevation]="1"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-card header="Level 2" [elevation]="2">
+          Sombra suave
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[elevation]="2"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-card header="Level 3" [elevation]="3">
+          Sombra media
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[elevation]="3"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-card header="Level 4" [elevation]="4">
+          Sombra fuerte
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[elevation]="4"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-card header="Level 5" [elevation]="5">
+          Sombra máxima
+        </app-card>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">[elevation]="5"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Card Hoverable -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Card Interactivo (Hoverable)</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <app-card 
+        header="Card Normal"
+        subheader="Sin efecto hover">
+        Pasa el cursor sobre este card. No hay efecto de hover.
+      </app-card>
+      
+      <app-card 
+        header="Card Hoverable"
+        subheader="Con efecto hover"
+        [hoverable]="true">
+        Pasa el cursor sobre este card. Se elevará con un efecto de transición suave.
+      </app-card>
+    </div>
+    <code class="text-xs bg-surface-100 px-2 py-1 rounded">[hoverable]="true"</code>
+  </section>
+
+  <!-- Card con Footer -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Card con Footer</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <app-card 
+        header="Artículo del Blog"
+        subheader="Publicado hace 2 días"
+        footer="Por Juan Pérez • 5 min lectura">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </app-card>
+      
+      <app-card 
+        header="Producto Destacado"
+        subheader="En stock"
+        footer="$99.99 USD">
+        Descripción del producto con características destacadas y beneficios principales para el cliente.
+      </app-card>
+    </div>
+  </section>
+
+  <!-- Card sin Padding -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Card sin Padding Interno</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <app-card 
+        header="Card Normal"
+        subheader="Con padding">
+        Este card tiene el padding normal. El contenido tiene espacio alrededor.
+      </app-card>
+      
+      <app-card 
+        header="Card sin Padding"
+        subheader="noPadding=true"
+        [noPadding]="true">
+        <div class="p-4 bg-primary/10">
+          El contenido llega hasta los bordes. Útil para imágenes o contenido de ancho completo.
+        </div>
+      </app-card>
+    </div>
+    <code class="text-xs bg-surface-100 px-2 py-1 rounded">[noPadding]="true"</code>
+  </section>
+
+  <!-- Casos de Uso -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Casos de Uso Comunes</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <app-card 
+        header="Perfil de Usuario"
+        subheader="Activo desde 2024"
+        footer="Última actividad: Hoy"
+        [hoverable]="true">
+        <div class="flex flex-col gap-3">
+          <p class="text-sm text-muted-color">
+            Información del perfil del usuario con estadísticas y datos relevantes.
+          </p>
+          <div class="flex gap-2">
+            <app-badge label="Admin" severity="success"></app-badge>
+            <app-badge label="Verificado" severity="primary"></app-badge>
+          </div>
+        </div>
+      </app-card>
+      
+      <app-card 
+        header="Estadísticas"
+        subheader="Últimos 30 días"
+        variant="outlined">
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-between">
+            <span class="text-sm text-muted-color">Visitas</span>
+            <span class="font-semibold">1,234</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-muted-color">Conversiones</span>
+            <span class="font-semibold">56</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-muted-color">Tasa</span>
+            <span class="font-semibold">4.5%</span>
+          </div>
+        </div>
+      </app-card>
+      
+      <app-card 
+        header="Acción Rápida"
+        subheader="Comenzar ahora"
+        footer="Gratis por 14 días"
+        [elevation]="3"
+        [hoverable]="true">
+        <p class="text-sm text-muted-color mb-4">
+          Prueba todas las funciones premium sin costo.
+        </p>
+        <app-button variant="primary" icon="pi pi-arrow-right">
+          Iniciar prueba
+        </app-button>
+      </app-card>
+    </div>
+  </section>
+
+  <!-- Mejores Prácticas -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Mejores Prácticas</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-green-500/10 rounded-lg p-6 border border-green-500/30">
+        <h3 class="text-lg font-semibold text-green-700 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Recomendado
+        </h3>
+        <ul class="space-y-2 text-sm text-muted-color">
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Usar cards para agrupar información relacionada</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Mantener consistencia en elevaciones en toda la app</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Usar hoverable para cards clickeables</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Incluir header descriptivo y claro</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Usar tamaños apropiados según el contexto</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">•</span>
+            <span>Aplicar spacing consistente entre cards</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-red-500/10 rounded-lg p-6 border border-red-500/30">
+        <h3 class="text-lg font-semibold text-red-700 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Evitar
+        </h3>
+        <ul class="space-y-2 text-sm text-muted-color">
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Anidar cards dentro de cards repetidamente</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Usar elevaciones muy altas sin motivo</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Sobrecargar cards con demasiada información</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Mezclar variantes sin criterio visual</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Hacer cards demasiado anchos sin contenido</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">•</span>
+            <span>Olvidar espaciado entre elementos internos</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Código de Ejemplo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Card básico --&gt;
+&lt;app-card header="Título del Card"&gt;
+  Contenido del card aquí
+&lt;/app-card&gt;
+
+&lt;!-- Card completo --&gt;
+&lt;app-card 
+  header="Artículo"
+  subheader="Publicado hoy"
+  footer="Por Juan • 5 min"
+  size="medium"
+  variant="elevated"
+  [elevation]="2"
+  [hoverable]="true"&gt;
+  Contenido del artículo...
+&lt;/app-card&gt;
+
+&lt;!-- Card outlined --&gt;
+&lt;app-card 
+  header="Información"
+  variant="outlined"&gt;
+  Contenido con borde
+&lt;/app-card&gt;
+
+&lt;!-- Card sin padding para imágenes --&gt;
+&lt;app-card 
+  header="Galería"
+  [noPadding]="true"&gt;
+  &lt;img src="imagen.jpg" class="w-full" /&gt;
+&lt;/app-card&gt;</code></pre>
+  </section>
+
+  <!-- API Reference -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Referencia de API</h2>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-100">
+          <tr>
+            <th class="text-left p-3 font-semibold">Propiedad</th>
+            <th class="text-left p-3 font-semibold">Tipo</th>
+            <th class="text-left p-3 font-semibold">Default</th>
+            <th class="text-left p-3 font-semibold">Descripción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-200">
+          <tr>
+            <td class="p-3"><code>header</code></td>
+            <td class="p-3 text-muted-color">string</td>
+            <td class="p-3 text-muted-color">''</td>
+            <td class="p-3 text-muted-color">Título del card</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>subheader</code></td>
+            <td class="p-3 text-muted-color">string</td>
+            <td class="p-3 text-muted-color">''</td>
+            <td class="p-3 text-muted-color">Subtítulo o descripción</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>footer</code></td>
+            <td class="p-3 text-muted-color">string</td>
+            <td class="p-3 text-muted-color">''</td>
+            <td class="p-3 text-muted-color">Contenido del footer</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>size</code></td>
+            <td class="p-3 text-muted-color">'small' | 'medium' | 'large'</td>
+            <td class="p-3 text-muted-color">'medium'</td>
+            <td class="p-3 text-muted-color">Tamaño del card</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>variant</code></td>
+            <td class="p-3 text-muted-color">'default' | 'outlined' | 'elevated'</td>
+            <td class="p-3 text-muted-color">'default'</td>
+            <td class="p-3 text-muted-color">Variante visual</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>elevation</code></td>
+            <td class="p-3 text-muted-color">0 | 1 | 2 | 3 | 4 | 5</td>
+            <td class="p-3 text-muted-color">1</td>
+            <td class="p-3 text-muted-color">Nivel de sombra</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>hoverable</code></td>
+            <td class="p-3 text-muted-color">boolean</td>
+            <td class="p-3 text-muted-color">false</td>
+            <td class="p-3 text-muted-color">Activa efecto hover</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code>noPadding</code></td>
+            <td class="p-3 text-muted-color">boolean</td>
+            <td class="p-3 text-muted-color">false</td>
+            <td class="p-3 text-muted-color">Elimina padding interno</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

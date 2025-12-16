@@ -1,0 +1,378 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex items-center gap-4">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-5xl font-bold text-balance">Sistema de Temas</h1>
+        <p class="text-xl text-muted-color">
+          Paleta Noir completa con soporte de modo oscuro/claro, variables CSS de PrimeNG y guías de accesibilidad
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características Principales -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características del Sistema de Temas</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-lg shrink-0">
+          <i class="pi pi-moon text-xl text-primary"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Modo Oscuro/Claro</h3>
+          <p class="text-muted-color">Sistema completo de temas con transiciones suaves y persistencia en localStorage</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-cyan-500/20 rounded-lg shrink-0">
+          <i class="pi pi-table text-xl text-cyan-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Variables CSS</h3>
+          <p class="text-muted-color">Integración completa con PrimeNG usando variables CSS personalizables</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-green-500/20 rounded-lg shrink-0">
+          <i class="pi pi-eye text-xl text-green-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Accesibilidad WCAG</h3>
+          <p class="text-muted-color">Cumplimiento de pautas WCAG AA/AAA con ratios de contraste verificados</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-purple-500/20 rounded-lg shrink-0">
+          <i class="pi pi-sparkles text-xl text-purple-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Paletas Noir</h3>
+          <p class="text-muted-color">Paletas Zinc y Slate cuidadosamente seleccionadas para máxima versatilidad</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo de Modo Oscuro/Claro -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Demostración de Modo Oscuro/Claro</h2>
+    <p class="text-muted-color">Prueba el cambio entre temas y observa cómo los componentes se adaptan automáticamente.</p>
+    
+    <div class="flex flex-col gap-6 p-6 bg-surface-0 rounded-lg border border-surface-200">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="px-4 py-2 rounded-lg font-semibold"
+                [class]="isDarkMode() ? 'bg-slate-800 text-slate-100' : 'bg-zinc-100 text-zinc-800'">
+            Modo {{ currentTheme() }}
+          </span>
+        </div>
+        
+        <app-button
+          [icon]="isDarkMode() ? 'pi pi-sun' : 'pi pi-moon'"
+          [label]="'Cambiar a modo ' + (isDarkMode() ? 'claro' : 'oscuro')"
+          variant="primary"
+          size="medium"
+          (clicked)="toggleTheme()">
+        </app-button>
+      </div>
+      
+      <!-- Vista Previa de Componentes -->
+      <div class="p-6 bg-surface-100 rounded-lg">
+        <h3 class="text-lg font-semibold mb-4">Vista Previa de Componentes</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Botones -->
+          <div class="flex flex-col gap-3">
+            <app-label>Botones</app-label>
+            <div class="flex gap-2">
+              <app-button variant="primary" size="small" (clicked)="onDemoAction('primary')">Primario</app-button>
+              <app-button variant="secondary" size="small" (clicked)="onDemoAction('secondary')">Secundario</app-button>
+            </div>
+          </div>
+          
+          <!-- Inputs -->
+          <div class="flex flex-col gap-3">
+            <app-label>Input</app-label>
+            <app-input 
+              placeholder="Escribe algo..."
+              [formControl]="searchControl"
+              size="medium">
+            </app-input>
+          </div>
+          
+          <!-- Avatar & Badge -->
+          <div class="flex flex-col gap-3">
+            <app-label>Avatar & Badge</app-label>
+            <div class="flex items-center gap-3">
+              <app-avatar 
+                type="initials"
+                initials="TG"
+                size="md"
+                variant="circular">
+              </app-avatar>
+              <app-badge content="3" variant="solid" color="primary" size="sm"></app-badge>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paleta Zinc -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Paleta Zinc (Principal)</h2>
+    <p class="text-muted-color">Paleta neutral principal utilizada para elementos de interfaz, texto y backgrounds. Haz clic en cualquier color para copiar su código.</p>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+      @for (color of zincPalette; track color.name) {
+        <div class="flex flex-col gap-2 p-4 bg-surface-0 rounded-lg border border-surface-200 cursor-pointer hover:shadow-md transition-shadow"
+             (click)="copyToClipboard(color.value)">
+          <div class="w-full h-24 rounded-lg border border-surface-200" 
+               [style.background-color]="color.value"></div>
+          <div class="flex flex-col gap-1">
+            <span class="font-semibold text-sm">{{ color.name }}</span>
+            <code class="text-xs text-muted-color">{{ color.value }}</code>
+            <span class="text-xs text-muted-color mt-1">{{ color.usage }}</span>
+            <span class="text-xs text-muted-color italic">{{ getContrastInfo(color.value) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Paleta Slate -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Paleta Slate (Complementaria)</h2>
+    <p class="text-muted-color">Paleta complementaria con matices azulados, utilizada especialmente en modo oscuro para crear profundidad visual.</p>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+      @for (color of slatePalette; track color.name) {
+        <div class="flex flex-col gap-2 p-4 bg-surface-0 rounded-lg border border-surface-200 cursor-pointer hover:shadow-md transition-shadow"
+             (click)="copyToClipboard(color.value)">
+          <div class="w-full h-24 rounded-lg border border-surface-200" 
+               [style.background-color]="color.value"></div>
+          <div class="flex flex-col gap-1">
+            <span class="font-semibold text-sm">{{ color.name }}</span>
+            <code class="text-xs text-muted-color">{{ color.value }}</code>
+            <span class="text-xs text-muted-color mt-1">{{ color.usage }}</span>
+            <span class="text-xs text-muted-color italic">{{ getContrastInfo(color.value) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Variables CSS de PrimeNG -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Variables CSS de PrimeNG</h2>
+    <p class="text-muted-color">Mapeo de colores a variables CSS de PrimeNG para consistencia y facilidad de mantenimiento. Haz clic para copiar.</p>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="border-b border-surface-200">
+            <th class="text-left p-3 font-semibold">Variable CSS</th>
+            <th class="text-left p-3 font-semibold">Modo Claro</th>
+            <th class="text-left p-3 font-semibold">Modo Oscuro</th>
+            <th class="text-left p-3 font-semibold">Uso</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (variable of cssVariables; track variable.variable) {
+            <tr class="border-b border-surface-200">
+              <td class="p-3">
+                <code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm cursor-pointer hover:bg-surface-800 transition-colors"
+                      (click)="copyToClipboard(variable.variable)">
+                  {{ variable.variable }}
+                </code>
+              </td>
+              <td class="p-3">
+                <span class="px-3 py-1 bg-zinc-100 text-zinc-800 rounded text-sm">{{ variable.lightValue }}</span>
+              </td>
+              <td class="p-3">
+                <span class="px-3 py-1 bg-slate-800 text-slate-100 rounded text-sm">{{ variable.darkValue }}</span>
+              </td>
+              <td class="p-3 text-sm text-muted-color">{{ variable.usage }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Guía de Implementación -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Guía de Implementación</h2>
+    <p class="text-muted-color">Ejemplos de código y mejores prácticas para implementar el sistema de temas en tu aplicación.</p>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- CSS Usage -->
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <i class="pi pi-code text-primary"></i>
+          Uso Recomendado en CSS
+        </h3>
+        <pre class="p-4 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto text-xs"><code>/* ✅ Forma recomendada - Usa variables PrimeNG */
+.mi-componente {{ '{' }}
+  background: var(--p-surface-0);
+  color: var(--p-text-color);
+  border: 1px solid var(--p-surface-300);
+  transition: all 0.3s ease;
+{{ '}' }}
+
+/* ❌ Evita valores hardcoded */
+.mi-componente {{ '{' }}
+  background: #ffffff; /* No se adapta */
+  color: #000000;      /* No se adapta */
+{{ '}' }}</code></pre>
+      </div>
+      
+      <!-- Angular Integration -->
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <i class="pi pi-cog text-cyan-600"></i>
+          Integración con Angular
+        </h3>
+        <pre class="p-4 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto text-xs"><code>// Servicio de tema
+@Injectable({{ '{' }} providedIn: 'root' {{ '}' }})
+export class ThemeService {{ '{' }}
+  private _isDarkMode = signal&lt;boolean&gt;(false);
+  readonly isDarkMode = this._isDarkMode.asReadonly();
+  
+  toggleDarkMode(): void {{ '{' }}
+    this._isDarkMode.update(current => !current);
+    document.documentElement.classList
+      .toggle('dark-theme');
+  {{ '}' }}
+{{ '}' }}</code></pre>
+      </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="pi pi-check-circle text-green-600"></i>
+        Mejores Prácticas
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex gap-3">
+          <i class="pi pi-check text-green-600 shrink-0"></i>
+          <div>
+            <strong class="text-sm">Consistencia:</strong>
+            <p class="text-sm text-muted-color">Siempre usa variables CSS en lugar de valores hardcoded</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <i class="pi pi-check text-green-600 shrink-0"></i>
+          <div>
+            <strong class="text-sm">Accesibilidad:</strong>
+            <p class="text-sm text-muted-color">Verifica el contraste en ambos modos (claro/oscuro)</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <i class="pi pi-check text-green-600 shrink-0"></i>
+          <div>
+            <strong class="text-sm">Performance:</strong>
+            <p class="text-sm text-muted-color">Usa transiciones CSS para cambios suaves de tema</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <i class="pi pi-check text-green-600 shrink-0"></i>
+          <div>
+            <strong class="text-sm">Mantenibilidad:</strong>
+            <p class="text-sm text-muted-color">Centraliza la lógica de temas en el ThemeService</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <i class="pi pi-check text-green-600 shrink-0"></i>
+          <div>
+            <strong class="text-sm">Testing:</strong>
+            <p class="text-sm text-muted-color">Prueba componentes en ambos modos de tema</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accesibilidad de Color -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Accesibilidad de Color</h2>
+    <p class="text-muted-color">Pautas WCAG y herramientas para garantizar que tu paleta de colores sea accesible para todos.</p>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- WCAG Guidelines -->
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Pautas WCAG</h3>
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-4 p-4 bg-surface-100 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 bg-green-500/20 rounded-lg shrink-0">
+              <span class="text-2xl font-bold text-green-700">AA</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <strong class="text-sm">Contraste 4.5:1</strong>
+              <p class="text-sm text-muted-color">Mínimo para texto normal</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-4 p-4 bg-surface-100 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-lg shrink-0">
+              <span class="text-2xl font-bold text-blue-700">AAA</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <strong class="text-sm">Contraste 7:1</strong>
+              <p class="text-sm text-muted-color">Mejorado para máxima legibilidad</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-4 p-4 bg-surface-100 rounded-lg">
+            <div class="flex items-center justify-center w-16 h-16 bg-purple-500/20 rounded-lg shrink-0">
+              <span class="text-xl font-bold text-purple-700">18pt+</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <strong class="text-sm">Contraste 3:1</strong>
+              <p class="text-sm text-muted-color">Para texto grande (18pt+)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Color Testing Tools -->
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Herramientas de Testing</h3>
+        <div class="flex flex-col gap-3">
+          <div class="flex gap-3">
+            <i class="pi pi-wrench text-primary shrink-0"></i>
+            <div>
+              <strong class="text-sm">Chrome DevTools</strong>
+              <p class="text-sm text-muted-color">Auditoría de accesibilidad integrada</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i class="pi pi-wrench text-primary shrink-0"></i>
+            <div>
+              <strong class="text-sm">Colour Contrast Analyser</strong>
+              <p class="text-sm text-muted-color">Herramienta específica para contraste</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i class="pi pi-wrench text-primary shrink-0"></i>
+            <div>
+              <strong class="text-sm">WebAIM</strong>
+              <p class="text-sm text-muted-color">Verificador online de contraste de colores</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i class="pi pi-wrench text-primary shrink-0"></i>
+            <div>
+              <strong class="text-sm">Stark</strong>
+              <p class="text-sm text-muted-color">Plugin de Figma/Sketch para designers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

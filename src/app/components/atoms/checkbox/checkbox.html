@@ -1,0 +1,24 @@
+<div [class]="containerClasses()">
+  <p-checkbox
+    [binary]="true"
+    [inputId]="checkboxId()"
+    [name]="name()"
+    [value]="value()"
+    [ngModel]="internalChecked()"
+    (ngModelChange)="onChange({ checked: $event })"
+    [disabled]="disabled()"
+    [ariaLabel]="computedAriaLabel()"
+    [indeterminate]="indeterminate()">
+  </p-checkbox>
+  
+  @if (label()) {
+    <label 
+      class="checkbox__label"
+      [for]="checkboxId()">
+      {{ label() }}
+      @if (required()) {
+        <span class="checkbox__required" aria-label="required">*</span>
+      }
+    </label>
+  }
+</div>

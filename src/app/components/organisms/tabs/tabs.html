@@ -1,0 +1,23 @@
+<div class="w-full atomic-tabs" [ngClass]="styleClass()">
+  <p-tabs [value]="value()" (valueChange)="onValueChange($event)">
+    <p-tablist>
+      @for (tab of tabs(); track tab.value) {
+        <p-tab [value]="tab.value" [disabled]="tab.disabled">
+          {{ tab.title }}
+        </p-tab>
+      }
+    </p-tablist>
+    
+    <p-tabpanels>
+      @for (tab of tabs(); track tab.value) {
+        <p-tabpanel [value]="tab.value">
+          @if (isTemplate(tab.content)) {
+            <ng-container *ngTemplateOutlet="$any(tab.content)"></ng-container>
+          } @else {
+            {{ tab.content }}
+          }
+        </p-tabpanel>
+      }
+    </p-tabpanels>
+  </p-tabs>
+</div>

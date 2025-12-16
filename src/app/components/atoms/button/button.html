@@ -1,0 +1,13 @@
+<p-button
+  [type]="type()"
+  [severity]="severity()"
+  [size]="primeSize()"
+  [disabled]="disabled()"
+  [loading]="loading()"
+  [icon]="icon()"
+  [label]="label()"
+  [attr.aria-label]="loading() ? 'Loading...' : null"
+  (onClick)="handleButtonClick($event)">
+  
+  <ng-content></ng-content>
+</p-button>

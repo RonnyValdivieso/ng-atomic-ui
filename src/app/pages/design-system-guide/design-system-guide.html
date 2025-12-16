@@ -1,0 +1,89 @@
+<app-main-layout [navigationItems]="navigation">
+	<!-- Header -->
+	<app-guide-header
+		title="Sistema de Diseño - Guía de Componentes"
+		subtitle="Explora los componentes de nuestro Atomic Design System"
+		[isDarkMode]="isDarkMode()"
+		(themeToggle)="toggleDarkMode()">
+	</app-guide-header>
+
+	<!-- Layout: Content + Right Sidebar Menu -->
+	<div class="flex gap-6 mt-6">
+		<!-- Main Content (left side) -->
+		<div class="flex-1 min-w-0">
+			<div class="design-guide-content">
+				<!-- Introduction Section -->
+				<app-atomic-design-intro *ngIf="activeSection() === 'intro'"></app-atomic-design-intro>
+				
+				<!-- Atom Components -->
+				<app-button-guide *ngIf="activeSection() === 'button'"></app-button-guide>
+				<app-card-guide *ngIf="activeSection() === 'card'"></app-card-guide>
+				<app-chip-guide *ngIf="activeSection() === 'chip'"></app-chip-guide>
+				<app-tooltip-guide *ngIf="activeSection() === 'tooltip'"></app-tooltip-guide>
+				<app-spinner-guide *ngIf="activeSection() === 'spinner'"></app-spinner-guide>
+				<app-checkbox-guide *ngIf="activeSection() === 'checkbox'"></app-checkbox-guide>
+				<app-icon-guide *ngIf="activeSection() === 'icon'"></app-icon-guide>
+				<app-input-guide *ngIf="activeSection() === 'input'"></app-input-guide>
+				<app-label-guide *ngIf="activeSection() === 'label'"></app-label-guide>
+				<app-avatar-guide *ngIf="activeSection() === 'avatar'"></app-avatar-guide>
+				<app-badge-guide *ngIf="activeSection() === 'badge'"></app-badge-guide>
+				<app-tiered-menu-guide *ngIf="activeSection() === 'tiered-menu'"></app-tiered-menu-guide>
+				
+				<!-- Molecule Components -->
+				<app-form-field-guide *ngIf="activeSection() === 'form-field'"></app-form-field-guide>
+				<app-search-box-guide *ngIf="activeSection() === 'search-box'"></app-search-box-guide>
+				<app-toast-guide *ngIf="activeSection() === 'toast'"></app-toast-guide>
+				<app-dropdown-guide *ngIf="activeSection() === 'dropdown'"></app-dropdown-guide>
+				<app-switch-guide *ngIf="activeSection() === 'switch'"></app-switch-guide>
+				<app-datepicker-guide *ngIf="activeSection() === 'datepicker'"></app-datepicker-guide>
+				<app-breadcrumb-guide *ngIf="activeSection() === 'breadcrumb'"></app-breadcrumb-guide>
+				<app-file-upload-guide *ngIf="activeSection() === 'file-upload'"></app-file-upload-guide>
+
+				<!-- Organism Components -->
+				<app-table-guide *ngIf="activeSection() === 'table'"></app-table-guide>
+				<app-modal-guide *ngIf="activeSection() === 'modal'"></app-modal-guide>
+				<app-tabs-guide *ngIf="activeSection() === 'tabs'"></app-tabs-guide>
+				
+				<!-- Themes Section -->
+				<app-theme-guide *ngIf="activeSection() === 'themes'"></app-theme-guide>
+			</div>
+		</div>
+
+		<!-- Right Sidebar Menu (sticky) -->
+		<aside class="hidden lg:block w-64 shrink-0">
+			<nav class="sticky top-20">
+				<h3 class="text-sm font-semibold text-color uppercase mb-4">En esta página</h3>
+				
+				<!-- Category Groups -->
+				<div class="space-y-6">
+					@for (category of categories; track trackByCategory($index, category)) {
+						<div class="nav-category">
+							<h4 class="text-xs font-medium text-muted-color uppercase mb-2">
+								{{ category.title }}
+							</h4>
+							
+							<ul class="space-y-1">
+								@for (item of getItemsByCategory(category.id); track trackByItem($index, item)) {
+									<li>
+										<button 
+											class="w-full text-left py-1.5 text-sm transition-colors relative pl-3 border-l-2"
+											[class.border-primary]="isActiveSection(item.id)"
+											[class.text-primary]="isActiveSection(item.id)"
+											[class.font-medium]="isActiveSection(item.id)"
+											[class.border-transparent]="!isActiveSection(item.id)"
+											[class.text-muted-color]="!isActiveSection(item.id)"
+											[class.hover:text-color]="!isActiveSection(item.id)"
+											[class.hover:border-surface-300]="!isActiveSection(item.id)"
+											(click)="navigateToSection(item.id)">
+											{{ item.title }}
+										</button>
+									</li>
+								}
+							</ul>
+						</div>
+					}
+				</div>
+			</nav>
+		</aside>
+	</div>
+</app-main-layout>

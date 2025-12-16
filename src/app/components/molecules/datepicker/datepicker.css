@@ -1,0 +1,48 @@
+/* Datepicker Molecule Styles */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Customizing PrimeNG DatePicker */
+::ng-deep .atomic-datepicker {
+  width: 100%;
+}
+::ng-deep .atomic-datepicker .p-inputtext {
+  width: 100%;
+	background-color: var(--p-surface-100);
+}
+::ng-deep .atomic-datepicker .p-inputtext.p-filled {
+	color: var(--p-surface-700);
+}
+::ng-deep .atomic-datepicker .p-datepicker-dropdown {
+	background-color: var(--p-surface-200);
+	color: var(--p-surface-900);
+}
+::ng-deep .atomic-datepicker.p-focus .p-inputtext {
+  border-color: var(--p-surface-900);
+}
+::ng-deep .atomic-datepicker-panel table td > span.p-datepicker-day-selected,
+::ng-deep .atomic-datepicker-panel table td > span.p-datepicker-day-selected-range {
+	color: var(--p-surface-0);
+}
+
+
+/* Dark Mode Overrides */
+::ng-deep .p-dark .atomic-datepicker-panel {
+	background-color: var(--p-surface-100);
+  border: 1px solid var(--p-surface-400);
+}
+::ng-deep .p-dark .atomic-datepicker-panel .p-datepicker-header {
+  background-color: var(--p-surface-100);
+}
+::ng-deep .p-dark .atomic-datepicker-panel table td.p-datepicker-today > span {
+	background-color: var(--p-surface-200);
+}
+::ng-deep .p-dark .atomic-datepicker-panel table td > span:hover,
+::ng-deep .p-dark .atomic-datepicker-panel table td.p-datepicker-today > span:hover,
+::ng-deep .p-dark .atomic-datepicker-panel table td > span.p-datepicker-day-selected,
+::ng-deep .p-dark .atomic-datepicker-panel table td > span.p-datepicker-day-selected-range {
+	background-color: var(--p-surface-700);
+  color: var(--p-surface-100);
+}

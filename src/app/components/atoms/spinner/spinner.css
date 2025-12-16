@@ -1,0 +1,21 @@
+/* 
+  Atomic Spinner Styles 
+  Overrides PrimeNG default colors to match our theme
+*/
+
+:host {
+  display: inline-flex;
+}
+
+::ng-deep .atomic-spinner .p-progress-spinner-circle {
+  stroke: var(--p-primary-color);
+  animation: p-progress-spinner-dash 1.5s ease-in-out infinite, p-progress-spinner-color 6s ease-in-out infinite;
+}
+
+/* Define keyframes purely for dash if not present, but use global if available. */
+/* PrimeNG usually handles animation, we just set the color stroke above to ensure primary color usage */
+
+/* Remove the color animation if we want a static single color */
+::ng-deep .atomic-spinner .p-progress-spinner-circle {
+  animation: p-progress-spinner-dash 1.5s ease-in-out infinite;
+}

@@ -1,0 +1,30 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],
+    "baseUrl": "src",
+    "paths": {
+      "@atoms/*": ["app/components/atoms/*"],
+      "@molecules/*": ["app/components/molecules/*"],
+      "@organisms/*": ["app/components/organisms/*"],
+      "@templates/*": ["app/components/templates/*"],
+      "@pages/*": ["app/pages/*"],
+      "@services/*": ["app/shared/services/*"],
+      "@interfaces/*": ["app/shared/interfaces/*"],
+      "@types/*": ["app/shared/types/*"],
+      "@utils/*": ["app/shared/utils/*"],
+      "@shared/*": ["app/shared/*"],
+      "@guide-components/*": ["app/pages/design-system-guide/components/*"],
+      "@env/*": ["environments/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}

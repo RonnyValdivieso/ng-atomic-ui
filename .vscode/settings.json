@@ -1,0 +1,12 @@
+{
+	"editor.indentSize": "tabSize",
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"typescript.preferences.useAliasesForRenames": true,
+	"typescript.preferences.importModuleSpecifier": "shortest",
+	"typescript.suggest.autoImports": true,
+	"typescript.validate.enable": true,
+	"json.schemaDownload.enable": true,
+	"typescript.experimental.tsserver.web": false
+}

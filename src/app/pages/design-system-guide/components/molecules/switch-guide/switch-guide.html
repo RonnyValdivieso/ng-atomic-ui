@@ -1,0 +1,127 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Switch Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente de alternancia para activar o desactivar una opción. Ideal para configuraciones y preferencias.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <i class="pi pi-toggle-on text-lg text-primary"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Toggle</h3>
+        <p class="text-sm text-muted-color">Alternancia simple de estados booleanos.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-tag text-lg text-cyan-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Etiquetas</h3>
+        <p class="text-sm text-muted-color">Soporte integrado para etiquetas clicables.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-check-circle text-lg text-green-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Formularios</h3>
+        <p class="text-sm text-muted-color">Integración nativa con Reactive Forms.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-cog text-lg text-purple-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Valores</h3>
+        <p class="text-sm text-muted-color">Soporte para valores personalizados (true/false).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Uso</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Basic -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Básico</h3>
+        <app-switch
+          [(ngModel)]="checked"
+          label="Enable Notifications">
+        </app-switch>
+        <div class="mt-4 text-sm text-muted-color">
+          Status: {{ checked() ? 'Enabled' : 'Disabled' }}
+        </div>
+      </div>
+
+      <!-- Reactive Forms -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Reactive Forms</h3>
+        <div class="flex flex-col gap-4">
+          <app-switch
+            [formControl]="termsControl"
+            label="I accept the terms and conditions"
+            [error]="termsControl.invalid && termsControl.touched ? 'You must accept the terms' : ''">
+          </app-switch>
+          <p-button label="Submit" (click)="submitForm()" [disabled]="termsControl.invalid"></p-button>
+        </div>
+      </div>
+
+      <!-- Custom Values -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Valores Personalizados</h3>
+        <app-switch
+          [(ngModel)]="status"
+          label="Status (Active/Inactive)"
+          trueValue="active"
+          falseValue="inactive">
+        </app-switch>
+        <div class="mt-4 text-sm text-muted-color">
+          Current Value: {{ status() }}
+        </div>
+      </div>
+
+      <!-- Disabled -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Estado Deshabilitado</h3>
+        <div class="flex flex-col gap-4">
+          <app-switch
+            [disabled]="isDisabled()"
+            label="Disabled Switch"
+            [ngModel]="true">
+          </app-switch>
+          
+          <p-button label="Toggle Disabled" severity="secondary" (click)="toggleDisabled()"></p-button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico con ngModel --&gt;
+&lt;app-switch
+  [(ngModel)]="checked"
+  label="Enable Notifications"&gt;
+&lt;/app-switch&gt;
+
+&lt;!-- Reactive Forms con Error --&gt;
+&lt;app-switch
+  [formControl]="termsControl"
+  label="Accept Terms"
+  [error]="termsControl.invalid ? 'Required' : ''"&gt;
+&lt;/app-switch&gt;</code></pre>
+  </section>
+</div>

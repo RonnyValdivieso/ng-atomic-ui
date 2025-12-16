@@ -1,0 +1,35 @@
+<span 
+  [class]="badgeClasses()"
+  [attr.role]="clickable() ? 'button' : null"
+  [attr.tabindex]="clickable() && !disabled() ? '0' : null"
+  [attr.aria-label]="ariaLabelText()"
+  [attr.aria-disabled]="disabled() ? 'true' : null"
+  [attr.aria-hidden]="isHidden() ? 'true' : null"
+  (click)="handleClick()"
+  (keydown)="handleKeyDown($event)">
+
+  <!-- Badge Content -->
+  @if (!isHidden() && !dot() && variant() !== 'dot') {
+    <span class="badge__content">
+      <!-- Icon (if provided) -->
+      @if (hasIcon()) {
+        <app-icon 
+          [name]="icon()"
+          [size]="iconSize()"
+          color="inherit"
+          [ariaHidden]="true">
+        </app-icon>
+      }
+      
+      <!-- Text/Count Content -->
+      @if (displayText()) {
+        <span class="badge__text">{{ displayText() }}</span>
+      }
+    </span>
+  }
+
+  <!-- Dot Badge (minimal content) -->
+  @if (dot() || variant() === 'dot') {
+    <span class="badge__dot" [attr.aria-hidden]="true"></span>
+  }
+</span>

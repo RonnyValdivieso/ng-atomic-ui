@@ -1,0 +1,142 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Modal Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente para mostrar contenido en una capa superior, bloqueando la interacción con el fondo. 
+        Ideal para diálogos de confirmación, formularios y mensajes importantes.
+      </p>
+    </div>
+  </section>
+
+  <!-- API Overview -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Flexible</h3>
+        <p class="text-sm text-muted-color">Soporta contenido arbitrario y footers personalizados.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Posicionamiento</h3>
+        <p class="text-sm text-muted-color">Top, Bottom, Left, Right, Center.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Responsive</h3>
+        <p class="text-sm text-muted-color">Se adapta a diferentes tamaños de pantalla.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Theming</h3>
+        <p class="text-sm text-muted-color">Soporte nativo para modo oscuro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Basic Usage -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Uso Básico</h2>
+    <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+      <p class="text-muted-color mb-4">Un modal simple con título y contenido.</p>
+      <p-button label="Show Modal" (click)="showBasic()"></p-button>
+
+      <app-modal
+        [(visible)]="basicVisible"
+        header="Basic Modal"
+        [style]="{ width: '30vw' }">
+        <p class="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </app-modal>
+    </div>
+  </section>
+
+  <!-- With Footer -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Modal con Footer</h2>
+    <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+      <p class="text-muted-color mb-4">Utiliza el slot <code>footer</code> para añadir acciones.</p>
+      <p-button label="Show with Footer" severity="secondary" (click)="showFooter()"></p-button>
+
+      <app-modal
+        [(visible)]="footerVisible"
+        header="Confirmation"
+        [style]="{ width: '30vw' }">
+        <div class="flex align-items-center gap-3 mb-3">
+          <i class="pi pi-exclamation-triangle text-yellow-500 text-2xl"></i>
+          <span>Are you sure you want to proceed?</span>
+        </div>
+        
+        <ng-template footer>
+          <p-button label="Cancel" [text]="true" severity="secondary" (click)="footerVisible.set(false)"></p-button>
+          <p-button label="Confirm" severity="danger" (click)="footerVisible.set(false)"></p-button>
+        </ng-template>
+      </app-modal>
+    </div>
+  </section>
+
+  <!-- Positioning -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Posicionamiento</h2>
+    <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+      <p class="text-muted-color mb-4">El modal puede posicionarse en diferentes ubicaciones.</p>
+      <div class="flex flex-wrap gap-2">
+        <p-button label="Left" severity="info" (click)="showPosition('left')"></p-button>
+        <p-button label="Right" severity="info" (click)="showPosition('right')"></p-button>
+        <p-button label="Top" severity="info" (click)="showPosition('top')"></p-button>
+        <p-button label="Bottom" severity="info" (click)="showPosition('bottom')"></p-button>
+      </div>
+
+      <app-modal
+        [(visible)]="positionVisible"
+        [header]="'Position: ' + position()"
+        [position]="position()"
+        [style]="{ width: '20vw' }">
+        <p>The modal is positioned at the {{ position() }}.</p>
+      </app-modal>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico --&gt;
+&lt;app-modal [(visible)]="isVisible" header="Título"&gt;
+  &lt;p&gt;Contenido del modal...&lt;/p&gt;
+&lt;/app-modal&gt;
+
+&lt;!-- Con Footer --&gt;
+&lt;app-modal [(visible)]="isVisible" header="Confirmar"&gt;
+  &lt;p&gt;¿Estás seguro?&lt;/p&gt;
+  &lt;ng-template footer&gt;
+    &lt;p-button label="Cancelar" (click)="isVisible.set(false)"&gt;&lt;/p-button&gt;
+    &lt;p-button label="Aceptar" (click)="confirm()"&gt;&lt;/p-button&gt;
+  &lt;/ng-template&gt;
+&lt;/app-modal&gt;</code></pre>
+  </section>
+
+</div>

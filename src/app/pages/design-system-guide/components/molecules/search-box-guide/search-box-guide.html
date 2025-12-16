@@ -1,0 +1,326 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Search Box</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Molécula sofisticada que combina Input y Button para crear una interfaz de búsqueda con debounce, estados de carga y funcionalidad de limpieza.
+      </p>
+    </div>
+  </section>
+
+  <!-- Características Principales -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <i class="pi pi-box text-lg text-primary"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Composición Atómica</h3>
+        <p class="text-sm text-muted-color">Combina átomos Input, Button e Icon siguiendo principios de Atomic Design.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-clock text-lg text-cyan-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Debounce</h3>
+        <p class="text-sm text-muted-color">Sistema de debounce configurable para reducir llamadas API y mejorar rendimiento.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-spinner text-lg text-green-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Estados de Carga</h3>
+        <p class="text-sm text-muted-color">Indicadores visuales de carga para operaciones asíncronas de búsqueda.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-times text-lg text-purple-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Limpieza Rápida</h3>
+        <p class="text-sm text-muted-color">Botón de limpieza integrado con soporte completo de teclado (Escape).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Interactivo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Demo Interactivo</h2>
+    <p class="text-muted-color">Prueba el componente Search Box y observa sus eventos en tiempo real.</p>
+    
+    <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+      <div class="flex flex-col gap-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Search Box Básico</h3>
+          <app-search-box
+            placeholder="Buscar productos..."
+            (searchChanged)="handleSearch($event)"
+            (searchCleared)="handleClear()"
+            (searchSubmitted)="handleSubmit($event)">
+          </app-search-box>
+        </div>
+        
+        <div class="p-4 bg-surface-100 rounded-lg font-mono text-sm">
+          <p class="mb-2"><strong>Término de búsqueda:</strong> {{ searchTerm() || 'Ninguno' }}</p>
+          <p><strong>Última acción:</strong> {{ lastAction() || 'Ninguna' }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños</h2>
+    <p class="text-muted-color">Tres variantes de tamaño para diferentes contextos de interfaz.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Small</h3>
+        <app-search-box
+          size="small"
+          placeholder="Búsqueda pequeña..."
+          (searchChanged)="handleSearch($event)">
+        </app-search-box>
+        <span class="text-sm text-muted-color">Uso compacto en toolbars</span>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Medium</h3>
+        <app-search-box
+          size="medium"
+          placeholder="Búsqueda mediana..."
+          (searchChanged)="handleSearch($event)">
+        </app-search-box>
+        <span class="text-sm text-muted-color">Tamaño por defecto</span>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Large</h3>
+        <app-search-box
+          size="large"
+          placeholder="Búsqueda grande..."
+          (searchChanged)="handleSearch($event)">
+        </app-search-box>
+        <span class="text-sm text-muted-color">Alto énfasis visual</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características y Estados -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características y Estados</h2>
+    <p class="text-muted-color">Diferentes configuraciones y estados visuales del componente.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Con Botón de Búsqueda</h3>
+        <app-search-box
+          placeholder="Buscar con botón..."
+          [showSearchButton]="true"
+          (searchChanged)="handleSearch($event)"
+          (searchSubmitted)="handleSubmit($event)">
+        </app-search-box>
+        <span class="text-sm text-muted-color">Botón de búsqueda explícito</span>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Estado de Carga</h3>
+        <app-search-box
+          placeholder="Buscando..."
+          [loading]="isLoading()"
+          (searchChanged)="handleSearchWithLoading($event)">
+        </app-search-box>
+        <button 
+          class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm"
+          (click)="toggleLoading()"
+          type="button">
+          {{ isLoading() ? 'Detener Carga' : 'Iniciar Carga' }}
+        </button>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Estado Deshabilitado</h3>
+        <app-search-box
+          placeholder="Búsqueda deshabilitada..."
+          [disabled]="true">
+        </app-search-box>
+        <span class="text-sm text-muted-color">No interactivo</span>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Sin Botón de Limpieza</h3>
+        <app-search-box
+          placeholder="Sin botón de limpieza..."
+          [clearable]="false"
+          (searchChanged)="handleSearch($event)">
+        </app-search-box>
+        <span class="text-sm text-muted-color">clearable="false"</span>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Variante Compacta</h3>
+        <app-search-box
+          variant="compact"
+          placeholder="Búsqueda compacta..."
+          (searchChanged)="handleSearch($event)">
+        </app-search-box>
+        <span class="text-sm text-muted-color">Diseño minimalista</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Accesibilidad</h2>
+    <p class="text-muted-color">Características de accesibilidad integradas para navegación por teclado y lectores de pantalla.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Navegación por Teclado</h3>
+        <ul class="text-sm text-muted-color space-y-2">
+          <li class="flex items-center gap-2">
+            <kbd class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-xs">Enter</kbd>
+            <span>Enviar búsqueda</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <kbd class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-xs">Escape</kbd>
+            <span>Limpiar búsqueda</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <kbd class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-xs">Tab</kbd>
+            <span>Navegar a botones</span>
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Soporte de Lector de Pantalla</h3>
+        <ul class="text-sm text-muted-color space-y-2">
+          <li>• ARIA labels descriptivos</li>
+          <li>• Live region para anuncios</li>
+          <li>• Botón de limpieza etiquetado</li>
+          <li>• Estados anunciados</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <h3 class="text-lg font-semibold">Foco Visual</h3>
+        <ul class="text-sm text-muted-color space-y-2">
+          <li>• Indicadores de foco de alto contraste</li>
+          <li>• Gestión consistente del foco</li>
+          <li>• Feedback visual de estado de carga</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mejores Prácticas -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Mejores Prácticas</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="p-6 bg-green-50 rounded-lg border border-green-200">
+        <h3 class="text-lg font-semibold text-green-800 mb-4">✅ Hacer</h3>
+        <ul class="text-sm text-green-700 space-y-2">
+          <li>• Usar búsqueda con debounce para reducir llamadas API</li>
+          <li>• Proporcionar estados de carga claros para operaciones asíncronas</li>
+          <li>• Incluir placeholders descriptivos</li>
+          <li>• Manejar estados de búsqueda vacía con gracia</li>
+          <li>• Usar tamaños apropiados para diferentes contextos</li>
+        </ul>
+      </div>
+      <div class="p-6 bg-red-50 rounded-lg border border-red-200">
+        <h3 class="text-lg font-semibold text-red-800 mb-4">❌ No Hacer</h3>
+        <ul class="text-sm text-red-700 space-y-2">
+          <li>• Hacer la búsqueda demasiado sensible</li>
+          <li>• Deshabilitar funcionalidad de limpieza sin razón</li>
+          <li>• Usar tiempos de debounce muy cortos (&lt;200ms)</li>
+          <li>• Olvidar manejar navegación por teclado</li>
+          <li>• Ignorar estados de carga para búsquedas lentas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Referencia API -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Referencia API</h2>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Propiedades</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-surface-200">
+              <th class="text-left p-3 font-semibold">Propiedad</th>
+              <th class="text-left p-3 font-semibold">Tipo</th>
+              <th class="text-left p-3 font-semibold">Por Defecto</th>
+              <th class="text-left p-3 font-semibold">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (input of inputs; track input.name) {
+              <tr class="border-b border-surface-200">
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ input.name }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ input.type }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ input.default }}</code></td>
+                <td class="p-3 text-sm text-muted-color">{{ input.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Eventos</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-surface-200">
+              <th class="text-left p-3 font-semibold">Evento</th>
+              <th class="text-left p-3 font-semibold">Tipo</th>
+              <th class="text-left p-3 font-semibold">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (output of outputs; track output.name) {
+              <tr class="border-b border-surface-200">
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ output.name }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ output.type }}</code></td>
+                <td class="p-3 text-sm text-muted-color">{{ output.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Métodos Públicos</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-surface-200">
+              <th class="text-left p-3 font-semibold">Método</th>
+              <th class="text-left p-3 font-semibold">Parámetros</th>
+              <th class="text-left p-3 font-semibold">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (method of methods; track method.name) {
+              <tr class="border-b border-surface-200">
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ method.name }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ method.params }}</code></td>
+                <td class="p-3 text-sm text-muted-color">{{ method.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ejemplos de Código -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <div class="flex flex-col gap-4">
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Ejemplos de Uso</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ codeExample }}</code></pre>
+      </div>
+    </div>
+  </section>
+</div>

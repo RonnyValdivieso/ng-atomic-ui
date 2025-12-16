@@ -1,0 +1,83 @@
+/* Toast Molecule Styles */
+:host {
+  display: block;
+}
+
+/* Customizing PrimeNG Toast */
+/* Using ::ng-deep .atomic-toast to isolate styles to this component's toasts */
+::ng-deep .atomic-toast .p-toast-message {
+  border-radius: var(--p-border-radius);
+  box-shadow: var(--p-shadow-lg);
+  margin-bottom: 1rem;
+}
+
+/* Success */
+::ng-deep .atomic-toast .p-toast-message-success {
+  background: var(--p-green-50);
+  border: 1px solid var(--p-green-200);
+  color: var(--p-green-700);
+}
+::ng-deep .atomic-toast .p-toast-message-success .p-toast-icon {
+  color: var(--p-green-500);
+}
+
+/* Info */
+::ng-deep .atomic-toast .p-toast-message-info {
+  background: var(--p-blue-50);
+  border: 1px solid var(--p-blue-200);
+  color: var(--p-blue-700);
+}
+::ng-deep .atomic-toast .p-toast-message-info .p-toast-icon {
+  color: var(--p-blue-500);
+}
+
+/* Warn */
+::ng-deep .atomic-toast .p-toast-message-warn {
+  background: var(--p-yellow-50);
+  border: 1px solid var(--p-yellow-200);
+  color: var(--p-yellow-700);
+}
+::ng-deep .atomic-toast .p-toast-message-warn .p-toast-icon {
+  color: var(--p-yellow-500);
+}
+
+/* Error */
+::ng-deep .atomic-toast .p-toast-message-error {
+  background: var(--p-red-50);
+  border: 1px solid var(--p-red-200);
+  color: var(--p-red-700);
+}
+::ng-deep .atomic-toast .p-toast-message-error .p-toast-icon {
+  color: var(--p-red-500);
+}
+
+/* Dark Mode Overrides */
+::ng-deep .p-dark .atomic-toast .p-toast-message {
+  background-color: var(--p-surface-800);
+  border-color: var(--p-surface-700);
+  color: var(--p-surface-0);
+}
+
+::ng-deep .p-dark .atomic-toast .p-toast-message-success {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.2);
+  color: var(--p-green-400);
+}
+
+::ng-deep .p-dark .atomic-toast .p-toast-message-info {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: var(--p-blue-400);
+}
+
+::ng-deep .p-dark .atomic-toast .p-toast-message-warn {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.2);
+  color: var(--p-yellow-400);
+}
+
+::ng-deep .p-dark .atomic-toast .p-toast-message-error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: var(--p-red-400);
+}

@@ -1,0 +1,74 @@
+<div class="table-organism">
+	<p-table #dt [value]="data()" [columns]="columns()" [loading]="loading()" [paginator]="paginator()" [rows]="rows()"
+		[totalRecords]="totalRecords()" [rowsPerPageOptions]="rowsPerPageOptions()"
+		[showCurrentPageReport]="showCurrentPageReport()" [currentPageReportTemplate]="currentPageReportTemplate()"
+		[selectionMode]="selectionMode()" [dataKey]="dataKey()" [rowHover]="rowHover()"
+		[tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-striped" (onPage)="onPageChange($event)"
+		(onSort)="onSortChange($event)" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+
+		<!-- Header -->
+		<ng-template pTemplate="header" let-columns>
+			<tr>
+				@for (col of columns; track col.field) {
+					<th [pSortableColumn]="col.sortable ? col.field : null" [style.width]="col.width"
+						[class]="col.styleClass">
+						{{ col.header }}
+						@if (col.sortable) {
+							<p-sortIcon [field]="col.field"></p-sortIcon>
+						}
+					</th>
+				}
+			</tr>
+		</ng-template>
+
+		<!-- Body -->
+		<ng-template pTemplate="body" let-rowData let-columns="columns">
+			<tr [pSelectableRow]="rowData">
+				@for (col of columns; track col.field) {
+					<td [class]="col.styleClass">
+						<!-- Custom Template -->
+						@if (col.type === 'template' && col.templateRef) {
+							<ng-container
+								*ngTemplateOutlet="getTemplate(col.templateRef); context: { $implicit: rowData, field: col.field }">
+							</ng-container>
+						}
+
+						<!-- Default Types -->
+						@if (col.type !== 'template') {
+							@switch (col.type) {
+								@case ('date') {
+									<span>{{ rowData[col.field] | date:'mediumDate' }}</span>
+								}
+								@case ('currency') {
+									<span>{{ rowData[col.field] | currency }}</span>
+								}
+								@case ('boolean') {
+									<span>
+										<i class="pi"
+											[ngClass]="{'pi-check text-green-500': rowData[col.field], 'pi-times text-red-500': !rowData[col.field]}"></i>
+									</span>
+								}
+								@default {
+									<span>{{ rowData[col.field] }}</span>
+								}
+							}
+						}
+					</td>
+				}
+			</tr>
+		</ng-template>
+
+		<!-- Empty Message -->
+		<ng-template pTemplate="emptymessage">
+			<tr>
+				<td [attr.colspan]="columns().length" class="text-center p-4">
+					<div class="flex flex-col items-center justify-center text-muted-color">
+						<i class="pi pi-inbox text-4xl mb-2"></i>
+						<span>No records found</span>
+					</div>
+				</td>
+			</tr>
+		</ng-template>
+
+	</p-table>
+</div>

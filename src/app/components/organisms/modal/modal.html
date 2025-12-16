@@ -1,0 +1,23 @@
+<p-dialog
+  [(visible)]="visible"
+  [header]="header()"
+  [style]="style()"
+  [styleClass]="'modal-atom ' + styleClass()"
+  [modal]="modal()"
+  [closable]="closable()"
+  [draggable]="draggable()"
+  [resizable]="resizable()"
+  [position]="position()"
+  [appendTo]="appendTo()"
+  (onShow)="onShowHandler()"
+  (onHide)="onHideHandler()">
+
+  <!-- Content Projection -->
+  <ng-content></ng-content>
+
+  <!-- Footer Projection -->
+  <ng-template pTemplate="footer">
+    <ng-content select="[footer]"></ng-content>
+  </ng-template>
+
+</p-dialog>

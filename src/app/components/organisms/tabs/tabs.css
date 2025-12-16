@@ -1,0 +1,53 @@
+/* Tabs Organism Styles */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Customizing PrimeNG Tabs */
+::ng-deep .atomic-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .atomic-tabs p-tabs {
+  width: 100%;
+}
+
+::ng-deep .atomic-tabs .p-tablist-tab-list {
+	border-bottom-color: var(--p-surface-200);
+}
+
+::ng-deep .atomic-tabs .p-tab {
+	color: var(--p-surface-500);
+	border-bottom-color: transparent;
+}
+
+::ng-deep .atomic-tabs .p-tab:hover:not(.p-disabled) {
+  color: var(--p-surface-700);
+  border-bottom-color: var(--p-surface-300);
+}
+
+::ng-deep .atomic-tabs .p-tab-active {
+  color: var(--p-primary-950);
+  border-bottom-color: var(--p-primary-950);
+}
+
+::ng-deep .atomic-tabs .p-tabpanels {
+  padding: 1.5rem 0;
+  background: transparent;
+}
+
+/* Dark Mode Overrides */
+
+::ng-deep .p-dark .atomic-tabs .p-tab {
+  color: var(--p-surface-500);
+}
+
+::ng-deep .p-dark .atomic-tabs .p-tab:hover:not(.p-disabled) {
+  color: var(--p-primary-200);
+}
+
+::ng-deep .p-dark .atomic-tabs .p-tab-active {
+  color: var(--p-primary-0);
+}

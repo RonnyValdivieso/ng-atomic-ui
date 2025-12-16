@@ -1,0 +1,125 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Datepicker Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente para la selección de fechas y horas. Soporta rangos, formatos personalizados y validación.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <i class="pi pi-calendar text-lg text-primary"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Selección</h3>
+        <p class="text-sm text-muted-color">Selección simple, múltiple y por rangos.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-clock text-lg text-cyan-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Hora</h3>
+        <p class="text-sm text-muted-color">Soporte opcional para selección de hora.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-check-circle text-lg text-green-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Formularios</h3>
+        <p class="text-sm text-muted-color">Integración nativa con Reactive Forms.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-cog text-lg text-purple-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Configurable</h3>
+        <p class="text-sm text-muted-color">Formatos, iconos y restricciones de fecha.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Uso</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Basic -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Básico</h3>
+        <app-datepicker
+          [(ngModel)]="date"
+          label="Select Date"
+          placeholder="dd/mm/yyyy">
+        </app-datepicker>
+        <div class="mt-4 text-sm text-muted-color">
+          Selected: {{ date() | date:'mediumDate' }}
+        </div>
+      </div>
+
+      <!-- Range -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Rango de Fechas</h3>
+        <app-datepicker
+          [(ngModel)]="rangeDates"
+          selectionMode="range"
+          label="Select Range"
+          placeholder="Start - End">
+        </app-datepicker>
+        <div class="mt-4 text-sm text-muted-color">
+          Start: {{ rangeDates()?.[0] | date:'shortDate' }} - End: {{ rangeDates()?.[1] | date:'shortDate' }}
+        </div>
+      </div>
+
+      <!-- Reactive Forms -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Reactive Forms</h3>
+        <div class="flex flex-col gap-4">
+          <app-datepicker
+            [formControl]="dateControl"
+            label="Required Date"
+            [error]="dateControl.invalid && dateControl.touched ? 'Date is required' : ''">
+          </app-datepicker>
+          <p-button label="Submit" (click)="submitForm()" [disabled]="dateControl.invalid"></p-button>
+        </div>
+      </div>
+
+      <!-- Min/Max -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Restricciones (Min/Max)</h3>
+        <app-datepicker
+          label="Next 30 Days Only"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          placeholder="Select available date">
+        </app-datepicker>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico con ngModel --&gt;
+&lt;app-datepicker
+  [(ngModel)]="date"
+  label="Select Date"&gt;
+&lt;/app-datepicker&gt;
+
+&lt;!-- Rango de Fechas --&gt;
+&lt;app-datepicker
+  [(ngModel)]="rangeDates"
+  selectionMode="range"
+  label="Select Range"&gt;
+&lt;/app-datepicker&gt;</code></pre>
+  </section>
+</div>

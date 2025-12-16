@@ -1,0 +1,8 @@
+<div class="w-full">
+  <p-breadcrumb
+    [model]="items()"
+    [home]="home()"
+    [styleClass]="'atomic-breadcrumb ' + styleClass()"
+    (onItemClick)="onItemClickHandler($event)">
+  </p-breadcrumb>
+</div>

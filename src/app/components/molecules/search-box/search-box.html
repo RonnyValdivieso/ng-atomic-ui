@@ -1,0 +1,82 @@
+<div [class]="containerClasses()">
+  <!-- Search Input Container -->
+  <div class="search-box__input-container">
+    <!-- Search Icon -->
+    <div class="search-box__search-icon" 
+         [class.search-box__search-icon--loading]="loading()">
+      @if (loading()) {
+        <app-icon 
+          name="pi-spinner" 
+          size="base" 
+          color="primary" 
+          [spin]="true"
+          [ariaHidden]="true">
+        </app-icon>
+      } @else {
+        <app-icon 
+          name="pi-search" 
+          size="base" 
+          color="muted"
+          [ariaHidden]="true">
+        </app-icon>
+      }
+    </div>
+
+    <!-- Search Input using InputComponent atom -->
+    <app-input
+      #searchInput
+      [id]="searchId()"
+      type="search"
+      [placeholder]="inputPlaceholder()"
+      [size]="size()"
+      [disabled]="disabled()"
+      [formControl]="searchControl"
+      (focus)="handleInputFocus()"
+      (blur)="handleInputBlur()"
+      (keydown)="handleInputKeyDown($event)"
+      class="search-box__input"
+      aria-label="Search input"
+      [attr.aria-describedby]="hasSearchTerm() ? searchId() + '-results' : null">
+    </app-input>
+
+    <!-- Clear Button -->
+    @if (showClearButton()) {
+      <app-button
+        variant="secondary"
+        size="small"
+        [disabled]="disabled()"
+        (clicked)="handleClear()"
+        class="search-box__clear-button"
+        aria-label="Clear search"
+        type="button">
+        <app-icon name="pi-times" size="sm" color="muted"></app-icon>
+      </app-button>
+    }
+
+    <!-- Search Button (Optional) -->
+    @if (showSearchButton()) {
+      <app-button
+        variant="primary"
+        [size]="size()"
+        [disabled]="disabled() || !hasSearchTerm()"
+        [loading]="loading()"
+        (clicked)="handleSearchButtonClick()"
+        class="search-box__search-button"
+        aria-label="Search"
+        type="button">
+        <app-icon name="pi-search" size="base" color="inherit"></app-icon>
+      </app-button>
+    }
+  </div>
+
+  <!-- Search Results Announcement for Screen Readers -->
+  <div 
+    [id]="searchId() + '-results'"
+    class="search-box__sr-only"
+    aria-live="polite"
+    aria-atomic="true">
+    @if (loading()) {
+      Searching...
+    }
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="flex flex-col gap-8">
+	<!-- Hero Section -->
+	<section class="flex flex-col gap-4">
+		<div class="flex flex-col gap-2">
+			<h1 class="text-5xl font-bold text-balance">Tooltip Directive</h1>
+			<p class="text-xl text-muted-color text-pretty">
+				Directiva para mostrar información contextual al interactuar con un elemento.
+			</p>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+		<h2 class="text-3xl font-semibold">Características Principales</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+					<i class="pi pi-comment text-lg text-primary"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Informativo</h3>
+				<p class="text-sm text-muted-color">Provee contexto adicional sin saturar la UI.</p>
+			</div>
+
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+					<i class="pi pi-arrows-alt text-lg text-cyan-600"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Posicionamiento</h3>
+				<p class="text-sm text-muted-color">Soporte para top, bottom, left y right.</p>
+			</div>
+
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+					<i class="pi pi-bolt text-lg text-green-600"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Eventos</h3>
+				<p class="text-sm text-muted-color">Activación por hover o foco.</p>
+			</div>
+
+			<div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+				<div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+					<i class="pi pi-palette text-lg text-purple-600"></i>
+				</div>
+				<h3 class="text-lg font-semibold">Estilos</h3>
+				<p class="text-sm text-muted-color">Diseño consistente con el sistema.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Examples -->
+	<section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+		<h2 class="text-3xl font-semibold">Ejemplos de Uso</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<!-- Basic Positions -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200 col-span-1 md:col-span-2">
+				<h3 class="text-lg font-semibold mb-4">Posiciones</h3>
+				<div class="flex flex-wrap gap-4 justify-center p-8 bg-surface-50 rounded-lg">
+					<app-button 
+						label="Top" 
+						appTooltip="Tooltip on Top" 
+						tooltipPosition="top">
+					</app-button>
+					
+					<app-button 
+						label="Bottom" 
+						appTooltip="Tooltip on Bottom" 
+						tooltipPosition="bottom">
+					</app-button>
+					
+					<app-button 
+						label="Left" 
+						appTooltip="Tooltip on Left" 
+						tooltipPosition="left">
+					</app-button>
+					
+					<app-button 
+						label="Right" 
+						appTooltip="Tooltip on Right" 
+						tooltipPosition="right">
+					</app-button>
+				</div>
+			</div>
+
+			<!-- Inputs & Events -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+				<h3 class="text-lg font-semibold mb-4">En Inputs (Focus)</h3>
+				<div class="flex items-center gap-4">
+          <app-input 
+            placeholder="Focus me (Sticky)"
+            appTooltip="Haga click fuera para cerrar" 
+            tooltipEvent="focus"
+            tooltipPosition="right"
+          ></app-input>
+        </div>
+			</div>
+
+			<!-- Delays -->
+			<div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+				<h3 class="text-lg font-semibold mb-4">Con Retraso (Delay)</h3>
+				<div class="flex items-center gap-4">
+					<app-button 
+						label="Delay Show (500ms)" 
+						severity="secondary"
+						appTooltip="Aparezco después de 500ms" 
+						[showDelay]="500">
+					</app-button>
+				</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+	<section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+		<h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+		<pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico --&gt;
+&lt;app-button 
+	label="Save" 
+	appTooltip="Guardar cambios" 
+	tooltipPosition="top"&gt;
+&lt;/app-button&gt;
+
+&lt;!-- En Input con Focus --&gt;
+&lt;app-input 
+	placeholder="Ingrese su nombre" 
+	appTooltip="Ingrese su nombre" 
+	tooltipEvent="focus"&gt;
+&lt;/app-input&gt;</code></pre>
+	</section>
+</div>

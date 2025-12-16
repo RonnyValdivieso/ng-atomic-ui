@@ -1,0 +1,30 @@
+/* Dropdown Molecule Styles */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Customizing PrimeNG Dropdown */
+::ng-deep .atomic-dropdown,
+::ng-deep .atomic-dropdown-panel {
+  background-color: var(--p-surface-100);
+}
+
+::ng-deep .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+  background-color: var(--p-primary-300);
+}
+
+::ng-deep .atomic-dropdown-panel .p-inputtext,
+::ng-deep .atomic-dropdown-panel .p-inputtext::placeholder {
+	background-color: var(--p-surface-100);
+}
+
+/* Dark Mode Overrides */
+::ng-deep .p-dark .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus {
+  background-color: var(--p-primary-500);
+}
+
+::ng-deep .p-dark .atomic-dropdown-panel .p-inputtext,
+::ng-deep .p-dark .atomic-dropdown-panel .p-inputtext::placeholder {
+	color: var(--p-primary-300);
+}

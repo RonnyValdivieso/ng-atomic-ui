@@ -1,0 +1,1 @@
+export { AtomicDesignIntroComponent } from './atomic-design';

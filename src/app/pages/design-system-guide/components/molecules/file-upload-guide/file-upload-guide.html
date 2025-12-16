@@ -1,0 +1,83 @@
+<section class="guide-section">
+	<header class="guide-header">
+		<h2>File Upload</h2>
+		<p class="guide-description">
+			A component for uploading files via drag and drop or file selection dialog.
+		</p>
+	</header>
+
+	<div class="guide-examples">
+		<!-- Default Example -->
+		<div class="example-card">
+			<h3>Default (Single File)</h3>
+			<div class="example-preview">
+				<app-file-upload 
+					(fileSelected)="onFileSelected($event)">
+				</app-file-upload>
+			</div>
+		</div>
+
+		<!-- Multiple Files Example -->
+		<div class="example-card">
+			<h3>Multiple Files</h3>
+			<div class="example-preview">
+				<app-file-upload 
+					[multiple]="true"
+					label="Drop files here"
+					(fileSelected)="onFileSelected($event)">
+				</app-file-upload>
+			</div>
+		</div>
+
+		<!-- Disabled Example -->
+		<div class="example-card">
+			<h3>Disabled</h3>
+			<div class="example-preview">
+				<app-file-upload 
+					[disabled]="true">
+				</app-file-upload>
+			</div>
+		</div>
+
+		<!-- Compact Container Example -->
+		<div class="example-card">
+			<h3>Compact Container (300px width)</h3>
+			<div class="example-preview" style="max-width: 300px;">
+				<app-file-upload 
+					label="Small Area"
+					(fileSelected)="onFileSelected($event)">
+				</app-file-upload>
+			</div>
+		</div>
+
+		<!-- Circular Variant Example -->
+		<div class="example-card">
+			<h3>Circular Variant</h3>
+			<div class="example-preview">
+				<app-file-upload 
+					variant="circle"
+					(fileSelected)="onFileSelected($event)">
+				</app-file-upload>
+			</div>
+		</div>
+
+		<!-- Event Log -->
+		<div class="example-card">
+			<h3>Event Log</h3>
+			<div class="example-preview">
+				<div class="log-box">
+					<h4>Last Selected Files:</h4>
+					@if (lastSelectedFiles().length > 0) {
+						<ul>
+							@for (file of lastSelectedFiles(); track file) {
+								<li>{{ file }}</li>
+							}
+						</ul>
+					} @else {
+						<p class="text-muted">No files selected yet.</p>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

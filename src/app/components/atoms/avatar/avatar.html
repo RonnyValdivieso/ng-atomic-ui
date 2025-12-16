@@ -1,0 +1,70 @@
+<!-- Avatar Container Wrapper -->
+<div class="avatar-wrapper" 
+     [style.width]="sizeValue()"
+     [style.height]="sizeValue()">
+     
+  <!-- Avatar Main Container -->
+  <div 
+    [class]="avatarClasses()"
+    [style.width]="sizeValue()"
+    [style.height]="sizeValue()"
+    [attr.role]="clickable() ? 'button' : null"
+    [attr.tabindex]="clickable() && !disabled() ? '0' : null"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-disabled]="disabled() ? 'true' : null"
+    (click)="handleClick()"
+    (keydown)="handleKeyDown($event)">
+
+    <!-- Loading State -->
+    @if (loading()) {
+      <div class="avatar__loading">
+        <app-icon 
+          name="pi-spinner" 
+          [size]="size() === 'xs' ? 'xs' : size() === 'sm' ? 'sm' : 'base'"
+          color="muted"
+          [spin]="true"
+          [ariaHidden]="true">
+        </app-icon>
+      </div>
+    } @else {
+      <!-- Avatar Image -->
+      @if (hasImage()) {
+        <img
+          [src]="src()"
+          [alt]="alt() || ariaLabel() || 'User avatar'"
+          [title]="alt() || ariaLabel() || 'User avatar'"
+          class="avatar__image"
+          loading="lazy"
+          (load)="imageLoaded.emit()"
+          (error)="imageError.emit()"
+        />
+      } @else if (hasInitials()) {
+        <!-- Avatar Initials -->
+        <div class="avatar__initials">
+          <span class="avatar__text">{{ displayInitials() }}</span>
+        </div>
+      } @else {
+        <!-- Avatar Placeholder -->
+        <div class="avatar__placeholder">
+          @if (placeholder()) {
+            <span class="avatar__text">{{ placeholder() }}</span>
+          } @else {
+            <app-icon 
+              name="pi-user" 
+              [size]="size() === 'xs' ? 'sm' : size() === 'sm' ? 'base' : 'lg'"
+              color="muted"
+              [ariaHidden]="true">
+            </app-icon>
+          }
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Status Indicator (outside main avatar container) -->
+  @if (shouldShowStatus()) {
+    <div [class]="statusClasses()" [attr.aria-label]="'Status: ' + status()">
+      <div class="avatar__status-dot"></div>
+    </div>
+  }
+</div>

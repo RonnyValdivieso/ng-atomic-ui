@@ -1,0 +1,362 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Input Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente de entrada de texto reutilizable y accesible con soporte para diferentes tipos, estados, validaciones y eventos.
+      </p>
+    </div>
+  </section>
+
+  <!-- API Overview -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Tipos de Input</h3>
+        <p class="text-sm text-muted-color">text, email, password, number, tel, url</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Estados</h3>
+        <p class="text-sm text-muted-color">normal, disabled, loading, error, success</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Tamaños</h3>
+        <p class="text-sm text-muted-color">small, medium (default), large</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Validación</h3>
+        <p class="text-sm text-muted-color">required, custom validation, error messages</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Types Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tipos de Input</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-2">
+        <app-label>Texto</app-label>
+        <app-input 
+          type="text"
+          placeholder="Ingresa texto..."
+          value="Texto de ejemplo">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">type="text"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Email</app-label>
+        <app-input 
+          type="email"
+          placeholder="correo@ejemplo.com">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">type="email"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Contraseña</app-label>
+        <app-input 
+          type="password"
+          placeholder="••••••••">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">type="password"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Número</app-label>
+        <app-input 
+          type="number"
+          placeholder="123"
+          value="42">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">type="number"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Teléfono</app-label>
+        <app-input 
+          type="tel"
+          placeholder="+1 (555) 000-0000">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">type="tel"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>URL</app-label>
+        <app-input 
+          type="url"
+          placeholder="https://ejemplo.com">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">type="url"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sizes Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-2">
+        <app-label>Pequeño</app-label>
+        <app-input 
+          size="small"
+          placeholder="Input pequeño">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="small"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Mediano (Por defecto)</app-label>
+        <app-input 
+          placeholder="Input mediano">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="medium"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Grande</app-label>
+        <app-input 
+          size="large"
+          placeholder="Input grande">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">size="large"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- States Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Estados</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-2">
+        <app-label>Normal</app-label>
+        <app-input 
+          placeholder="Estado normal">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">estado: normal</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Disabled</app-label>
+        <app-input 
+          placeholder="Input deshabilitado"
+          disabled="true">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">disabled="true"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Loading</app-label>
+        <app-input 
+          placeholder="Cargando..."
+          loading="true">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">loading="true"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Error</app-label>
+        <app-input 
+          placeholder="Input con error"
+          error="true"
+          value="Valor inválido">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">error="true"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Success</app-label>
+        <app-input 
+          placeholder="Input válido"
+          success="true"
+          value="Valor válido">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">success="true"</code>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Required</app-label>
+        <app-input 
+          placeholder="Campo requerido"
+          [required]="true">
+        </app-input>
+        <code class="text-xs bg-surface-100 px-2 py-1 rounded">required="true"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Validation Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Validación y Mensajes de Error</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-2">
+        <app-label>Email con Validación</app-label>
+        <app-input 
+          type="email"
+          placeholder="correo@ejemplo.com"
+          error="true"
+          value="email-invalido">
+        </app-input>
+        <p class="text-sm text-red-600">Por favor, ingresa un email válido</p>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Contraseña con Validación</app-label>
+        <app-input 
+          type="password"
+          placeholder="Mínimo 8 caracteres"
+          error="true"
+          value="123">
+        </app-input>
+        <p class="text-sm text-red-600">La contraseña debe tener al menos 8 caracteres</p>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <app-label>Campo Exitoso</app-label>
+        <app-input 
+          type="text"
+          placeholder="Nombre completo"
+          success="true"
+          value="Juan Pérez">
+        </app-input>
+        <p class="text-sm text-green-600">Nombre válido</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Casos de Uso Comunes</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold">Formulario de Registro</h3>
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
+            <app-label>Nombre completo</app-label>
+            <app-input 
+              type="text"
+              placeholder="Juan Pérez"
+              [required]="true">
+            </app-input>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <app-label>Correo electrónico</app-label>
+            <app-input 
+              type="email"
+              placeholder="juan@ejemplo.com"
+              [required]="true">
+            </app-input>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <app-label>Contraseña</app-label>
+            <app-input 
+              type="password"
+              placeholder="••••••••"
+              [required]="true">
+            </app-input>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold">Búsqueda</h3>
+        <div class="flex flex-col gap-2">
+          <app-input 
+            type="text"
+            placeholder="Buscar productos, marcas, categorías..."
+            size="large">
+          </app-input>
+          <p class="text-sm text-muted-color">Input grande para destacar la funcionalidad de búsqueda</p>
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold">Configuración de Perfil</h3>
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
+            <app-label>Teléfono</app-label>
+            <app-input 
+              type="tel"
+              placeholder="+1 (555) 000-0000"
+              value="+1 (555) 123-4567"
+              success="true">
+            </app-input>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <app-label>Sitio web</app-label>
+            <app-input 
+              type="url"
+              placeholder="https://tusitio.com"
+              value="https://ejemplo.com">
+            </app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplo de Implementación</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Input básico --&gt;
+&lt;app-input 
+  type="text"
+  placeholder="Ingresa tu texto aquí..."&gt;
+&lt;/app-input&gt;
+
+&lt;!-- Input con validación --&gt;
+&lt;app-input 
+  type="email"
+  placeholder="correo@ejemplo.com"
+  required="true"
+  error="true"&gt;
+&lt;/app-input&gt;
+
+&lt;!-- Input con estados --&gt;
+&lt;app-input 
+  type="password"
+  placeholder="Contraseña"
+  size="large"
+  loading="true"&gt;
+&lt;/app-input&gt;
+
+&lt;!-- Con label asociado --&gt;
+&lt;app-label for="username"&gt;Nombre de usuario&lt;/app-label&gt;
+&lt;app-input 
+  id="username"
+  type="text"
+  placeholder="usuario123"
+  required="true"&gt;
+&lt;/app-input&gt;</code></pre>
+  </section>
+</div>

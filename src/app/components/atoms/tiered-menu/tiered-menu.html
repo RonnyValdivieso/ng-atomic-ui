@@ -1,0 +1,21 @@
+<div 
+  class="tiered-menu-atom"
+  [ngClass]="{
+    'tiered-menu-atom--small': size() === 'small',
+    'tiered-menu-atom--medium': size() === 'medium',
+    'tiered-menu-atom--large': size() === 'large',
+    'tiered-menu-atom--outlined': variant() === 'outlined',
+    'tiered-menu-atom--disabled': disabled()
+  }">
+  <p-tieredMenu 
+    #menu
+    [model]="model()"
+    [popup]="popup()"
+    [appendTo]="appendTo()"
+    [autoZIndex]="autoZIndex()"
+    [baseZIndex]="baseZIndex()"
+    [styleClass]="styleClass()"
+    (onShow)="handleShow()"
+    (onHide)="handleHide()">
+  </p-tieredMenu>
+</div>

@@ -1,0 +1,32 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+/* Label component wrapper styling */
+.form-field app-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* InputComponent wrapper styling */
+.form-field app-input {
+  width: 100%;
+}
+
+/* Error state styling for InputComponent */
+.form-field__input--error app-input ::ng-deep .input {
+  border-color: #ef4444;
+}
+
+.form-field__input--error app-input ::ng-deep .input:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-field__error {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 4px;
+}

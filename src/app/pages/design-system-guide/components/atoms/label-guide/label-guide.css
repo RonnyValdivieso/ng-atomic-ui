@@ -1,0 +1,377 @@
+/* Label Guide Component Styles - Following theme-guide consistency */
+
+.label-guide {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Header Section */
+.label-guide__header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.label-guide__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.label-guide__header h1 {
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.label-guide__description {
+  font-size: 1.25rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Styling */
+.label-guide__section {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.label-guide__section:hover {
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.label-guide__section-title {
+  font-size: 2rem;
+  color: #1f2937;
+  margin: 0 0 2rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #3b82f6;
+  font-weight: 700;
+}
+
+/* Overview Section */
+.label-guide__overview p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+.label-guide__key-features {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.label-guide__key-features h3 {
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.label-guide__key-features ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #4b5563;
+}
+
+.label-guide__key-features li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Demo Groups */
+.label-guide__demo-group {
+  margin-bottom: 3rem;
+}
+
+.label-guide__demo-group h3 {
+  font-size: 1.5rem;
+  color: #1f2937;
+  margin: 0 0 1.5rem 0;
+  font-weight: 600;
+}
+
+.label-guide__demo-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.label-guide__demo-item {
+  background: #f9fafb;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.label-guide__demo-item:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.label-guide__demo-label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Code Examples */
+.label-guide__code-example {
+  margin-bottom: 2rem;
+}
+
+.label-guide__code-example h3 {
+  font-size: 1.25rem;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+
+.label-guide__code {
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 0;
+  border: 1px solid #374151;
+}
+
+/* Accessibility Section */
+.label-guide__accessibility-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.label-guide__accessibility-item {
+  background: #f0f9ff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #bfdbfe;
+  position: relative;
+}
+
+.label-guide__accessibility-item h4 {
+  font-size: 1.1rem;
+  color: #1e40af;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.label-guide__accessibility-item p {
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.label-guide__status {
+  background: #10b981;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Best Practices */
+.label-guide__best-practices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.label-guide__practice-item {
+  background: #fefce8;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #fde047;
+  border-left: 4px solid #eab308;
+}
+
+.label-guide__practice-item h4 {
+  font-size: 1.1rem;
+  color: #92400e;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.label-guide__practice-item p {
+  color: #451a03;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.label-guide__practice-code {
+  background: #451a03;
+  color: #fef3c7;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* API Table */
+.label-guide__api {
+  overflow-x: auto;
+}
+
+.label-guide__api-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.label-guide__api-table th {
+  background: #3b82f6;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.label-guide__api-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.label-guide__api-table tr:hover {
+  background: #f9fafb;
+}
+
+.label-guide__api-table code {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+}
+
+/* Interactive Examples */
+.label-guide__interactive {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.label-guide__form-example h3 {
+  font-size: 1.25rem;
+  color: #1f2937;
+  margin: 0 0 1.5rem 0;
+  font-weight: 600;
+}
+
+.label-guide__form {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 400px;
+}
+
+.label-guide__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label-guide__input {
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.label-guide__input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.label-guide__checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label-guide__checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .label-guide {
+    padding: 1rem;
+  }
+  
+  .label-guide__header {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .label-guide__header h1 {
+    font-size: 2rem;
+  }
+  
+  .label-guide__section {
+    padding: 1.5rem;
+  }
+  
+  .label-guide__demo-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

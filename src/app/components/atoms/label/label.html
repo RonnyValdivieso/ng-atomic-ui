@@ -1,0 +1,17 @@
+<label 
+  [id]="labelId()"
+  [for]="for()"
+  [class]="labelClasses()"
+  [attr.aria-label]="ariaLabel()">
+  
+  @if (hasText()) {
+    <span class="label__text">{{ text() }}</span>
+  }
+  
+  @if (required()) {
+    <span class="label__required" aria-label="required">*</span>
+  }
+  
+  <!-- Content projection for additional content -->
+  <ng-content></ng-content>
+</label>

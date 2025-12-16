@@ -1,0 +1,125 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Tabs Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente para organizar contenido en diferentes vistas, permitiendo cambiar entre ellas fácilmente.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <i class="pi pi-folder text-lg text-primary"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Organización</h3>
+        <p class="text-sm text-muted-color">Agrupa contenido relacionado en pestañas.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-code text-lg text-cyan-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Templates</h3>
+        <p class="text-sm text-muted-color">Soporte para contenido dinámico vía TemplateRef.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-ban text-lg text-green-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Estados</h3>
+        <p class="text-sm text-muted-color">Pestañas activas, inactivas y deshabilitadas.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-palette text-lg text-purple-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Diseño</h3>
+        <p class="text-sm text-muted-color">Estilo limpio y adaptable al modo oscuro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Uso</h2>
+    
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Basic -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Básico</h3>
+        <app-tabs
+          [tabs]="basicTabs"
+          [(value)]="basicValue"
+          (valueChange)="onTabChange($event)">
+        </app-tabs>
+      </div>
+
+      <!-- Disabled -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Con Pestaña Deshabilitada</h3>
+        <app-tabs
+          [tabs]="disabledTabs"
+          [(value)]="disabledValue">
+        </app-tabs>
+      </div>
+
+      <!-- Templates -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Con Templates Personalizados</h3>
+        
+        <ng-template #statsTemplate>
+          <div class="flex items-center gap-4 p-4 bg-surface-50 rounded-lg border border-surface-200">
+            <i class="pi pi-chart-bar text-2xl text-primary"></i>
+            <div>
+              <div class="text-lg font-semibold">Statistics Overview</div>
+              <div class="text-sm text-muted-color">Monthly growth: +15%</div>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #reportsTemplate>
+          <div class="flex items-center gap-4 p-4 bg-surface-50 rounded-lg border border-surface-200">
+            <i class="pi pi-file text-2xl text-green-500"></i>
+            <div>
+              <div class="text-lg font-semibold">Available Reports</div>
+              <div class="text-sm text-muted-color">3 new reports generated today</div>
+            </div>
+          </div>
+        </ng-template>
+
+        <app-tabs
+          [tabs]="[
+            { title: 'Statistics', content: statsTemplate, value: 'stats' },
+            { title: 'Reports', content: reportsTemplate, value: 'reports' }
+          ]"
+          [(value)]="templateValue">
+        </app-tabs>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico --&gt;
+&lt;app-tabs
+  [tabs]="tabs"
+  [(value)]="activeTab"&gt;
+&lt;/app-tabs&gt;
+
+&lt;!-- TypeScript --&gt;
+tabs: TabItem[] = [
+  {{ '{' }} title: 'Tab 1', content: 'Content 1', value: 'tab1' {{ '}' }},
+  {{ '{' }} title: 'Tab 2', content: 'Content 2', value: 'tab2' {{ '}' }}
+];</code></pre>
+  </section>
+</div>

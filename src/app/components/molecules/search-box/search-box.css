@@ -1,0 +1,251 @@
+/* Search Box Component Styles */
+.search-box {
+  --search-box-border-radius: 8px;
+  --search-box-border-width: 1px;
+  --search-box-padding: 0.75rem;
+  --search-box-gap: 0.5rem;
+  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--search-box-gap);
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Input Container */
+.search-box__input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--search-box-gap);
+  background: var(--p-surface-0);
+  border: var(--search-box-border-width) solid var(--p-surface-300);
+  border-radius: var(--search-box-border-radius);
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.search-box__input-container:hover {
+  border-color: var(--p-primary-400);
+}
+
+.search-box--focused .search-box__input-container {
+  border-color: var(--p-primary-500);
+  box-shadow: 0 0 0 2px var(--p-primary-100);
+}
+
+.search-box--disabled .search-box__input-container {
+  background: var(--p-surface-100);
+  border-color: var(--p-surface-200);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Search Icon */
+.search-box__search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: var(--search-box-padding);
+  color: var(--p-text-muted-color);
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.search-box--focused .search-box__search-icon {
+  color: var(--p-primary-500);
+}
+
+.search-box__search-icon--loading {
+  color: var(--p-primary-500);
+}
+
+/* Search Input using InputComponent */
+.search-box__input {
+  flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.search-box__input ::ng-deep .input {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.search-box__input ::ng-deep .input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove browser default search input clear button from InputComponent */
+.search-box__input ::ng-deep .input::-webkit-search-cancel-button,
+.search-box__input ::ng-deep .input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-box__input ::ng-deep .input::-ms-clear {
+  display: none;
+}
+
+/* Clear Button */
+.search-box__clear-button {
+  flex-shrink: 0;
+}
+
+.search-box__clear-button ::ng-deep .p-button {
+  width: 2rem !important;
+  height: 2rem !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--p-text-muted-color) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: auto !important;
+}
+
+.search-box__clear-button ::ng-deep .p-button:hover {
+  background: var(--p-surface-100) !important;
+  color: var(--p-text-color) !important;
+}
+
+.search-box__clear-button ::ng-deep .p-button .p-button-icon {
+  margin: 0 !important;
+}
+
+/* Search Button */
+.search-box__search-button {
+  flex-shrink: 0;
+  margin-right: 0.25rem;
+}
+
+.search-box__search-button ::ng-deep .p-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem !important;
+  min-width: auto !important;
+}
+
+.search-box__search-button ::ng-deep .p-button .p-button-icon {
+  margin: 0 !important;
+}
+
+/* Size Variants */
+.search-box--small {
+  --search-box-padding: 0.5rem;
+  --search-box-gap: 0.375rem;
+  --search-box-border-radius: 6px;
+}
+
+.search-box--small .search-box__search-icon {
+  font-size: 0.875rem;
+}
+
+.search-box--small .search-box__clear-button ::ng-deep .p-button {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+}
+
+.search-box--small .search-box__search-button ::ng-deep .p-button {
+  padding: 0.375rem !important;
+}
+
+.search-box--large {
+  --search-box-padding: 1rem;
+  --search-box-gap: 0.75rem;
+  --search-box-border-radius: 10px;
+}
+
+.search-box--large .search-box__search-icon {
+  font-size: 1.125rem;
+}
+
+.search-box--large .search-box__clear-button ::ng-deep .p-button {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+}
+
+.search-box--large .search-box__search-button ::ng-deep .p-button {
+  padding: 0.625rem !important;
+}
+
+/* Variant Styles */
+.search-box--compact .search-box__input-container {
+  padding: 0.25rem 0.5rem;
+}
+
+.search-box--compact .search-box__search-icon {
+  padding-left: 0.5rem;
+}
+
+/* Loading State */
+.search-box--loading .search-box__input-container {
+  pointer-events: none;
+}
+
+.search-box--loading .search-box__clear-button,
+.search-box--loading .search-box__search-button {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Has Value State */
+.search-box--has-value .search-box__search-icon {
+  color: var(--p-primary-500);
+}
+
+/* Screen Reader Only */
+.search-box__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Dark Mode Specific Adjustments */
+:host-context(.dark-mode) .search-box--focused .search-box__input-container {
+  box-shadow: 0 0 0 2px var(--p-primary-800);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-box--large {
+    --search-box-padding: 0.75rem;
+  }
+  
+  .search-box__search-button {
+    margin-right: 0.125rem;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .search-box__input-container {
+    border-width: 2px;
+  }
+  
+  .search-box--focused .search-box__input-container {
+    box-shadow: 0 0 0 3px var(--p-primary-100);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .search-box__input-container,
+  .search-box__search-icon,
+  .search-box__clear-button ::ng-deep .p-button {
+    transition: none;
+  }
+}

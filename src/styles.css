@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Tailwind CSS v4 with PrimeUI integration */
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+/* PrimeIcons for icon support */
+@import 'primeicons/primeicons.css';
+
+/* Dark Mode Variant Definition */
+@custom-variant dark (&:where(.p-dark, .p-dark *));
+
+/* 
+ * Atomic Design System - Global Styles
+ * Enhanced for proper light/dark mode functionality
+ */
+
+/* 
+ * Global Dark Mode Setup
+ * Ensures smooth transitions and proper component theming
+ */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Mode (default) */
+html {
+  background-color: var(--p-surface-0);
+  color: var(--p-text-color);
+}
+
+/* Dark Mode */
+html.p-dark {
+  background-color: var(--p-surface-0);
+  color: var(--p-text-color);
+}
+
+/* 
+ * Body styling for consistent background
+ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--p-font-family);
+  background-color: inherit;
+  color: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 
+ * PrimeNG Button Icon Spacing Fixes
+ * Ensure proper spacing between icons and text in all themes
+ */
+.p-button .p-button-icon {
+  margin-right: 0.5rem;
+}
+
+.p-button .p-button-icon:last-child {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+/* Ensure minimum width for buttons with icons */
+.p-button:has(.p-button-icon) {
+  min-width: max-content;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Fix for very narrow buttons */
+.p-button {
+  white-space: nowrap;
+  min-width: auto;
+}
+
+/* 
+ * Enhanced Component Transitions for Dark Mode
+ * Smooth transitions for all interactive elements
+ */
+.p-button,
+.p-inputtext,
+.p-card,
+.p-panel,
+.p-toolbar,
+.p-menubar {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 
+ * Custom Design System Variables (Legacy compatibility)
+ * These variables work in both light and dark modes
+ */
+:root {
+  --success: var(--p-green-500);
+  --danger: var(--p-red-500);
+  --warning: var(--p-orange-500);
+  --info: var(--p-blue-500);
+}
+
+/* 
+ * Container and layout improvements for dark mode
+ */
+.design-system-container {
+  background-color: var(--p-surface-0);
+  color: var(--p-text-color);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 
+ * Ensure proper text contrast in both modes
+ */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--p-text-color);
+}
+
+p, span, div {
+  color: inherit;
+}
+
+/* 
+ * Atom Styles for global overlays (Tooltip)
+ */
+@import "./app/components/atoms/tooltip/tooltip.css";
+

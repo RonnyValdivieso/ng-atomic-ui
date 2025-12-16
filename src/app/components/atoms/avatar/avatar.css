@@ -1,0 +1,330 @@
+/* ============================================
+   AVATAR COMPONENT STYLES
+   ============================================ */
+
+/* Avatar Wrapper - allows status indicator to overflow */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Base Avatar Styles */
+.avatar {
+  --avatar-bg: var(--p-surface-200);
+  --avatar-color: var(--p-text-color);
+  --avatar-border: var(--p-surface-border);
+  
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--avatar-bg);
+  color: var(--avatar-color);
+  border: 1px solid var(--avatar-border);
+  font-weight: 600;
+  -webkit-user-select: none;
+  user-select: none;
+  flex-shrink: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Avatar Variants */
+.avatar--circular {
+  border-radius: 50%;
+}
+
+.avatar--rounded {
+  border-radius: var(--p-border-radius-md);
+}
+
+.avatar--square {
+  border-radius: var(--p-border-radius-sm);
+}
+
+/* Avatar Sizes */
+.avatar--xs {
+  width: 1.5rem;  /* 24px */
+  height: 1.5rem;
+  font-size: 0.625rem; /* 10px */
+}
+
+.avatar--sm {
+  width: 2rem;    /* 32px */
+  height: 2rem;
+  font-size: 0.75rem; /* 12px */
+}
+
+.avatar--md {
+  width: 2.5rem;  /* 40px */
+  height: 2.5rem;
+  font-size: 0.875rem; /* 14px */
+}
+
+.avatar--lg {
+  width: 3rem;    /* 48px */
+  height: 3rem;
+  font-size: 1rem; /* 16px */
+}
+
+.avatar--xl {
+  width: 4rem;    /* 64px */
+  height: 4rem;
+  font-size: 1.25rem; /* 20px */
+}
+
+.avatar--2xl {
+  width: 5rem;    /* 80px */
+  height: 5rem;
+  font-size: 1.5rem; /* 24px */
+}
+
+/* Status Indicator Sizes per Avatar Size - positioned to overflow properly */
+.avatar-wrapper:has(.avatar--xs) .avatar__status {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  min-height: 8px;
+  border-width: 1px;
+  bottom: -2px;
+  right: -2px;
+}
+
+.avatar-wrapper:has(.avatar--sm) .avatar__status {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  min-height: 10px;
+  border-width: 1px;
+  bottom: -2px;
+  right: -2px;
+}
+
+.avatar-wrapper:has(.avatar--md) .avatar__status {
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  border-width: 2px;
+  bottom: -3px;
+  right: -3px;
+}
+
+.avatar-wrapper:has(.avatar--lg) .avatar__status {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+  border-width: 2px;
+  bottom: -3px;
+  right: -3px;
+}
+
+.avatar-wrapper:has(.avatar--xl) .avatar__status {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  border-width: 2px;
+  bottom: -4px;
+  right: -4px;
+}
+
+.avatar-wrapper:has(.avatar--2xl) .avatar__status {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  border-width: 3px;
+  bottom: -4px;
+  right: -4px;
+}
+
+/* Avatar States */
+.avatar--clickable {
+  cursor: pointer;
+}
+
+.avatar--clickable:hover {
+  transform: scale(1.05);
+  box-shadow: var(--p-shadow-md);
+}
+
+.avatar--clickable:focus {
+  outline: 2px solid var(--p-primary-500);
+  outline-offset: 2px;
+}
+
+.avatar--clickable:active {
+  transform: scale(0.98);
+}
+
+.avatar--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.avatar--loading {
+  background-color: var(--p-surface-100);
+}
+
+/* Avatar Content */
+.avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.avatar__initials,
+.avatar__placeholder,
+.avatar__loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar__text {
+  font-weight: 600;
+  line-height: 1;
+  color: inherit;
+}
+
+.avatar__placeholder {
+  background-color: var(--p-surface-100);
+  color: var(--p-text-muted-color);
+}
+
+.avatar__loading {
+  background-color: var(--p-surface-50);
+}
+
+/* Status Indicator */
+
+.avatar__status {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 30%;
+  height: 30%;
+  min-width: 12px;
+  min-height: 12px;
+  max-width: 24px;
+  max-height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--p-surface-0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.avatar__status-dot {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Status Colors */
+.avatar__status--online .avatar__status-dot {
+  background-color: #10b981; /* green-500 */
+}
+
+.avatar__status--offline .avatar__status-dot {
+  background-color: #6b7280; /* gray-500 */
+}
+
+.avatar__status--away .avatar__status-dot {
+  background-color: #f59e0b; /* amber-500 */
+}
+
+.avatar__status--busy .avatar__status-dot {
+  background-color: #ef4444; /* red-500 */
+}
+
+/* Avatar Content Type Styles */
+.avatar--has-image {
+  background-color: var(--p-surface-100);
+}
+
+.avatar--has-initials {
+  background: linear-gradient(135deg, var(--p-primary-100), var(--p-primary-200));
+  color: var(--p-primary-800);
+}
+
+.avatar--placeholder {
+  background-color: var(--p-surface-100);
+  color: var(--p-text-muted-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .avatar--xl {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+  }
+
+  .avatar--2xl {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.25rem;
+  }
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .avatar {
+  --avatar-bg: var(--p-surface-800);
+  --avatar-border: var(--p-surface-700);
+}
+
+[data-theme="dark"] .avatar--has-initials {
+  background: linear-gradient(135deg, var(--p-primary-900), var(--p-primary-800));
+  color: var(--p-primary-100);
+}
+
+[data-theme="dark"] .avatar--placeholder {
+  background-color: var(--p-surface-800);
+}
+
+[data-theme="dark"] .avatar__loading {
+  background-color: var(--p-surface-900);
+}
+
+/* Focus and accessibility improvements */
+.avatar--clickable:focus-visible {
+  outline: 2px solid var(--p-primary-500);
+  outline-offset: 2px;
+}
+
+/* Animation for status changes */
+.avatar__status {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .avatar {
+    border-width: 2px;
+  }
+  
+  .avatar__status {
+    border-width: 3px;
+  }
+}

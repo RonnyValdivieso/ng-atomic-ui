@@ -1,0 +1,29 @@
+<div class="flex flex-col gap-2 w-full">
+  <!-- Label -->
+  @if (label()) {
+    <label class="text-sm font-medium text-color">{{ label() }}</label>
+  }
+
+  <!-- DatePicker -->
+  <p-datepicker
+    [ngModel]="value()"
+    (ngModelChange)="onDateSelect($event)"
+    [dateFormat]="dateFormat()"
+    [showIcon]="showIcon()"
+    [showTime]="showTime()"
+    [minDate]="minDate()"
+    [maxDate]="maxDate()"
+    [selectionMode]="selectionMode()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled() || isDisabled()"
+    (onBlur)="onInputBlur()"
+    [styleClass]="'w-full atomic-datepicker ' + styleClass()"
+    [panelStyleClass]="'atomic-datepicker-panel'"
+    appendTo="body">
+  </p-datepicker>
+
+  <!-- Error Message -->
+  @if (error()) {
+    <small class="text-red-500 text-xs">{{ error() }}</small>
+  }
+</div>

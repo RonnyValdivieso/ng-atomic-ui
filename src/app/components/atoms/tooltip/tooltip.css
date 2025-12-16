@@ -1,0 +1,57 @@
+/* Tooltip Atom Styles */
+
+/* 
+  Targeting the tooltip container. 
+  PrimeNG tooltips are appended to body by default, or container.
+  The class 'atomic-tooltip' allows us to style it globally.
+*/
+::ng-deep .atomic-tooltip {
+	max-width: 250px;
+}
+
+.p-tooltip .p-tooltip-text {
+	background: var(--p-surface-800);
+	color: #fff;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.875rem;
+	border-radius: 6px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+::ng-deep .atomic-tooltip.p-tooltip-top .p-tooltip-arrow {
+	border-top-color: var(--p-surface-800);
+}
+
+::ng-deep .atomic-tooltip.p-tooltip-bottom .p-tooltip-arrow {
+	border-bottom-color: var(--p-surface-800);
+}
+
+::ng-deep .atomic-tooltip.p-tooltip-left .p-tooltip-arrow {
+	border-left-color: var(--p-surface-800);
+}
+
+::ng-deep .atomic-tooltip.p-tooltip-right .p-tooltip-arrow {
+	border-right-color: var(--p-surface-800);
+}
+
+/* Dark Mode Overrides */
+.p-dark .p-tooltip-text {
+	background: var(--p-surface-200);
+	color: var(--p-surface-800);
+}
+
+.p-dark .p-tooltip-arrow {
+	border-top-color: var(--p-surface-200);
+}
+
+.p-dark .p-tooltip-bottom .p-tooltip-arrow {
+	border-bottom-color: var(--p-surface-200);
+}
+
+.p-dark .p-tooltip-left .p-tooltip-arrow {
+	border-left-color: var(--p-surface-200);
+}
+
+.p-dark .p-tooltip-right .p-tooltip-arrow {
+	border-right-color: var(--p-surface-200);
+}

@@ -1,0 +1,1 @@
+export { GuideHeaderComponent } from './guide-header';

@@ -1,0 +1,17 @@
+<p-card 
+  [header]="header()"
+  [subheader]="subheader()"
+  [styleClass]="cardClasses()">
+  
+  <!-- Main Content -->
+  <ng-content></ng-content>
+  
+  <!-- Footer Template -->
+  @if (footer()) {
+    <ng-template pTemplate="footer">
+      <div class="card-atom__footer">
+        {{ footer() }}
+      </div>
+    </ng-template>
+  }
+</p-card>

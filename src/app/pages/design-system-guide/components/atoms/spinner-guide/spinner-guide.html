@@ -1,0 +1,85 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Spinner Atom</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente de carga visual para indicar procesos activos. Utiliza <code>p-progressSpinner</code>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sizes -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200 flex flex-col items-center gap-4">
+        <span class="text-sm font-medium text-muted-color">Small</span>
+        <app-spinner size="small"></app-spinner>
+      </div>
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200 flex flex-col items-center gap-4">
+        <span class="text-sm font-medium text-muted-color">Medium (Default)</span>
+        <app-spinner></app-spinner>
+      </div>
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200 flex flex-col items-center gap-4">
+        <span class="text-sm font-medium text-muted-color">Large</span>
+        <app-spinner size="large"></app-spinner>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customization -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Personalización</h2>
+    <div class="bg-surface-0 rounded-lg p-6 border border-surface-200 flex flex-wrap gap-8 items-center justify-center">
+      
+      <!-- Custom Width -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="text-sm font-medium text-muted-color">Custom Stroke (8px)</span>
+        <app-spinner strokeWidth="8"></app-spinner>
+      </div>
+
+       <!-- Custom Duration -->
+       <div class="flex flex-col items-center gap-2">
+        <span class="text-sm font-medium text-muted-color">Slow Animation (5s)</span>
+        <app-spinner animationDuration="5s"></app-spinner>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Interactive Example -->
+   <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplo Interactivo</h2>
+    <div class="bg-surface-0 rounded-lg p-12 border border-surface-200 flex flex-col items-center justify-center gap-6 min-h-[200px]">
+      
+      @if (isLoading()) {
+        <app-spinner size="medium"></app-spinner>
+        <span class="text-muted-color animate-pulse">Cargando datos...</span>
+      } @else {
+        <div class="text-center">
+          <p class="mb-4 text-muted-color">El contenido está listo.</p>
+          <app-button label="Simular Carga" (clicked)="toggleLoading()"></app-button>
+        </div>
+      }
+
+    </div>
+  </section>
+
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Default --&gt;
+&lt;app-spinner&gt;&lt;/app-spinner&gt;
+
+&lt;!-- Small Size --&gt;
+&lt;app-spinner size="small"&gt;&lt;/app-spinner&gt;
+
+&lt;!-- Custom Options --&gt;
+&lt;app-spinner 
+  strokeWidth="8" 
+  animationDuration="5s"&gt;
+&lt;/app-spinner&gt;</code></pre>
+  </section>
+</div>

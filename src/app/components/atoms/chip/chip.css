@@ -1,0 +1,46 @@
+/* Chip Atom Styles */
+:host {
+	display: inline-block;
+}
+
+/* Customizing PrimeNG Chip */
+::ng-deep .atomic-chip {
+	background: var(--p-surface-200);
+	color: var(--p-surface-700);
+	padding: 7px 10.5px;
+	font-size: 14px;
+}
+
+::ng-deep .atomic-chip .p-chip-label {
+	line-height: normal;
+}
+
+::ng-deep .atomic-chip .p-chip-icon {
+	color: var(--p-surface-600);
+}
+
+::ng-deep .atomic-chip .p-chip-remove-icon {
+	color: var(--p-surface-500);
+}
+
+::ng-deep .atomic-chip .p-chip-remove-icon:hover {
+	color: var(--p-surface-800);
+}
+
+/* Dark Mode Overrides */
+::ng-deep .p-dark .atomic-chip {
+	background: var(--p-surface-100);
+	color: var(--p-surface-800);
+}
+
+::ng-deep .p-dark .atomic-chip .p-chip-icon {
+	color: var(--p-surface-800);
+}
+
+::ng-deep .p-dark .atomic-chip .p-chip-remove-icon {
+	color: var(--p-surface-800);
+}
+
+::ng-deep .p-dark .atomic-chip .p-chip-remove-icon:hover {
+	color: var(--p-surface-600);
+}

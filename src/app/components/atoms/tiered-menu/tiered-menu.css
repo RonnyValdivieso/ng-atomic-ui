@@ -1,0 +1,22 @@
+/* TieredMenu Atom Base Styles */
+.tiered-menu-atom {
+  display: inline-block;
+}
+
+::ng-deep .p-tieredmenu {
+  background-color: var(--p-surface-0) !important;
+  border: 1px solid var(--p-surface-200) !important;
+}
+
+::ng-deep .p-tieredmenu .p-tieredmenu-submenu {
+  background-color: var(--p-surface-0) !important;
+  border: 1px solid var(--p-surface-200) !important;
+}
+
+::ng-deep .p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover {
+  background-color: var(--p-surface-100) !important;
+}
+
+::ng-deep .p-tieredmenu-item-active > .p-tieredmenu-item-content {
+  background-color: var(--p-surface-100) !important;
+}

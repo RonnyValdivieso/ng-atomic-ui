@@ -1,0 +1,151 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">Dropdown Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente de selección que permite elegir una opción de una lista. Soporta filtrado, limpieza y validación de formularios.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <i class="pi pi-list text-lg text-primary"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Selección</h3>
+        <p class="text-sm text-muted-color">Selección simple de opciones.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-filter text-lg text-cyan-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Filtrado</h3>
+        <p class="text-sm text-muted-color">Búsqueda integrada para listas largas.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-check-circle text-lg text-green-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Formularios</h3>
+        <p class="text-sm text-muted-color">Integración nativa con Reactive Forms.</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <i class="pi pi-palette text-lg text-purple-600"></i>
+        </div>
+        <h3 class="text-lg font-semibold">Theming</h3>
+        <p class="text-sm text-muted-color">Diseño consistente y modo oscuro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Uso</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Basic -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Básico</h3>
+        <app-dropdown
+          [options]="cities()"
+          optionLabel="name"
+          optionValue="code"
+          placeholder="Select a City"
+          [(ngModel)]="selectedCity"
+          label="City">
+        </app-dropdown>
+        <div class="mt-4 text-sm text-muted-color">
+          Selected: {{ selectedCity() || 'None' }}
+        </div>
+      </div>
+
+      <!-- Filter & Clear -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Filtrado y Limpieza</h3>
+        <app-dropdown
+          [options]="cities()"
+          optionLabel="name"
+          optionValue="code"
+          placeholder="Select a City"
+          [filter]="true"
+          [showClear]="true"
+          [(ngModel)]="selectedFilteredCity"
+          label="Filterable City">
+        </app-dropdown>
+      </div>
+
+      <!-- Reactive Forms -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Reactive Forms</h3>
+        <div class="flex flex-col gap-4">
+          <app-dropdown
+            [options]="cities()"
+            optionLabel="name"
+            optionValue="code"
+            placeholder="Select a City"
+            [formControl]="cityControl"
+            label="Required City"
+            [error]="cityControl.invalid && cityControl.touched ? 'City is required' : ''">
+          </app-dropdown>
+          <p-button label="Submit" (click)="submitForm()" [disabled]="cityControl.invalid"></p-button>
+        </div>
+      </div>
+
+      <!-- Loading & Disabled -->
+      <div class="bg-surface-0 rounded-lg p-6 border border-surface-200">
+        <h3 class="text-lg font-semibold mb-4">Estados</h3>
+        <div class="flex flex-col gap-4">
+          <app-dropdown
+            [options]="cities()"
+            optionLabel="name"
+            placeholder="Loading..."
+            [loading]="loading()"
+            label="Loading State">
+          </app-dropdown>
+          
+          <app-dropdown
+            [options]="cities()"
+            optionLabel="name"
+            placeholder="Disabled"
+            [disabled]="true"
+            label="Disabled State">
+          </app-dropdown>
+
+          <p-button label="Toggle Loading" severity="secondary" (click)="toggleLoading()"></p-button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Básico con ngModel --&gt;
+&lt;app-dropdown
+  [options]="cities"
+  optionLabel="name"
+  optionValue="code"
+  [(ngModel)]="selectedCity"
+  label="City"&gt;
+&lt;/app-dropdown&gt;
+
+&lt;!-- Reactive Forms con Error --&gt;
+&lt;app-dropdown
+  [options]="cities"
+  optionLabel="name"
+  [formControl]="cityControl"
+  label="City"
+  [error]="cityControl.invalid ? 'Required' : ''"&gt;
+&lt;/app-dropdown&gt;</code></pre>
+  </section>
+</div>

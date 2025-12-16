@@ -1,0 +1,31 @@
+<div [class]="fieldClasses()">
+  @if (label()) {
+    <app-label 
+      [text]="label()"
+      [for]="inputId()"
+      [size]="size() === 'small' ? 'small' : size() === 'large' ? 'large' : 'medium'"
+      [required]="required()"
+      [disabled]="disabled">
+    </app-label>
+  }
+  
+  <app-input
+    #inputRef
+    [type]="type()"
+    [size]="size()"
+    [placeholder]="placeholder() || label() || 'Enter a value'"
+    [required]="required()"
+    [readonly]="false"
+    [attr.id]="inputId()"
+    [attr.aria-describedby]="hasError() ? inputId() + '-error' : null"
+    [attr.aria-invalid]="hasError() ? 'true' : 'false'"
+    [class.form-field__input--error]="hasError()"
+    (blur)="onInputBlur()">
+  </app-input>
+  
+  @if (hasError()) {
+    <div [id]="inputId() + '-error'" class="form-field__error" role="alert">
+      {{ errorMessage() }}
+    </div>
+  }
+</div>

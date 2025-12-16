@@ -1,0 +1,28 @@
+<div class="flex flex-col gap-6">
+	<div class="card">
+		<h3 class="text-xl font-semibold mb-4">Basic Table</h3>
+		<p class="text-muted-color mb-4">
+			Standard table with sorting, pagination, and custom templates.
+		</p>
+
+		<app-table
+			[data]="users()"
+			[columns]="columns()"
+			[loading]="loading()"
+			[rows]="defaultRowsPerPage()"
+			[rowsPerPageOptions]="rowsPerPageOptions()"
+			(onPage)="handlePage($event)"
+			(onSort)="handleSort($event)"
+			(onRowSelect)="handleRowClick($event)">
+			
+			<!-- Custom Status Template -->
+			<ng-template pTemplate="status" let-row>
+				<span class="px-2 py-1 rounded-full text-xs font-medium" 
+							[class]="getStatusSeverity(row.status)">
+					{{ row.status }}
+				</span>
+			</ng-template>
+
+		</app-table>
+	</div>
+</div>

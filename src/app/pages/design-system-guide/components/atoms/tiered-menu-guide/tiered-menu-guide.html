@@ -1,0 +1,637 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-5xl font-bold text-balance">TieredMenu Component</h1>
+      <p class="text-xl text-muted-color text-pretty">
+        Componente de menú desplegable multinivel para navegación jerárquica y organización de acciones. 
+        Soporta menús anidados, iconos, separadores y múltiples configuraciones.
+      </p>
+    </div>
+  </section>
+
+  <!-- API Overview -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Multinivel</h3>
+        <p class="text-sm text-muted-color">Soporte para menús anidados</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">3 Tamaños</h3>
+        <p class="text-sm text-muted-color">small, medium, large</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">2 Variantes</h3>
+        <p class="text-sm text-muted-color">default, outlined</p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold">Modos</h3>
+        <p class="text-sm text-muted-color">Popup y estático</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ejemplos de Implementación -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Implementación</h2>
+    
+    <!-- Básico -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Básico (Menú Popup)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-4">
+            <app-button 
+              icon="pi pi-bars"
+              (clicked)="menu1.toggle($event)">
+              Menú de Aplicación
+            </app-button>
+            <app-tiered-menu 
+              #menu1
+              [model]="basicItems()"
+              [popup]="true">
+            </app-tiered-menu>
+          </div>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-button (clicked)="menu.toggle($event)"&gt;
+  Menú de Aplicación
+&lt;/app-button&gt;
+&lt;app-tiered-menu 
+  #menu
+  [model]="items"
+  [popup]="true"&gt;
+&lt;/app-tiered-menu&gt;
+          </code>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-4">
+            <app-button 
+              variant="secondary"
+              icon="pi pi-user"
+              (clicked)="menu2.toggle($event)">
+              Usuario
+            </app-button>
+            <app-tiered-menu 
+              #menu2
+              [model]="userMenuItems()"
+              [popup]="true">
+            </app-tiered-menu>
+          </div>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-button 
+  variant="secondary"
+  (clicked)="menu.toggle($event)"&gt;
+  Usuario
+&lt;/app-button&gt;
+&lt;app-tiered-menu 
+  #menu
+  [model]="userMenuItems"
+  [popup]="true"&gt;
+&lt;/app-tiered-menu&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avanzado -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Avanzado (Menú Multinivel)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-4">
+            <app-button 
+              icon="pi pi-ellipsis-v"
+              (clicked)="menu3.toggle($event)">
+              Opciones Avanzadas
+            </app-button>
+            <app-tiered-menu 
+              #menu3
+              [model]="advancedItems()"
+              [popup]="true"
+              size="medium">
+            </app-tiered-menu>
+          </div>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-tiered-menu 
+  [model]="advancedItems"
+  [popup]="true"
+  size="medium"&gt;
+&lt;/app-tiered-menu&gt;
+          </code>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-4">
+            <app-button 
+              variant="success"
+              icon="pi pi-cog"
+              (clicked)="menu4.toggle($event)">
+              Configuración
+            </app-button>
+            <app-tiered-menu 
+              #menu4
+              [model]="advancedItems()"
+              [popup]="true"
+              variant="outlined">
+            </app-tiered-menu>
+          </div>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-tiered-menu 
+  [model]="items"
+  [popup]="true"
+  variant="outlined"&gt;
+&lt;/app-tiered-menu&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estático -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-xl font-semibold">Modo Estático</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-3">
+          <app-tiered-menu 
+            [model]="basicItems()"
+            [popup]="false">
+          </app-tiered-menu>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-tiered-menu 
+  [model]="items"
+  [popup]="false"&gt;
+&lt;/app-tiered-menu&gt;
+          </code>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <app-tiered-menu 
+            [model]="userMenuItems()"
+            [popup]="false"
+            variant="outlined">
+          </app-tiered-menu>
+          <code class="text-xs bg-surface-100 px-3 py-2 rounded overflow-x-auto">
+&lt;app-tiered-menu 
+  [model]="items"
+  [popup]="false"
+  variant="outlined"&gt;
+&lt;/app-tiered-menu&gt;
+          </code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sizes Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Small -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-lg font-semibold">Small</h3>
+        <div class="flex items-center gap-4">
+          <app-button 
+            size="small"
+            (clicked)="menuSmall.toggle($event)">
+            Menú Small
+          </app-button>
+          <app-tiered-menu 
+            #menuSmall
+            [model]="basicItems()"
+            [popup]="true"
+            size="small">
+          </app-tiered-menu>
+        </div>
+        <code class="text-xs bg-surface-100 px-3 py-2 rounded">size="small"</code>
+      </div>
+
+      <!-- Medium -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-lg font-semibold">Medium (default)</h3>
+        <div class="flex items-center gap-4">
+          <app-button 
+            (clicked)="menuMedium.toggle($event)">
+            Menú Medium
+          </app-button>
+          <app-tiered-menu 
+            #menuMedium
+            [model]="basicItems()"
+            [popup]="true"
+            size="medium">
+          </app-tiered-menu>
+        </div>
+        <code class="text-xs bg-surface-100 px-3 py-2 rounded">size="medium"</code>
+      </div>
+
+      <!-- Large -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-lg font-semibold">Large</h3>
+        <div class="flex items-center gap-4">
+          <app-button 
+            size="large"
+            (clicked)="menuLarge.toggle($event)">
+            Menú Large
+          </app-button>
+          <app-tiered-menu 
+            #menuLarge
+            [model]="basicItems()"
+            [popup]="true"
+            size="large">
+          </app-tiered-menu>
+        </div>
+        <code class="text-xs bg-surface-100 px-3 py-2 rounded">size="large"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variants Demo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Variantes</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Default -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-lg font-semibold">Default</h3>
+        <app-tiered-menu 
+          [model]="basicItems()"
+          [popup]="false"
+          variant="default">
+        </app-tiered-menu>
+        <code class="text-xs bg-surface-100 px-3 py-2 rounded">variant="default"</code>
+      </div>
+
+      <!-- Outlined -->
+      <div class="flex flex-col gap-3">
+        <h3 class="text-lg font-semibold">Outlined</h3>
+        <app-tiered-menu 
+          [model]="basicItems()"
+          [popup]="false"
+          variant="outlined">
+        </app-tiered-menu>
+        <code class="text-xs bg-surface-100 px-3 py-2 rounded">variant="outlined"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Casos de Uso</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-3 border border-surface-200">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Menús de Aplicación
+        </h3>
+        <p class="text-sm text-muted-color">
+          Ideal para menús principales como File, Edit, View típicos de aplicaciones de escritorio.
+        </p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-3 border border-surface-200">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Menús de Usuario
+        </h3>
+        <p class="text-sm text-muted-color">
+          Perfecto para opciones de perfil, configuración y preferencias del usuario.
+        </p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-3 border border-surface-200">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+          </svg>
+          Navegación Jerárquica
+        </h3>
+        <p class="text-sm text-muted-color">
+          Excelente para estructuras de navegación con múltiples niveles de categorías.
+        </p>
+      </div>
+
+      <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-3 border border-surface-200">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          </svg>
+          Menús Contextuales
+        </h3>
+        <p class="text-sm text-muted-color">
+          Útil para acciones específicas del contexto con opciones organizadas por categorías.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Practices -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Mejores Prácticas</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Do -->
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold text-green-600 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Hacer
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li class="flex gap-2">
+            <span class="text-green-600">✓</span>
+            <span>Agrupa acciones relacionadas lógicamente</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">✓</span>
+            <span>Usa separadores para dividir grupos distintos</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">✓</span>
+            <span>Incluye iconos para facilitar el reconocimiento</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">✓</span>
+            <span>Limita la profundidad a 3 niveles máximo</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">✓</span>
+            <span>Usa labels descriptivos y concisos</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-green-600">✓</span>
+            <span>Implementa callbacks para acciones</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Don't -->
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold text-red-600 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Evitar
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li class="flex gap-2">
+            <span class="text-red-600">✗</span>
+            <span>Menús con más de 4 niveles de anidamiento</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">✗</span>
+            <span>Demasiados elementos en un solo nivel</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">✗</span>
+            <span>Labels ambiguos o muy largos</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">✗</span>
+            <span>Mezclar acciones sin organización lógica</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">✗</span>
+            <span>Omitir separadores entre grupos diferentes</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="text-red-600">✗</span>
+            <span>Usar para listas largas de datos (usar dropdown)</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Examples -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    
+    <div class="flex flex-col gap-4">
+      <h3 class="text-lg font-semibold">TypeScript - Definición de Items</h3>
+      <pre class="bg-surface-900 text-surface-50 p-4 rounded-lg overflow-x-auto text-sm"><code>import &#123; MenuItem &#125; from 'primeng/api';
+
+items: MenuItem[] = [
+  &#123;
+    label: 'Archivo',
+    icon: 'pi pi-file',
+    items: [
+      &#123;
+        label: 'Nuevo',
+        icon: 'pi pi-plus',
+        items: [
+          &#123; label: 'Documento', icon: 'pi pi-file' &#125;,
+          &#123; label: 'Hoja de cálculo', icon: 'pi pi-table' &#125;
+        ]
+      &#125;,
+      &#123; label: 'Abrir', icon: 'pi pi-folder-open' &#125;,
+      &#123; separator: true &#125;,
+      &#123; label: 'Guardar', icon: 'pi pi-save', command: () => this.save() &#125;
+    ]
+  &#125;,
+  &#123;
+    label: 'Editar',
+    icon: 'pi pi-pencil',
+    items: [
+      &#123; label: 'Copiar', icon: 'pi pi-copy' &#125;,
+      &#123; label: 'Pegar', icon: 'pi pi-paste' &#125;
+    ]
+  &#125;
+];</code></pre>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <h3 class="text-lg font-semibold">HTML - Implementación</h3>
+      <pre class="bg-surface-900 text-surface-50 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;!-- Modo Popup --&gt;
+&lt;app-button (clicked)="menu.toggle($event)" icon="pi pi-bars"&gt;
+  Menú
+&lt;/app-button&gt;
+&lt;app-tiered-menu 
+  #menu
+  [model]="items"
+  [popup]="true"
+  size="medium"
+  variant="default"
+  (itemClick)="handleMenuClick($event)"&gt;
+&lt;/app-tiered-menu&gt;
+
+&lt;!-- Modo Estático --&gt;
+&lt;app-tiered-menu 
+  [model]="items"
+  [popup]="false"
+  variant="outlined"&gt;
+&lt;/app-tiered-menu&gt;</code></pre>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <h3 class="text-lg font-semibold">TypeScript - Manejo de Eventos</h3>
+      <pre class="bg-surface-900 text-surface-50 p-4 rounded-lg overflow-x-auto text-sm"><code>handleMenuClick(event: &#123; originalEvent: Event; item: MenuItem &#125;) &#123;
+  console.log('Item clicked:', event.item.label);
+  
+  // Ejecutar acción específica
+  if (event.item.command) &#123;
+    event.item.command(event);
+  &#125;
+&#125;</code></pre>
+    </div>
+  </section>
+
+  <!-- API Reference -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Referencia de API</h2>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-100">
+          <tr>
+            <th class="text-left p-3 font-semibold">Prop</th>
+            <th class="text-left p-3 font-semibold">Tipo</th>
+            <th class="text-left p-3 font-semibold">Default</th>
+            <th class="text-left p-3 font-semibold">Descripción</th>
+          </tr>
+        </thead>
+        <tbody class="bg-surface-0 divide-y divide-surface-200">
+          <tr>
+            <td class="p-3 font-mono text-xs">model</td>
+            <td class="p-3 font-mono text-xs">MenuItem[]</td>
+            <td class="p-3 font-mono text-xs">[]</td>
+            <td class="p-3">Array de elementos del menú</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">popup</td>
+            <td class="p-3 font-mono text-xs">boolean</td>
+            <td class="p-3 font-mono text-xs">true</td>
+            <td class="p-3">Si el menú es popup o estático</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">size</td>
+            <td class="p-3 font-mono text-xs">'small' | 'medium' | 'large'</td>
+            <td class="p-3 font-mono text-xs">'medium'</td>
+            <td class="p-3">Tamaño del menú</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">variant</td>
+            <td class="p-3 font-mono text-xs">'default' | 'outlined'</td>
+            <td class="p-3 font-mono text-xs">'default'</td>
+            <td class="p-3">Variante visual</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">disabled</td>
+            <td class="p-3 font-mono text-xs">boolean</td>
+            <td class="p-3 font-mono text-xs">false</td>
+            <td class="p-3">Deshabilita el menú</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">appendTo</td>
+            <td class="p-3 font-mono text-xs">any</td>
+            <td class="p-3 font-mono text-xs">'body'</td>
+            <td class="p-3">Elemento al que se adjunta el popup</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">autoZIndex</td>
+            <td class="p-3 font-mono text-xs">boolean</td>
+            <td class="p-3 font-mono text-xs">true</td>
+            <td class="p-3">Gestión automática del z-index</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">baseZIndex</td>
+            <td class="p-3 font-mono text-xs">number</td>
+            <td class="p-3 font-mono text-xs">0</td>
+            <td class="p-3">Z-index base para el menú</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="text-xl font-semibold mt-4">Eventos</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-100">
+          <tr>
+            <th class="text-left p-3 font-semibold">Evento</th>
+            <th class="text-left p-3 font-semibold">Tipo</th>
+            <th class="text-left p-3 font-semibold">Descripción</th>
+          </tr>
+        </thead>
+        <tbody class="bg-surface-0 divide-y divide-surface-200">
+          <tr>
+            <td class="p-3 font-mono text-xs">itemClick</td>
+            <td class="p-3 font-mono text-xs">&#123; originalEvent: Event; item: MenuItem &#125;</td>
+            <td class="p-3">Se emite al hacer click en un elemento</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">menuShow</td>
+            <td class="p-3 font-mono text-xs">void</td>
+            <td class="p-3">Se emite cuando el menú se muestra</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">menuHide</td>
+            <td class="p-3 font-mono text-xs">void</td>
+            <td class="p-3">Se emite cuando el menú se oculta</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="text-xl font-semibold mt-4">Métodos Públicos</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-100">
+          <tr>
+            <th class="text-left p-3 font-semibold">Método</th>
+            <th class="text-left p-3 font-semibold">Parámetros</th>
+            <th class="text-left p-3 font-semibold">Descripción</th>
+          </tr>
+        </thead>
+        <tbody class="bg-surface-0 divide-y divide-surface-200">
+          <tr>
+            <td class="p-3 font-mono text-xs">toggle(event)</td>
+            <td class="p-3 font-mono text-xs">event: Event</td>
+            <td class="p-3">Alterna la visibilidad del menú (solo popup)</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">show(event)</td>
+            <td class="p-3 font-mono text-xs">event: Event</td>
+            <td class="p-3">Muestra el menú (solo popup)</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-mono text-xs">hide()</td>
+            <td class="p-3 font-mono text-xs">-</td>
+            <td class="p-3">Oculta el menú (solo popup)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

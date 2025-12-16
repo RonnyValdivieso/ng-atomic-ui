@@ -1,0 +1,391 @@
+<div class="flex flex-col gap-8">
+  <!-- Hero Section -->
+  <section class="flex flex-col gap-4">
+    <div class="flex items-center gap-4">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-5xl font-bold text-balance">Form Field</h1>
+        <p class="text-xl text-muted-color">
+          Molécula que combina Label e Input para crear campos de formulario completos con validación, accesibilidad e integración con formularios reactivos
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características Principales -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Características Principales</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-lg shrink-0">
+          <i class="pi pi-box text-xl text-primary"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Diseño Atómico</h3>
+          <p class="text-muted-color">Composición siguiendo principios de Atomic Design usando átomos Label + Input</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-cyan-500/20 rounded-lg shrink-0">
+          <i class="pi pi-check-circle text-xl text-cyan-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Validación Integrada</h3>
+          <p class="text-muted-color">Sistema de validación completo con mensajes de error y estados visuales automáticos</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-green-500/20 rounded-lg shrink-0">
+          <i class="pi pi-code text-xl text-green-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Reactive Forms</h3>
+          <p class="text-muted-color">Integración completa con Angular Reactive Forms usando ControlValueAccessor</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex items-center justify-center w-12 h-12 bg-purple-500/20 rounded-lg shrink-0">
+          <i class="pi pi-eye text-xl text-purple-600"></i>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-semibold">Accesibilidad Completa</h3>
+          <p class="text-muted-color">ARIA attributes, asociación label-input automática y soporte completo de teclado</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tamaños -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tamaños</h2>
+    <p class="text-muted-color">Tres variantes de tamaño para adaptarse a diferentes contextos y jerarquías visuales.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Campo Pequeño"
+          type="text"
+          size="small"
+          placeholder="Tamaño pequeño">
+        </app-form-field>
+        <div class="flex flex-col gap-1">
+          <span class="font-semibold">Small</span>
+          <span class="text-sm text-muted-color">Uso compacto</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Campo Mediano"
+          type="text"
+          size="medium"
+          placeholder="Tamaño mediano (default)">
+        </app-form-field>
+        <div class="flex flex-col gap-1">
+          <span class="font-semibold">Medium</span>
+          <span class="text-sm text-muted-color">Por defecto</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Campo Grande"
+          type="text"
+          size="large"
+          placeholder="Tamaño grande">
+        </app-form-field>
+        <div class="flex flex-col gap-1">
+          <span class="font-semibold">Large</span>
+          <span class="text-sm text-muted-color">Alto énfasis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tipos de Input -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Tipos de Input</h2>
+    <p class="text-muted-color">Múltiples tipos de input semánticos para diferentes tipos de datos y validación automática.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de Texto"
+          type="text"
+          placeholder="Ingresa texto">
+        </app-form-field>
+      </div>
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de Email"
+          type="email"
+          placeholder="usuario@ejemplo.com">
+        </app-form-field>
+      </div>
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de Contraseña"
+          type="password"
+          placeholder="Ingresa contraseña">
+        </app-form-field>
+      </div>
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de Número"
+          type="number"
+          placeholder="Ingresa número">
+        </app-form-field>
+      </div>
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de Teléfono"
+          type="tel"
+          placeholder="+1 (555) 123-4567">
+        </app-form-field>
+      </div>
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de URL"
+          type="url"
+          placeholder="https://ejemplo.com">
+        </app-form-field>
+      </div>
+      <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+        <app-form-field 
+          label="Input de Búsqueda"
+          type="search"
+          placeholder="Buscar...">
+        </app-form-field>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estados de Validación -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Estados de Validación</h2>
+    <p class="text-muted-color">Sistema de validación con estados visuales y mensajes de error automáticos.</p>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Estados de Campo</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @for (validation of validationStates; track validation.label) {
+          <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+            <app-form-field 
+              [label]="validation.label"
+              [type]="validation.type"
+              [placeholder]="validation.placeholder"
+              [errorMessage]="validation.errorMessage">
+            </app-form-field>
+            <span class="px-3 py-1 text-xs font-semibold rounded-full self-start"
+                  [class]="validation.state === 'valid' ? 'bg-green-500/20 text-green-700' : 'bg-red-500/20 text-red-700'">
+              {{ validation.state | titlecase }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold mb-4">Campos Requeridos</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <app-form-field 
+            label="Campo Requerido"
+            type="text"
+            [required]="true"
+            placeholder="Este campo es requerido">
+          </app-form-field>
+          <small class="text-sm text-muted-color">Observa el asterisco (*) que indica requerido</small>
+        </div>
+        <div class="flex flex-col gap-4 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <app-form-field 
+            label="Campo Opcional"
+            type="text"
+            [required]="false"
+            placeholder="Este campo es opcional">
+          </app-form-field>
+          <small class="text-sm text-muted-color">Sin asterisco para campos opcionales</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ejemplo de Formulario Completo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplo de Formulario Completo</h2>
+    <p class="text-muted-color">Formulario de registro de usuario mostrando la integración completa de múltiples campos.</p>
+    
+    <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+      <form class="flex flex-col gap-6" (ngSubmit)="handleFieldInteraction('registration-form')">
+        @for (example of formExamples; track example.label) {
+          <app-form-field 
+            [label]="example.label"
+            [type]="example.type"
+            [placeholder]="example.placeholder"
+            [required]="example.required"
+            [size]="example.size"
+            [errorMessage]="example.errorMessage">
+          </app-form-field>
+        }
+        
+        <div class="flex gap-4 pt-4">
+          <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+            Crear Cuenta
+          </button>
+          <button type="reset" class="px-6 py-2 bg-surface-200 text-surface-900 rounded-lg hover:bg-surface-300 transition-colors">
+            Reiniciar Formulario
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Accesibilidad -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Accesibilidad</h2>
+    <p class="text-muted-color">Características de accesibilidad integradas para garantizar una experiencia inclusiva.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (feature of accessibilityFeatures; track feature.feature) {
+        <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">{{ feature.feature }}</h3>
+            <span class="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-700 rounded-full">
+              {{ feature.status }}
+            </span>
+          </div>
+          <p class="text-sm text-muted-color">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Soporte de Integración -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Soporte de Integración</h2>
+    <p class="text-muted-color">Compatibilidad completa con los sistemas de formularios de Angular y principios de diseño atómico.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (integration of integrationData; track integration.feature) {
+        <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">{{ integration.feature }}</h3>
+            <span class="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-700 rounded-full">
+              {{ integration.status }}
+            </span>
+          </div>
+          <p class="text-sm text-muted-color">{{ integration.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Mejores Prácticas -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Mejores Prácticas</h2>
+    <p class="text-muted-color">Recomendaciones para el uso efectivo de form fields en tu aplicación.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (practice of bestPracticesItems; track practice.title) {
+        <div class="flex flex-col gap-3 p-6 bg-surface-0 rounded-lg border border-surface-200">
+          <h3 class="text-lg font-semibold">{{ practice.title }}</h3>
+          <p class="text-sm text-muted-color">{{ practice.description }}</p>
+          @if (practice.example) {
+            <pre class="mt-2 p-3 bg-surface-900 text-surface-50 rounded-lg text-xs overflow-x-auto">{{ practice.example }}</pre>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Referencia API -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Referencia API</h2>
+    
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Propiedades</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-surface-200">
+              <th class="text-left p-3 font-semibold">Propiedad</th>
+              <th class="text-left p-3 font-semibold">Tipo</th>
+              <th class="text-left p-3 font-semibold">Por Defecto</th>
+              <th class="text-left p-3 font-semibold">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (prop of propsData; track prop.prop) {
+              <tr class="border-b border-surface-200">
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ prop.prop }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ prop.type }}</code></td>
+                <td class="p-3"><code class="px-2 py-1 bg-surface-900 text-surface-50 rounded text-sm">{{ prop.default }}</code></td>
+                <td class="p-3 text-sm text-muted-color">{{ prop.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ejemplos de Código -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
+    
+    <div class="flex flex-col gap-4">
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Uso Básico</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ basicUsageCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Con Validación</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ validationCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Diferentes Tamaños</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ sizesCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Tipos de Input</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ inputTypesCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Integración con Reactive Forms</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ reactiveFormsCode }}</code></pre>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Mejores Prácticas de Accesibilidad</h3>
+        <pre class="p-6 bg-surface-900 text-surface-50 rounded-lg overflow-x-auto"><code>{{ accessibilityCode }}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Playground Interactivo -->
+  <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
+    <h2 class="text-3xl font-semibold">Playground Interactivo</h2>
+    <p class="text-muted-color">Prueba el componente Form Field en tiempo real.</p>
+    
+    <div class="p-6 bg-surface-0 rounded-lg border border-surface-200">
+      <div class="flex flex-col gap-6">
+        <app-form-field 
+          label="Campo de Prueba"
+          type="text"
+          size="medium"
+          placeholder="Escribe aquí para probar..."
+          [required]="true">
+        </app-form-field>
+        
+        <div class="p-4 bg-surface-100 rounded-lg">
+          <p class="font-semibold mb-2">Prueba interactuando con el campo:</p>
+          <ul class="text-sm text-muted-color space-y-1">
+            <li>• Enfoca y desenfoca para ver estados de validación</li>
+            <li>• Deja vacío y desenfoca para ver el error de requerido</li>
+            <li>• Observa la asociación correcta del label</li>
+            <li>• Prueba la navegación con teclado usando Tab</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
