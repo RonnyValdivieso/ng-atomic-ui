@@ -1,82 +1,82 @@
 # 🚀 Atomic Design
 
-> Sistema de administración Angular basado en **Atomic Design** con componentes standalone y arquitectura modular.
+> Angular Admin System based on **Atomic Design** with standalone components and modular architecture.
 
-## 📋 Descripción del Proyecto
+## 📋 Project Description
 
-Atomic Design es una aplicación de administración construida con Angular 18+ que implementa un sistema de diseño escalable basado en la metodología **Atomic Design**. El proyecto está optimizado para el desarrollo colaborativo con convenciones claras y herramientas de desarrollo modernas.
+Atomic Design is an admin application built with Angular 18+ that implements a scalable design system based on the **Atomic Design** methodology. The project is optimized for collaborative development with clear conventions and modern developer tools.
 
-## 🏗️ Arquitectura del Proyecto
+## 🏗️ Project Architecture
 
-### Estructura de Carpetas
+### Folder Structure
 ```
 src/app/
-├── components/              # Sistema de componentes Atomic Design
-│   ├── atoms/              # Componentes básicos (button, input, label)
-│   ├── molecules/          # Combinaciones de atoms (form-field, search-box)
-│   ├── organisms/          # Componentes complejos (header, sidebar)
-│   └── templates/          # Layouts de página
-├── pages/                  # Páginas de la aplicación
-│   ├── design-system-guide/ # Guía interactiva del sistema de diseño
-│   └── dashboard/          # Página principal (ejemplo)
-└── shared/                 # Servicios, interfaces y utilidades
-    ├── services/           # Servicios de Angular
-    ├── interfaces/         # Definiciones TypeScript
-    └── utils/              # Funciones de utilidad
+├── components/              # Atomic Design Component System
+│   ├── atoms/               # Basic components (button, input, label)
+│   ├── molecules/           # Atom combinations (form-field, search-box)
+│   ├── organisms/           # Complex components (header, sidebar)
+│   └── templates/           # Page layouts
+├── pages/                   # Application Pages
+│   ├── design-system-guide/ # Interactive design system guide
+│   └── dashboard/           # Main page (example)
+└── shared/                  # Services, interfaces, and utilities
+    ├── services/            # Angular Services
+    ├── interfaces/          # TypeScript Definitions
+    └── utils/               # Utility functions
 ```
 
-### Metodología Atomic Design
-- **Atoms**: Elementos básicos e indivisibles
-- **Molecules**: Combinaciones simples de atoms
-- **Organisms**: Componentes complejos
-- **Templates**: Layouts sin contenido específico
-- **Pages**: Instancias específicas con contenido real
+### Atomic Design Methodology
+- **Atoms**: Basic and indivisible elements
+- **Molecules**: Simple combinations of atoms
+- **Organisms**: Complex components
+- **Templates**: Layouts without specific content
+- **Pages**: Specific instances with real content
 
-## 🚀 Inicio Rápido
+## 🚀 Quick Start
 
-### Prerrequisitos
-- Node.js 18+ 
+### Prerequisites
+- Node.js 18+
 - npm 9+
 - Angular CLI 18+
 
-### Instalación
+### Installation
 ```bash
-# Clonar el repositorio
+# Clone the repository
 git clone <repository-url>
 cd ng-atomic-ui
 
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Iniciar servidor de desarrollo
+# Start development server
 npm start
 ```
 
-### Acceso a la Aplicación
+### Application Access
 ```bash
-# Servidor de desarrollo
+# Development Server
 http://localhost:4200
 
-# Guía del Sistema de Diseño
+# Design System Guide
 http://localhost:4200/design-system-guide
 ```
 
-## 🎨 Sistema de Diseño
+## 🎨 Design System
 
-### Guía Interactiva
-Visita `/design-system-guide` para explorar:
-- Documentación de Atomic Design
-- Ejemplos de componentes
-- Paleta de colores estándar
-- Guías de uso y mejores prácticas
+### Interactive Guide
+Visit `/design-system-guide` to explore:
+- Atomic Design Documentation
+- Component Examples
+- Standard Color Palette
+- Usage Guides and Best Practices
 
-### Componentes Implementados
-- ✅ **Button** (Atom) - Botón reutilizable con variantes
-- ✅ **FormField** (Molecule) - Campo de formulario completo
-- 🚧 **Header** (Organism) - En desarrollo
-- 🚧 **Sidebar** (Organism) - En desarrollo
+### Implemented Components
+- ✅ **Button** (Atom) - Reusable button with variants
+- ✅ **FormField** (Molecule) - Complete form field
+- 🚧 **Header** (Organism) - In development
+- 🚧 **Sidebar** (Organism) - In development
 
-### Paleta de Colores
+### Color Palette
 ```css
 --primary: #3b82f6    /* Main blue */
 --secondary: #6b7280  /* Secondary gray */
@@ -85,117 +85,118 @@ Visita `/design-system-guide` para explorar:
 --warning: #f59e0b    /* Warning yellow */
 ```
 
-## 🔧 Comandos de Desarrollo
+## 🔧 Development Commands
 
-### Desarrollo
+### Development
 ```bash
-npm start              # Servidor de desarrollo
-npm run build          # Build de producción
-npm run build:dev      # Build de desarrollo
+npm start              # Development server
+npm run build          # Production build
+npm run build:dev      # Development build
 ```
 
 ### Testing
 ```bash
-npm test               # Tests unitarios
-npm run test:watch     # Tests en modo watch
+npm test               # Unit tests
+npm run test:watch     # Tests in watch mode
 npm run test:coverage  # Coverage report
-npm run e2e            # Tests end-to-end
+npm run e2e            # End-to-end tests
 ```
 
-### Calidad de Código
+### Code Quality
 ```bash
 npm run lint           # ESLint
-npm run lint:fix       # Fix automático de ESLint
+npm run lint:fix       # Automatic ESLint fix
 npm run format         # Prettier
 ```
 
-### Generación de Código
+### Code Generation
 ```bash
-# Generar componente atom
-ng generate component components/atoms/mi-atom --standalone
+# Generate atom component
+ng generate component components/atoms/my-atom --standalone
 
-# Generar página
-ng generate component pages/mi-pagina --standalone
+# Generate page
+ng generate component pages/my-page --standalone
 
-# Generar servicio
-ng generate service shared/services/mi-servicio
+# Generate service
+ng generate service shared/services/my-service
 ```
 
-## 📚 Guías de Desarrollo
+## 📚 Development Guides
 
-### Documentación Principal
-- [**Copilot Instructions**](.github/copilot-instructions.md) - Instrucciones completas para desarrollo con IA
-- [**Component Development Guide**](.github/component-development-guide.md) - Guía detallada para crear componentes
-- [**Routing & Navigation Guide**](.github/routing-navigation-guide.md) - Patrones de navegación y rutas
+### Main Documentation
+- [**Copilot Instructions**](.github/copilot-instructions.md) - Complete instructions for AI-assisted development
+- [**Component Development Guide**](.github/component-development-guide.md) - Detailed guide for creating components
+- [**Routing & Navigation Guide**](.github/routing-navigation-guide.md) - Navigation patterns and routing
+- [**Tailwind Integration**](.github/TAILWIND-INTEGRATION.md) - Tailwind CSS setup and usage
 
-### Convenciones
-- **Nomenclatura**: kebab-case para archivos, PascalCase para clases
-- **Componentes**: Siempre standalone con imports explícitos
-- **Estilos**: CSS con variables custom properties
-- **Testing**: Mínimo 80% de cobertura
+### Conventions
+- **Naming**: kebab-case for files, PascalCase for classes
+- **Components**: Always standalone with explicit imports
+- **Styles**: CSS with custom property variables
+- **Testing**: Minimum 80% coverage
 
-### Flujo de Desarrollo
-1. **Planificar**: Determinar nivel Atomic (Atom/Molecule/Organism)
-2. **Crear**: Seguir estructura estándar de componentes
-3. **Implementar**: TypeScript + HTML + CSS + Tests
-4. **Documentar**: JSDoc + README si es necesario
-5. **Exportar**: Actualizar index.ts correspondiente
+### Development Flow
+1. **Plan**: Determine Atomic level (Atom/Molecule/Organism)
+2. **Create**: Follow standard component structure
+3. **Implement**: TypeScript + HTML + CSS + Tests
+4. **Document**: JSDoc + README if necessary
+5. **Export**: Update corresponding index.ts
 
-## 🎯 Objetivos del Proyecto
+## 🎯 Project Goals
 
-### Desarrollo
-- ✅ Estructura Atomic Design implementada
-- ✅ Componentes standalone configurados
-- ✅ Guía interactiva del sistema de diseño
-- ✅ Lazy loading y code splitting
-- 🚧 Testing automatizado completo
+### Development
+- ✅ Atomic Design structure implemented
+- ✅ Standalone components configured
+- ✅ Interactive Design System Guide
+- ✅ Lazy loading and code splitting
+- 🚧 Complete automated testing
 - 🚧 CI/CD pipeline
 - 🚧 Storybook integration
 
-### Diseño
-- ✅ Sistema de colores definido
-- ✅ Variables CSS estandarizadas
-- ✅ Responsive design base
-- 🚧 Tema oscuro/claro
-- 🚧 Animaciones y transiciones
-- 🚧 Iconografía consistente
+### Design
+- ✅ Color system defined
+- ✅ Standardized CSS variables
+- ✅ Base responsive design
+- 🚧 Dark/Light theme
+- 🚧 Animations and transitions
+- 🚧 Consistent iconography
 
-## 🔗 Enlaces Útiles
+## 🔗 Useful Links
 
-### Desarrollo
+### Development
 - [Angular Documentation](https://angular.dev)
 - [Atomic Design Methodology](https://atomicdesign.bradfrost.com)
 - [Angular Coding Style Guide](https://angular.dev/style-guide)
 
-### Herramientas
+### Tools
 - [VS Code Extensions](.vscode/extensions.json)
 - [Angular DevTools](https://angular.dev/tools/devtools)
 - [Angular Language Service](https://angular.dev/tools/language-service)
 
-## 🤝 Contribución
+## 🤝 Contribution
 
-### Proceso
-1. Fork del repositorio
-2. Crear rama feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Seguir guías de desarrollo
-4. Commit con conventional commits
-5. Push y crear Pull Request
+### Process
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/new-feature`)
+3. Follow development guides
+4. Commit with specific conventional commits
+5. Push and create Pull Request
 
-### Estándares
-- Seguir [Conventional Commits](https://www.conventionalcommits.org/)
-- Tests obligatorios para nuevas funcionalidades
-- Review de código requerido
-- Documentación actualizada
+### Standards
+- Follow [Conventional Commits](https://www.conventionalcommits.org/)
+- Mandatory tests for new features
+- Code review required
+- Updated documentation
 
-## 📊 Métricas de Calidad
+## 📊 Quality Metrics
 
-### Criterios de Aceptación
-- [ ] Funciona en Chrome, Firefox, Safari, Edge
-- [ ] Responsive en móvil, tablet, desktop
-- [ ] Accesibilidad WCAG 2.1 AA
-- [ ] Performance > 90 en Lighthouse
-- [ ] Tests con coverage > 80%
-- [ ] ESLint sin errores
+### Acceptance Criteria
+- [ ] Works in Chrome, Firefox, Safari, Edge
+- [ ] Responsive on mobile, tablet, desktop
+- [ ] Accessibility WCAG 2.1 AA
+- [ ] Performance > 90 in Lighthouse
+- [ ] Tests with coverage > 80%
+- [ ] ESLint without errors
 
 ### Monitoring
 - Bundle size tracking
@@ -203,25 +204,12 @@ ng generate service shared/services/mi-servicio
 - Error logging
 - User analytics
 
-## 📝 Changelog
 
-### v0.1.0 (Actual)
-- ✅ Estructura inicial Atomic Design
-- ✅ Componentes Button y FormField
-- ✅ Página guía del sistema de diseño
-- ✅ Configuración de rutas con lazy loading
-- ✅ Documentación completa del proyecto
 
-### Próximas versiones
-- v0.2.0: Componentes Organisms (Header, Sidebar)
-- v0.3.0: Sistema de temas y modo oscuro
-- v0.4.0: Autenticación y autorización
-- v0.5.0: Dashboard funcional completo
+## 📄 License
 
-## 📄 Licencia
-
-Este proyecto está bajo la licencia [MIT](LICENSE).
+This project is licensed under the [MIT](LICENSE) license.
 
 ---
 
-> **Nota**: Para más detalles sobre el desarrollo y mantenimiento del proyecto, consulta las guías en la carpeta `.github/`.
+> **Note**: For more details on project development and maintenance, consult the guides in the `.github/` folder.
