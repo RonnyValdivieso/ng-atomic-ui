@@ -185,7 +185,8 @@
         <app-input 
           placeholder="Input con error"
           error="true"
-          value="Valor inválido">
+          value="Valor inválido"
+					[invalid]="true">
         </app-input>
         <code class="text-xs bg-surface-100 px-2 py-1 rounded">error="true"</code>
       </div>
@@ -194,7 +195,7 @@
         <app-label>Success</app-label>
         <app-input 
           placeholder="Input válido"
-          success="true"
+          [success]="true"
           value="Valor válido">
         </app-input>
         <code class="text-xs bg-surface-100 px-2 py-1 rounded">success="true"</code>
@@ -242,7 +243,7 @@
         <app-input 
           type="text"
           placeholder="Nombre completo"
-          success="true"
+          [success]="true"
           value="Juan Pérez">
         </app-input>
         <p class="text-sm text-green-600">Nombre válido</p>
@@ -308,7 +309,7 @@
               type="tel"
               placeholder="+1 (555) 000-0000"
               value="+1 (555) 123-4567"
-              success="true">
+              [success]="true">
             </app-input>
           </div>
           

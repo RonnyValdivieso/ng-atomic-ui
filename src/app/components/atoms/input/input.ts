@@ -1,9 +1,16 @@
 import { Component, computed, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
 
 export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
 export type InputSize = 'small' | 'medium' | 'large';
+export type InputVariant = 'filled' | 'outlined';
+
+/**
+ * Primeng InputText size type
+ */
+export type InputComponentSize = 'small' | 'large';
 
 /**
  * Reusable input component that implements ControlValueAccessor
@@ -19,7 +26,7 @@ export type InputSize = 'small' | 'medium' | 'large';
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, InputTextModule],
   templateUrl: './input.html',
   styleUrls: ['./input.css'],
   providers: [
@@ -35,8 +42,11 @@ export class InputComponent implements ControlValueAccessor {
   readonly type = input<InputType>('text');
   readonly placeholder = input<string>('');
   readonly size = input<InputSize>('medium');
+  readonly variant = input<InputVariant | undefined>(undefined);
   readonly required = input<boolean>(false);
   readonly readonly = input<boolean>(false);
+  readonly invalid = input<boolean>(false);
+  readonly success = input<boolean>(false);
 
   // ✅ signals for internal state
   private readonly _value = signal<string>('');
@@ -49,16 +59,26 @@ export class InputComponent implements ControlValueAccessor {
   private _onTouched: () => void = () => {};
 
   // ✅ protected computed for template usage
+	protected readonly componentSize = computed<InputComponentSize | null>(() => {
+		switch (this.size()) {
+			case 'small':
+				return 'small';
+			case 'large':
+				return 'large';
+			default:
+				return null;
+		}
+	});
+
   protected readonly inputId = computed(() => 
     `input-${Math.random().toString(36).substring(2, 9)}`
   );
 
   protected readonly inputClasses = computed(() => [
-    'input',
-    `input--${this.size()}`,
     this._focused() ? 'input--focused' : '',
     this._disabled() ? 'input--disabled' : '',
-    this.readonly() ? 'input--readonly' : ''
+    this.readonly() ? 'input--readonly' : '',
+    this.success() ? 'input--success' : ''
   ].filter(Boolean).join(' '));
 
   protected readonly hasValue = computed(() => 

@@ -1,6 +1,11 @@
 <input
+  pInputText
+	[fluid]="true"
   [id]="inputId()"
   [class]="inputClasses()"
+  [attr.pSize]="componentSize()"
+  [attr.variant]="variant() || null"
+  [invalid]="invalid()"
   [type]="type()"
   [value]="value"
   placeholder="{{ placeholder() || 'Enter a value' }}"
@@ -8,7 +13,7 @@
   [required]="required()"
   [readonly]="readonly()"
   [disabled]="disabled"
-  [attr.aria-invalid]="false"
+  [attr.aria-invalid]="invalid()"
   [attr.aria-describedby]="null"
   (input)="handleInputChange($event)"
   (focus)="handleInputFocus()"
