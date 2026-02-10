@@ -14,7 +14,22 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "src",
+    "paths": {
+      "@atoms/*": ["app/components/atoms/*"],
+      "@molecules/*": ["app/components/molecules/*"],
+      "@organisms/*": ["app/components/organisms/*"],
+      "@templates/*": ["app/components/templates/*"],
+      "@pages/*": ["app/pages/*"],
+      "@services/*": ["app/shared/services/*"],
+      "@interfaces/*": ["app/shared/interfaces/*"],
+      "@types/*": ["app/shared/types/*"],
+      "@utils/*": ["app/shared/utils/*"],
+      "@shared/*": ["app/shared/*"],
+      "@guide-components/*": ["app/pages/design-system-guide/components/*"],
+      "@env/*": ["environments/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

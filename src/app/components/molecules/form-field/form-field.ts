@@ -45,6 +45,7 @@ export class FormFieldComponent implements ControlValueAccessor {
   private readonly inputComponent = viewChild<InputComponent>('inputRef');
 
   // ✅ signals for internal state
+  protected readonly value = signal<string>('');
   private readonly _disabled = signal<boolean>(false);
   private readonly _touched = signal<boolean>(false);
 
@@ -76,44 +77,25 @@ export class FormFieldComponent implements ControlValueAccessor {
     this._onTouched();
   }
 
-  // ✅ ControlValueAccessor implementation - delegate to InputComponent
+  protected onValueChange(newValue: string): void {
+    this.value.set(newValue);
+    this._onChange(newValue);
+  }
+
+  // ✅ ControlValueAccessor implementation
   writeValue(value: string): void {
-    const input = this.inputComponent();
-    if (input) {
-      input.writeValue(value || '');
-    }
+    this.value.set(value || '');
   }
 
   registerOnChange(fn: (value: string) => void): void {
     this._onChange = fn;
-    // Register change listener with InputComponent when available
-    setTimeout(() => {
-      const input = this.inputComponent();
-      if (input) {
-        input.registerOnChange(fn);
-      }
-    });
   }
 
   registerOnTouched(fn: () => void): void {
     this._onTouched = fn;
-    // Register touched listener with InputComponent when available
-    setTimeout(() => {
-      const input = this.inputComponent();
-      if (input) {
-        input.registerOnTouched(fn);
-      }
-    });
   }
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled.set(isDisabled);
-    // Propagate to InputComponent when available
-    setTimeout(() => {
-      const input = this.inputComponent();
-      if (input) {
-        input.setDisabledState(isDisabled);
-      }
-    });
   }
 }
