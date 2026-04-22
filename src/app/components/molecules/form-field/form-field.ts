@@ -41,10 +41,8 @@ export class FormFieldComponent implements ControlValueAccessor {
   readonly required = input<boolean>(false);
   readonly errorMessage = input<string>('');
 
-  // ✅ ViewChild to access the InputComponent
-  private readonly inputComponent = viewChild<InputComponent>('inputRef');
-
   // ✅ signals for internal state
+  protected readonly fieldValue = signal<string>('');
   private readonly _disabled = signal<boolean>(false);
   private readonly _touched = signal<boolean>(false);
 
@@ -71,49 +69,31 @@ export class FormFieldComponent implements ControlValueAccessor {
     return this._disabled();
   }
 
+  // ✅ Event handlers
+  protected onValueChange(newValue: string): void {
+    this.fieldValue.set(newValue);
+    this._onChange(newValue);
+  }
+
   protected onInputBlur(): void {
     this._touched.set(true);
     this._onTouched();
   }
 
-  // ✅ ControlValueAccessor implementation - delegate to InputComponent
+  // ✅ ControlValueAccessor implementation
   writeValue(value: string): void {
-    const input = this.inputComponent();
-    if (input) {
-      input.writeValue(value || '');
-    }
+    this.fieldValue.set(value || '');
   }
 
   registerOnChange(fn: (value: string) => void): void {
     this._onChange = fn;
-    // Register change listener with InputComponent when available
-    setTimeout(() => {
-      const input = this.inputComponent();
-      if (input) {
-        input.registerOnChange(fn);
-      }
-    });
   }
 
   registerOnTouched(fn: () => void): void {
     this._onTouched = fn;
-    // Register touched listener with InputComponent when available
-    setTimeout(() => {
-      const input = this.inputComponent();
-      if (input) {
-        input.registerOnTouched(fn);
-      }
-    });
   }
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled.set(isDisabled);
-    // Propagate to InputComponent when available
-    setTimeout(() => {
-      const input = this.inputComponent();
-      if (input) {
-        input.setDisabledState(isDisabled);
-      }
-    });
   }
 }

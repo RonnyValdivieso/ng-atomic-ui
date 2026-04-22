@@ -1,0 +1,27 @@
+<app-modal
+  [visible]="visible"
+  (visibleChange)="closeModal()"
+  [header]="modalTitle"
+  [style]="{ width: '420px' }">
+
+  <form [formGroup]="form" class="flex flex-col gap-4 py-4">
+    <app-form-field
+      label="Name"
+      formControlName="name"
+      placeholder="e.g., Platform Ops">
+    </app-form-field>
+  </form>
+
+  <div footer class="flex justify-end gap-2">
+    <app-button
+      label="Cancel"
+      variant="secondary"
+      (click)="closeModal()">
+    </app-button>
+    <app-button
+      label="Save"
+      (click)="onSave()"
+      [loading]="saving">
+    </app-button>
+  </div>
+</app-modal>

@@ -1,0 +1,40 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-surface-900">Inference Provider Types</h1>
+    <app-button label="Add Type" icon="add" (click)="openCreateModal()"></app-button>
+  </div>
+
+  <app-table
+    [data]="types()"
+    [columns]="columns"
+    [loading]="loading()">
+    <!-- Actions Column Template -->
+    <ng-template pTemplate="actions" let-type>
+      <div class="flex justify-end gap-2">
+        <app-button 
+          icon="visibility" 
+          variant="primary" 
+          (click)="viewDetails(type)">
+        </app-button>
+        <app-button 
+          icon="edit" 
+          variant="secondary" 
+          (click)="openEditModal(type)">
+        </app-button>
+        <app-button 
+          icon="delete" 
+          variant="danger" 
+          (click)="deleteType(type)">
+        </app-button>
+      </div>
+    </ng-template>
+  </app-table>
+
+  <app-inference-provider-type-form
+    [(visible)]="isModalVisible"
+    [isEditing]="isEditing()"
+    [currentType]="currentType"
+    [saving]="saving()"
+    (save)="saveType($event)">
+  </app-inference-provider-type-form>
+</div>

@@ -1,0 +1,62 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-surface-900">Service Teams</h1>
+      <p class="text-muted-color text-sm mt-1">Internal teams that own organizations and instances.</p>
+    </div>
+    <app-button label="New Service Team" icon="add" (click)="openCreate()"></app-button>
+  </div>
+
+  <app-table
+    [data]="serviceTeams()"
+    [columns]="columns"
+    [loading]="loading()"
+    [totalRecords]="totalRecords()"
+    [rows]="pageSize()"
+    (page)="onPage($event)">
+
+    <ng-template pTemplate="status" let-team>
+      <span
+        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+        [class.bg-green-100]="team.status === 'Active'"
+        [class.text-green-700]="team.status === 'Active'"
+        [class.bg-surface-200]="team.status !== 'Active'"
+        [class.text-surface-700]="team.status !== 'Active'">
+        {{ team.status }}
+      </span>
+    </ng-template>
+
+    <ng-template pTemplate="actions" let-team>
+      <div class="flex justify-end gap-2">
+        <app-button
+          icon="visibility"
+          variant="primary"
+          (click)="viewDetails(team)">
+        </app-button>
+        <app-button
+          icon="edit"
+          variant="secondary"
+          (click)="openEdit(team)">
+        </app-button>
+        <app-button
+          [icon]="team.status === 'Active' ? 'toggle_off' : 'toggle_on'"
+          variant="secondary"
+          (click)="toggleStatus(team)">
+        </app-button>
+        <app-button
+          icon="delete"
+          variant="danger"
+          (click)="delete(team)">
+        </app-button>
+      </div>
+    </ng-template>
+  </app-table>
+
+  <app-service-team-form
+    [(visible)]="isModalVisible"
+    [isEditing]="isEditing()"
+    [current]="currentTeam"
+    [saving]="saving()"
+    (save)="save($event)">
+  </app-service-team-form>
+</div>

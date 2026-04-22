@@ -1,0 +1,38 @@
+<div class="workspace-page">
+  <div class="header">
+    <h1>Select a Workspace</h1>
+    <p>Choose a workspace and project to continue</p>
+  </div>
+
+  <div class="workspace-grid" *ngIf="workspaces$ | async as workspaces; else loading">
+    <app-card *ngFor="let workspace of workspaces" class="workspace-card">
+      <h3 card-title>{{ workspace.name }}</h3>
+      
+      <div card-content class="workspace-card-content">
+        <div class="projects-list">
+          <div *ngFor="let project of workspace.projects" class="project-item">
+            <span class="project-icon">📂</span>
+            <span class="project-name">{{ project.name }}</span>
+          </div>
+          <div *ngIf="workspace.projects.length === 0" class="no-projects">
+            No projects found
+          </div>
+        </div>
+        <div class="workspace-actions">
+          <app-button 
+            variant="primary" 
+            routerLink="/workspace" 
+            styleClass="w-full">
+            Enter Workspace
+          </app-button>
+        </div>
+      </div>
+    </app-card>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-state">
+      Loading your workspaces...
+    </div>
+  </ng-template>
+</div>

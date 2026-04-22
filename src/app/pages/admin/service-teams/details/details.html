@@ -1,0 +1,106 @@
+<div class="p-6 max-w-4xl mx-auto">
+  <div class="mb-6">
+    <app-button
+      label="Back to Service Teams"
+      icon="arrow_back"
+      variant="secondary"
+      (click)="goBack()">
+    </app-button>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-center items-center h-64">
+      <div class="text-surface-500">Loading details...</div>
+    </div>
+  } @else if (error() || !team()) {
+    <app-card>
+      <div class="text-center py-8">
+        <h2 class="text-xl font-bold text-danger-500 mb-2">Error</h2>
+        <p class="text-surface-600 mb-4">Service team not found or failed to load.</p>
+        <app-button label="Return to List" (click)="goBack()"></app-button>
+      </div>
+    </app-card>
+  } @else {
+    <div class="flex flex-col gap-6">
+
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-3xl font-bold text-surface-900 mb-2">{{ team()!.name }}</h1>
+          <span
+            class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+            [class.bg-green-100]="team()!.status === 'Active'"
+            [class.text-green-700]="team()!.status === 'Active'"
+            [class.bg-surface-200]="team()!.status !== 'Active'"
+            [class.text-surface-700]="team()!.status !== 'Active'">
+            {{ team()!.status }}
+          </span>
+        </div>
+        <div class="flex gap-2">
+          <app-button
+            icon="edit"
+            label="Edit"
+            variant="secondary"
+            (click)="openEdit()">
+          </app-button>
+          <app-button
+            [icon]="team()!.status === 'Active' ? 'toggle_off' : 'toggle_on'"
+            [label]="team()!.status === 'Active' ? 'Deactivate' : 'Activate'"
+            variant="secondary"
+            (click)="toggleStatus()">
+          </app-button>
+          <app-button
+            icon="delete"
+            label="Delete"
+            variant="danger"
+            (click)="delete()">
+          </app-button>
+        </div>
+      </div>
+
+      <app-card>
+        <div header>
+          <h3 class="text-lg font-semibold text-surface-900">Information</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">Name</span>
+            <span class="text-base text-surface-900">{{ team()!.name }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">Status</span>
+            <span class="text-base text-surface-900">{{ team()!.status }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">ID</span>
+            <span class="text-base text-surface-900 font-mono bg-surface-50 p-1 rounded">{{ team()!.id }}</span>
+          </div>
+        </div>
+      </app-card>
+
+      <app-card>
+        <div header>
+          <h3 class="text-lg font-semibold text-surface-900">Assignments</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">Organizations</span>
+            <span class="text-2xl font-bold text-surface-900">{{ team()!.organizationCount }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">Instances (Workspaces)</span>
+            <span class="text-2xl font-bold text-surface-900">{{ team()!.instanceCount }}</span>
+          </div>
+        </div>
+      </app-card>
+
+    </div>
+
+    <app-service-team-form
+      [(visible)]="isEditModalVisible"
+      [isEditing]="true"
+      [current]="team()"
+      [saving]="saving()"
+      (save)="save($event)">
+    </app-service-team-form>
+  }
+</div>

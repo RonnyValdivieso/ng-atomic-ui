@@ -1,0 +1,18 @@
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--surface-ground, #f9fafb);
+}
+
+.layout-main {
+  flex: 1;
+  padding-top: 4rem; /* Match header height */
+  transition: margin-left 0.2s;
+}
+
+.layout-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}

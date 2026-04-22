@@ -35,7 +35,7 @@ describe('InputComponent', () => {
     input.value = 'test value';
     input.dispatchEvent(new Event('input'));
     
-    expect(component.value).toBe('test value');
+    expect(component.value()).toBe('test value');
   });
 
   it('should handle focus and blur events', () => {
@@ -96,7 +96,7 @@ describe('InputComponent', () => {
     
     // Test writeValue
     component.writeValue(testValue);
-    expect(component.value).toBe(testValue);
+    expect(component.value()).toBe(testValue);
     
     // Test registerOnChange
     let changedValue = '';
@@ -104,7 +104,7 @@ describe('InputComponent', () => {
       changedValue = value;
     });
     
-    component.value = 'new value';
+    component.value.set('new value');
     expect(changedValue).toBe('new value');
     
     // Test registerOnTouched

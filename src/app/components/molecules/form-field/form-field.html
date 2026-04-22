@@ -10,12 +10,14 @@
   }
   
   <app-input
-    #inputRef
     [type]="type()"
     [size]="size()"
     [placeholder]="placeholder() || label() || 'Enter a value'"
     [required]="required()"
     [readonly]="false"
+    [value]="fieldValue()"
+    (valueChange)="onValueChange($event)"
+    [disabled]="disabled"
     [attr.id]="inputId()"
     [attr.aria-describedby]="hasError() ? inputId() + '-error' : null"
     [attr.aria-invalid]="hasError() ? 'true' : 'false'"
