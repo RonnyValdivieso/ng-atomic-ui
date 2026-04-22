@@ -1,5 +1,5 @@
 import { Component, forwardRef, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
@@ -10,7 +10,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 @Component({
   selector: 'app-datepicker',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, DatePickerModule],
+  imports: [FormsModule, ReactiveFormsModule, DatePickerModule],
   templateUrl: './datepicker.html',
   styleUrls: ['./datepicker.css'],
   providers: [

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 // Import the component we're documenting
@@ -14,10 +14,9 @@ import { SearchBoxComponent } from '@molecules/search-box';
   selector: 'app-search-box-guide',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     SearchBoxComponent
-  ],
+],
   templateUrl: './search-box-guide.html',
   styleUrls: ['./search-box-guide.css']
 })

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import usersData from './users-data.json';
 import { TableComponent } from '@organisms/table';
 import { TableColumn } from '@shared/interfaces/table.interface';
@@ -7,7 +7,7 @@ import { TableColumn } from '@shared/interfaces/table.interface';
 @Component({
 	selector: 'app-table-guide',
 	standalone: true,
-	imports: [CommonModule, TableComponent],
+	imports: [TableComponent],
 	templateUrl: './table-guide.html',
 	styleUrls: ['./table-guide.css'],
 })

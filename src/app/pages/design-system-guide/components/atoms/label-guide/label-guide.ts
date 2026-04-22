@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LabelComponent } from '@atoms/label';
 
 /**
@@ -10,7 +10,7 @@ import { LabelComponent } from '@atoms/label';
 @Component({
   selector: 'app-label-guide',
   standalone: true,
-  imports: [CommonModule, LabelComponent],
+  imports: [LabelComponent],
   templateUrl: './label-guide.html',
   styleUrls: ['./label-guide.css']
 })

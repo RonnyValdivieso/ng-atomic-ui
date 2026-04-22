@@ -1,5 +1,5 @@
 import { Component, forwardRef, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 
@@ -10,7 +10,7 @@ import { SelectModule } from 'primeng/select';
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule],
+  imports: [FormsModule, ReactiveFormsModule, SelectModule],
   templateUrl: './dropdown.html',
   styleUrls: ['./dropdown.css'],
   providers: [

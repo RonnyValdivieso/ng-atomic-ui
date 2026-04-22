@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 /**
  * Introduction section explaining Atomic Design methodology
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-atomic-design-intro',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="flex flex-col gap-8">
       <!-- Hero Section -->

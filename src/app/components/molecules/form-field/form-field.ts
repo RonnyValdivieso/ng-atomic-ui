@@ -1,6 +1,6 @@
 import { Component, forwardRef, input, signal, computed, viewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { InputComponent } from '@atoms/input';
 import { LabelComponent } from '@atoms/label';
 
@@ -21,7 +21,7 @@ import { LabelComponent } from '@atoms/label';
 @Component({
   selector: 'app-form-field',
   standalone: true,
-  imports: [CommonModule, InputComponent, LabelComponent],
+  imports: [InputComponent, LabelComponent],
   templateUrl: './form-field.html',
   styleUrls: ['./form-field.css'],
   providers: [

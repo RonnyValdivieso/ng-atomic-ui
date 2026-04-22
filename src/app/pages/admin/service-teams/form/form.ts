@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalComponent } from '@organisms/modal';
 import { ButtonComponent } from '@atoms/button';
@@ -13,7 +13,7 @@ export interface ServiceTeamFormValue {
 @Component({
   selector: 'app-service-team-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ModalComponent, ButtonComponent, FormFieldComponent],
+  imports: [ReactiveFormsModule, ModalComponent, ButtonComponent, FormFieldComponent],
   templateUrl: './form.html'
 })
 export class ServiceTeamFormComponent {

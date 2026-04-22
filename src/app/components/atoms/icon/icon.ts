@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 export type IconSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl';
 export type IconColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'muted' | 'inherit';
@@ -17,7 +17,7 @@ export type IconColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warnin
 @Component({
   selector: 'app-icon',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './icon.html',
   styleUrls: ['./icon.css']
 })

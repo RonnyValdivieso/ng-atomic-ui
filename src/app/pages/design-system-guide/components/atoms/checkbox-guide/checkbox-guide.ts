@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { CheckboxComponent } from '../../../../../components/atoms/checkbox';
 
 /**
@@ -9,7 +9,7 @@ import { CheckboxComponent } from '../../../../../components/atoms/checkbox';
 @Component({
   selector: 'app-checkbox-guide',
   standalone: true,
-  imports: [CommonModule, CheckboxComponent],
+  imports: [CheckboxComponent],
   templateUrl: './checkbox-guide.html',
   styleUrls: ['./checkbox-guide.css']
 })

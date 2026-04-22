@@ -1,5 +1,5 @@
 import { Component, forwardRef, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
@@ -10,7 +10,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 @Component({
   selector: 'app-switch',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToggleSwitchModule],
+  imports: [FormsModule, ReactiveFormsModule, ToggleSwitchModule],
   templateUrl: './switch.html',
   styleUrls: ['./switch.css'],
   providers: [

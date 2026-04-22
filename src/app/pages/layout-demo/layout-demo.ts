@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MainLayoutComponent } from '@templates/main-layout';
 import { type NavigationItem } from '@organisms/sidebar';
 import { ButtonModule } from 'primeng/button';
@@ -9,7 +9,7 @@ import { NavigationService } from '@services/navigation.service';
 @Component({
   selector: 'app-layout-demo',
   standalone: true,
-  imports: [CommonModule, MainLayoutComponent, ButtonModule, CardModule],
+  imports: [MainLayoutComponent, ButtonModule, CardModule],
   template: `
     <app-main-layout [navigationItems]="navigation">
       <!-- Content projected into the layout -->

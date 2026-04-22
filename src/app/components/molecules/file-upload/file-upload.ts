@@ -1,10 +1,10 @@
 import { Component, input, signal, output, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
 	selector: 'app-file-upload',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [],
 	templateUrl: './file-upload.html',
 	styleUrls: ['./file-upload.css'],
 })

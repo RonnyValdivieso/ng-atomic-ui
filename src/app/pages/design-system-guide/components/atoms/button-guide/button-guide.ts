@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonComponent } from '@atoms/button';
 
 /**
@@ -9,7 +9,7 @@ import { ButtonComponent } from '@atoms/button';
 @Component({
   selector: 'app-button-guide',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [ButtonComponent],
   templateUrl: './button-guide.html',
   styleUrls: ['./button-guide.css']
 })

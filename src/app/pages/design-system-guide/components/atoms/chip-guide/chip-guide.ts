@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ChipComponent } from '@atoms/chip';
 
 @Component({
 	selector: 'app-chip-guide',
 	standalone: true,
-	imports: [CommonModule, ChipComponent],
+	imports: [ChipComponent],
 	templateUrl: './chip-guide.html',
 	styleUrls: ['./chip-guide.css']
 })

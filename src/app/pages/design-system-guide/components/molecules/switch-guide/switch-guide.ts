@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { SwitchComponent } from '@molecules/switch';
@@ -7,7 +7,7 @@ import { SwitchComponent } from '@molecules/switch';
 @Component({
   selector: 'app-switch-guide',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, SwitchComponent],
+  imports: [FormsModule, ReactiveFormsModule, ButtonModule, SwitchComponent],
   templateUrl: './switch-guide.html',
   styleUrls: ['./switch-guide.css']
 })

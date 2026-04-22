@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { TableComponent } from '@organisms/table';
@@ -14,13 +14,12 @@ import { TableColumn } from '@interfaces/table.interface';
   selector: 'app-storage-types',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
+    FormsModule,
     SharedModule,
-    TableComponent, 
+    TableComponent,
     ButtonComponent,
     StorageTypeFormComponent
-  ],
+],
   templateUrl: './list.html',
   styleUrls: ['./list.css']
 })

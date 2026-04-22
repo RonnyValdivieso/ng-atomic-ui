@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-tailwind-test',
   standalone: true,
-  imports: [CommonModule, ButtonModule, InputTextModule],
+  imports: [ButtonModule, InputTextModule],
   template: `
     <div class="p-8 bg-surface-0 rounded-lg shadow-lg">
       <h2 class="text-2xl font-bold text-primary mb-6">Tailwind + PrimeNG Test</h2>

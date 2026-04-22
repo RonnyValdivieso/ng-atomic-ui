@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonModule } from 'primeng/button';
 import { ModalComponent } from '@organisms/modal';
 
 @Component({
   selector: 'app-modal-guide',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ModalComponent],
+  imports: [ButtonModule, ModalComponent],
   templateUrl: './modal-guide.html',
   styleUrls: ['./modal-guide.css']
 })

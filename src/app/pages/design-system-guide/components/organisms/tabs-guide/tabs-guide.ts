@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TabsComponent, TabItem } from '@organisms/tabs';
 
 @Component({
   selector: 'app-tabs-guide',
   standalone: true,
-  imports: [CommonModule, TabsComponent],
+  imports: [TabsComponent],
   templateUrl: './tabs-guide.html',
   styleUrls: ['./tabs-guide.css']
 })

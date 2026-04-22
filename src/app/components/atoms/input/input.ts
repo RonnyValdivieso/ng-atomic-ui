@@ -1,6 +1,6 @@
 import { Component, computed, forwardRef, input, model, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { InputTextModule } from 'primeng/inputtext';
 
 export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
@@ -26,7 +26,7 @@ export type InputComponentSize = 'small' | 'large';
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule, InputTextModule],
+  imports: [InputTextModule],
   templateUrl: './input.html',
   styleUrls: ['./input.css'],
   providers: [

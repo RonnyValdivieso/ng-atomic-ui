@@ -1,5 +1,5 @@
 import { Component, computed, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IconComponent } from '@atoms/icon';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -22,7 +22,7 @@ export type AvatarStatus = 'online' | 'offline' | 'away' | 'busy' | 'none';
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
   templateUrl: './avatar.html',
   styleUrls: ['./avatar.css']
 })

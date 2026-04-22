@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardComponent } from '@atoms/card';
 import { ButtonComponent } from '@atoms/button';
@@ -14,11 +14,10 @@ import { ServiceTeamFormComponent, ServiceTeamFormValue } from '../form/form';
   selector: 'app-admin-service-team-details',
   standalone: true,
   imports: [
-    CommonModule,
     CardComponent,
     ButtonComponent,
     ServiceTeamFormComponent
-  ],
+],
   templateUrl: './details.html'
 })
 export class AdminServiceTeamDetailsComponent implements OnInit {

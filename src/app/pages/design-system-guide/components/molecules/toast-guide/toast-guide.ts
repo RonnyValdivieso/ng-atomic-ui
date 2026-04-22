@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastComponent } from '@molecules/toast';
@@ -7,7 +7,7 @@ import { ToastComponent } from '@molecules/toast';
 @Component({
   selector: 'app-toast-guide',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ToastComponent],
+  imports: [ButtonModule, ToastComponent],
   templateUrl: './toast-guide.html',
   styleUrls: ['./toast-guide.css'],
   providers: [MessageService]

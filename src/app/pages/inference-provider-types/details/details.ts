@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardComponent } from '@atoms/card';
 import { ButtonComponent } from '@atoms/button';
@@ -11,11 +11,10 @@ import { AIProviderType } from '@interfaces/ai-provider-type.interface';
   selector: 'app-inference-provider-type-details',
   standalone: true,
   imports: [
-    CommonModule,
     CardComponent,
     ButtonComponent,
     InferenceProviderTypeFormComponent
-  ],
+],
   templateUrl: './details.html',
   styleUrls: ['./details.css']
 })

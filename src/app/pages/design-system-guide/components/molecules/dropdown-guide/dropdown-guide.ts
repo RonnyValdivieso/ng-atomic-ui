@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownComponent } from '@molecules/dropdown';
@@ -7,7 +7,7 @@ import { DropdownComponent } from '@molecules/dropdown';
 @Component({
   selector: 'app-dropdown-guide',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, DropdownComponent],
+  imports: [FormsModule, ReactiveFormsModule, ButtonModule, DropdownComponent],
   templateUrl: './dropdown-guide.html',
   styleUrls: ['./dropdown-guide.css']
 })

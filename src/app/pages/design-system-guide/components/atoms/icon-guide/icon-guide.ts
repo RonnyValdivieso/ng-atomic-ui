@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { IconComponent } from '@atoms/icon';
 import { InputComponent } from '@atoms/input';
@@ -11,7 +11,7 @@ import { InputComponent } from '@atoms/input';
 @Component({
   selector: 'app-icon-guide',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconComponent, InputComponent],
+  imports: [ReactiveFormsModule, IconComponent, InputComponent],
   template: `
     <div class="flex flex-col gap-8">
       <!-- Hero Section -->
@@ -19,16 +19,16 @@ import { InputComponent } from '@atoms/input';
         <div class="flex flex-col gap-2">
           <h1 class="text-5xl font-bold text-balance">Icon Component</h1>
           <p class="text-xl text-muted-color text-pretty">
-            Componente para mostrar iconos usando PrimeIcons. Incluye múltiples tamaños, 
+            Componente para mostrar iconos usando PrimeIcons. Incluye múltiples tamaños,
             colores personalizables y una extensa librería de iconos disponibles.
           </p>
         </div>
       </section>
-
+    
       <!-- API Overview -->
       <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
         <h2 class="text-3xl font-semibold">Características Principales</h2>
-        
+    
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
             <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
@@ -39,7 +39,7 @@ import { InputComponent } from '@atoms/input';
             <h3 class="text-lg font-semibold">Librería</h3>
             <p class="text-sm text-muted-color">PrimeIcons (300+ iconos)</p>
           </div>
-
+    
           <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
             <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-2">
               <svg class="w-5 h-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +49,7 @@ import { InputComponent } from '@atoms/input';
             <h3 class="text-lg font-semibold">5 Tamaños</h3>
             <p class="text-sm text-muted-color">xs, sm, base, lg, xl</p>
           </div>
-
+    
           <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
             <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-2">
               <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +59,7 @@ import { InputComponent } from '@atoms/input';
             <h3 class="text-lg font-semibold">Estados</h3>
             <p class="text-sm text-muted-color">enabled, disabled, colores custom</p>
           </div>
-
+    
           <div class="bg-surface-0 rounded-lg p-6 flex flex-col gap-2 border border-surface-200">
             <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-2">
               <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +71,7 @@ import { InputComponent } from '@atoms/input';
           </div>
         </div>
       </section>
-
+    
       <!-- Tamaños Demo -->
       <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
         <h2 class="text-3xl font-semibold">Tamaños Disponibles</h2>
@@ -98,7 +98,7 @@ import { InputComponent } from '@atoms/input';
           </div>
         </div>
       </section>
-
+    
       <!-- Estados Demo -->
       <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
         <h2 class="text-3xl font-semibold">Estados del Icono</h2>
@@ -121,11 +121,11 @@ import { InputComponent } from '@atoms/input';
           </div>
         </div>
       </section>
-
+    
       <!-- Buscador de Iconos -->
       <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
         <h2 class="text-3xl font-semibold">Catálogo de Iconos PrimeIcons</h2>
-        
+    
         <div class="max-w-md">
           <app-input
             [formControl]="searchControl"
@@ -133,27 +133,30 @@ import { InputComponent } from '@atoms/input';
             type="text">
           </app-input>
         </div>
-        
+    
         <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4">
-          <div 
-            *ngFor="let icon of filteredIcons" 
-            class="flex flex-col gap-2 items-center p-4 bg-surface-0 rounded-lg border border-surface-200 hover:border-primary cursor-pointer transition-colors"
-            (click)="copyIconName(icon)">
-            <app-icon [name]="icon" size="lg"></app-icon>
-            <span class="text-xs text-center text-muted-color truncate w-full">{{ icon.replace('pi-', '') }}</span>
+          @for (icon of filteredIcons; track icon) {
+            <div
+              class="flex flex-col gap-2 items-center p-4 bg-surface-0 rounded-lg border border-surface-200 hover:border-primary cursor-pointer transition-colors"
+              (click)="copyIconName(icon)">
+              <app-icon [name]="icon" size="lg"></app-icon>
+              <span class="text-xs text-center text-muted-color truncate w-full">{{ icon.replace('pi-', '') }}</span>
+            </div>
+          }
+        </div>
+    
+        @if (filteredIcons.length === 0) {
+          <div class="flex flex-col items-center gap-4 py-12">
+            <app-icon name="pi-search" size="xl" color="muted"></app-icon>
+            <p class="text-muted-color">No se encontraron iconos que coincidan con "{{ searchControl.value }}"</p>
           </div>
-        </div>
-        
-        <div *ngIf="filteredIcons.length === 0" class="flex flex-col items-center gap-4 py-12">
-          <app-icon name="pi-search" size="xl" color="muted"></app-icon>
-          <p class="text-muted-color">No se encontraron iconos que coincidan con "{{ searchControl.value }}"</p>
-        </div>
+        }
       </section>
-
+    
       <!-- Casos de Uso -->
       <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
         <h2 class="text-3xl font-semibold">Casos de Uso Comunes</h2>
-        
+    
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
             <h3 class="text-lg font-semibold">Navegación</h3>
@@ -176,7 +179,7 @@ import { InputComponent } from '@atoms/input';
               </div>
             </div>
           </div>
-          
+    
           <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
             <h3 class="text-lg font-semibold">Acciones</h3>
             <div class="flex flex-col gap-3">
@@ -198,7 +201,7 @@ import { InputComponent } from '@atoms/input';
               </div>
             </div>
           </div>
-          
+    
           <div class="flex flex-col gap-4 bg-surface-0 rounded-lg p-6 border border-surface-200">
             <h3 class="text-lg font-semibold">Estados</h3>
             <div class="flex flex-col gap-3">
@@ -222,25 +225,25 @@ import { InputComponent } from '@atoms/input';
           </div>
         </div>
       </section>
-
+    
       <!-- Código de Ejemplo -->
       <section class="bg-surface-50 rounded-xl p-8 flex flex-col gap-6 border border-surface-200">
         <h2 class="text-3xl font-semibold">Ejemplos de Código</h2>
         <pre class="bg-surface-900 text-surface-50 rounded-lg p-6 overflow-x-auto text-sm"><code>&lt;!-- Icono básico --&gt;
-&lt;app-icon name="pi-home"&gt;&lt;/app-icon&gt;
-
-&lt;!-- Icono con tamaño personalizado --&gt;
-&lt;app-icon name="pi-star" size="lg"&gt;&lt;/app-icon&gt;
-
-&lt;!-- Icono con color personalizado --&gt;
-&lt;app-icon 
-  name="pi-heart" 
-  size="xl" 
-  color="#ef4444"&gt;
-&lt;/app-icon&gt;</code></pre>
+          &lt;app-icon name="pi-home"&gt;&lt;/app-icon&gt;
+    
+          &lt;!-- Icono con tamaño personalizado --&gt;
+          &lt;app-icon name="pi-star" size="lg"&gt;&lt;/app-icon&gt;
+    
+          &lt;!-- Icono con color personalizado --&gt;
+          &lt;app-icon
+          name="pi-heart"
+          size="xl"
+          color="#ef4444"&gt;
+        &lt;/app-icon&gt;</code></pre>
       </section>
     </div>
-  `,
+    `,
   styleUrls: ['./icon-guide.css']
 })
 export class IconGuideComponent {

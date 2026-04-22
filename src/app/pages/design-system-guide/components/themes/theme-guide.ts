@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@services/theme.service';
 import { ButtonComponent } from '@atoms/button';
@@ -25,14 +25,13 @@ import { BadgeComponent } from '@atoms/badge';
   selector: 'app-theme-guide',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     ButtonComponent,
     InputComponent,
     LabelComponent,
     AvatarComponent,
     BadgeComponent
-  ],
+],
   templateUrl: './theme-guide.html',
   styleUrls: ['./theme-guide.css']
 })

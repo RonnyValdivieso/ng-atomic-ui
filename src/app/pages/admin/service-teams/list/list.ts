@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { TableComponent } from '@organisms/table';
@@ -19,12 +19,11 @@ const PAGE_SIZE = 10;
   selector: 'app-admin-service-teams-list',
   standalone: true,
   imports: [
-    CommonModule,
     SharedModule,
     TableComponent,
     ButtonComponent,
     ServiceTeamFormComponent
-  ],
+],
   templateUrl: './list.html'
 })
 export class AdminServiceTeamsListComponent {

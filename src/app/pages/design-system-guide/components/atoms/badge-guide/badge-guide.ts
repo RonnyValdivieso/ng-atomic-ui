@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { BadgeComponent } from '@atoms/badge';
 
 /**
@@ -10,7 +10,7 @@ import { BadgeComponent } from '@atoms/badge';
 @Component({
   selector: 'app-badge-guide',
   standalone: true,
-  imports: [CommonModule, BadgeComponent],
+  imports: [BadgeComponent],
   templateUrl: './badge-guide.html',
   styleUrls: ['./badge-guide.css']
 })

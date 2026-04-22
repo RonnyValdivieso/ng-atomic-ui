@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 /**
  * Header component for the Design System Guide
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
 	selector: 'app-guide-header',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [],
 	template: ``,
 	styleUrls: ['./guide-header.css'],
 })

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, computed, input, output, signal, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Checkbox } from 'primeng/checkbox';
 
@@ -40,7 +40,7 @@ import { Checkbox } from 'primeng/checkbox';
 @Component({
   selector: 'app-checkbox',
   standalone: true,
-  imports: [CommonModule, FormsModule, Checkbox],
+  imports: [FormsModule, Checkbox],
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

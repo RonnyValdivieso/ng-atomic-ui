@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-css-test',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="p-8 bg-red-500 text-white">
       <h1 class="text-2xl font-bold">CSS Test</h1>

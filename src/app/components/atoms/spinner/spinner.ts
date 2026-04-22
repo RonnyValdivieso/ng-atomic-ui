@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 export type SpinnerSize = 'small' | 'medium' | 'large';
@@ -7,7 +7,7 @@ export type SpinnerSize = 'small' | 'medium' | 'large';
 @Component({
   selector: 'app-spinner',
   standalone: true,
-  imports: [CommonModule, ProgressSpinnerModule],
+  imports: [ProgressSpinnerModule],
   templateUrl: './spinner.html',
   styleUrls: ['./spinner.css']
 })

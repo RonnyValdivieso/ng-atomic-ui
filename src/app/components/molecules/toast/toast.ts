@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
@@ -20,7 +20,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-toast',
   standalone: true,
-  imports: [CommonModule, ToastModule],
+  imports: [ToastModule],
   templateUrl: './toast.html',
   styleUrls: ['./toast.css']
 })

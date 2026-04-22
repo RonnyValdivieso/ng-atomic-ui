@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ChipModule } from 'primeng/chip';
 
 /**
@@ -8,7 +8,7 @@ import { ChipModule } from 'primeng/chip';
 @Component({
 	selector: 'app-chip',
 	standalone: true,
-	imports: [CommonModule, ChipModule],
+	imports: [ChipModule],
 	templateUrl: './chip.html',
 	styleUrls: ['./chip.css']
 })

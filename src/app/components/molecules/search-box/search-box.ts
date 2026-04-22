@@ -1,5 +1,5 @@
 import { Component, computed, input, output, signal, effect, inject, DestroyRef, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs';
@@ -28,7 +28,7 @@ export type SearchBoxVariant = 'default' | 'compact';
 @Component({
   selector: 'app-search-box',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, IconComponent, InputComponent],
+  imports: [ReactiveFormsModule, ButtonComponent, IconComponent, InputComponent],
   templateUrl: './search-box.html',
   styleUrls: ['./search-box.css']
 })

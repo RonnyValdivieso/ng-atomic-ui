@@ -1,12 +1,12 @@
 import { Component, signal, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from '@organisms/header';
 import { SidebarComponent, type NavigationItem } from '@organisms/sidebar';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SidebarComponent],
+  imports: [HeaderComponent, SidebarComponent],
   template: `
     <div class="min-h-screen bg-surface-50">
       <!-- Header -->

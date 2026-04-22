@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TieredMenuComponent } from '../../../../../components/atoms/tiered-menu';
 import { ButtonComponent } from '../../../../../components/atoms/button';
 import { MenuItem } from 'primeng/api';
@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-tiered-menu-guide',
   standalone: true,
-  imports: [CommonModule, TieredMenuComponent, ButtonComponent],
+  imports: [TieredMenuComponent, ButtonComponent],
   templateUrl: './tiered-menu-guide.html',
   styleUrls: ['./tiered-menu-guide.css']
 })

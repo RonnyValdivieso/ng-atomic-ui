@@ -4,35 +4,41 @@
     <p>Choose a workspace and project to continue</p>
   </div>
 
-  <div class="workspace-grid" *ngIf="workspaces$ | async as workspaces; else loading">
-    <app-card *ngFor="let workspace of workspaces" class="workspace-card">
-      <h3 card-title>{{ workspace.name }}</h3>
-      
-      <div card-content class="workspace-card-content">
-        <div class="projects-list">
-          <div *ngFor="let project of workspace.projects" class="project-item">
-            <span class="project-icon">📂</span>
-            <span class="project-name">{{ project.name }}</span>
+  @if (workspaces$ | async; as workspaces) {
+    <div class="workspace-grid">
+      @for (workspace of workspaces; track workspace) {
+        <app-card class="workspace-card">
+          <h3 card-title>{{ workspace.name }}</h3>
+          <div card-content class="workspace-card-content">
+            <div class="projects-list">
+              @for (project of workspace.projects; track project) {
+                <div class="project-item">
+                  <span class="project-icon">📂</span>
+                  <span class="project-name">{{ project.name }}</span>
+                </div>
+              }
+              @if (workspace.projects.length === 0) {
+                <div class="no-projects">
+                  No projects found
+                </div>
+              }
+            </div>
+            <div class="workspace-actions">
+              <app-button
+                variant="primary"
+                routerLink="/workspace"
+                styleClass="w-full">
+                Enter Workspace
+              </app-button>
+            </div>
           </div>
-          <div *ngIf="workspace.projects.length === 0" class="no-projects">
-            No projects found
-          </div>
-        </div>
-        <div class="workspace-actions">
-          <app-button 
-            variant="primary" 
-            routerLink="/workspace" 
-            styleClass="w-full">
-            Enter Workspace
-          </app-button>
-        </div>
-      </div>
-    </app-card>
-  </div>
-
-  <ng-template #loading>
+        </app-card>
+      }
+    </div>
+  } @else {
     <div class="loading-state">
       Loading your workspaces...
     </div>
-  </ng-template>
+  }
+
 </div>

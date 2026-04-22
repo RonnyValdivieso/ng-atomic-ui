@@ -1,5 +1,5 @@
 import { Component, computed, inject, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,13 +13,12 @@ import { AuthService } from '@shared/services/auth/auth.service';
   selector: 'app-header',
   standalone: true,
   imports: [
-    CommonModule,
     ButtonModule,
     InputTextModule,
     ThemeToggleComponent,
     AvatarComponent,
     TieredMenuComponent
-  ],
+],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })

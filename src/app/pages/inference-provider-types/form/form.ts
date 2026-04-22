@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalComponent } from '@organisms/modal';
 import { ButtonComponent } from '@atoms/button';
@@ -9,7 +9,7 @@ import { AIProviderType } from '@interfaces/ai-provider-type.interface';
 @Component({
   selector: 'app-inference-provider-type-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ModalComponent, ButtonComponent, FormFieldComponent],
+  imports: [ReactiveFormsModule, ModalComponent, ButtonComponent, FormFieldComponent],
   templateUrl: './form.html',
   styleUrls: ['./form.css']
 })

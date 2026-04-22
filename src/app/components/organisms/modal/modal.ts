@@ -1,5 +1,5 @@
 import { Component, input, model, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 
@@ -19,7 +19,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, DialogModule, ButtonModule],
+  imports: [DialogModule, ButtonModule],
   templateUrl: './modal.html',
   styleUrls: ['./modal.css']
 })

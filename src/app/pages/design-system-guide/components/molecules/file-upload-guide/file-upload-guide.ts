@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FileUploadComponent } from '@molecules/file-upload';
 
 @Component({
 	selector: 'app-file-upload-guide',
 	standalone: true,
-	imports: [CommonModule, FileUploadComponent],
+	imports: [FileUploadComponent],
 	templateUrl: './file-upload-guide.html',
 	styleUrls: ['./file-upload-guide.css'],
 })

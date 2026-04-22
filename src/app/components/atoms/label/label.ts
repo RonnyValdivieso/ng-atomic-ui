@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 export type LabelSize = 'small' | 'medium' | 'large';
 export type LabelVariant = 'default' | 'secondary' | 'accent';
@@ -18,7 +18,7 @@ export type LabelVariant = 'default' | 'secondary' | 'accent';
 @Component({
   selector: 'app-label',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './label.html',
   styleUrls: ['./label.css']
 })

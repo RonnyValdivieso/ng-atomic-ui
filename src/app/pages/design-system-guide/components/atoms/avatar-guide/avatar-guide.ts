@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AvatarComponent } from '@atoms/avatar/avatar';
 
 /**
@@ -10,7 +10,7 @@ import { AvatarComponent } from '@atoms/avatar/avatar';
 @Component({
   selector: 'app-avatar-guide',
   standalone: true,
-  imports: [CommonModule, AvatarComponent],
+  imports: [AvatarComponent],
   templateUrl: './avatar-guide.html',
   styleUrls: ['./avatar-guide.css']
 })

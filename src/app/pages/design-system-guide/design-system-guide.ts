@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ThemeService } from '@services/theme.service';
 import { MainLayoutComponent } from '@templates/main-layout';
 import { type NavigationItem } from '@organisms/sidebar';
@@ -38,40 +38,34 @@ import { NavigationService } from '@services/navigation.service';
 	selector: 'app-design-system-guide',
 	standalone: true,
 	imports: [
-		CommonModule,
-		MainLayoutComponent,
-		// Intro Components
-		AtomicDesignIntroComponent,
-		GuideHeaderComponent,
-		// Atom Guide Components
-		AvatarGuideComponent,
-		BadgeGuideComponent,
-		ButtonGuideComponent,
-		CardGuideComponent,
-		CheckboxGuideComponent,
-		IconGuideComponent,
-		InputGuideComponent,
-		LabelGuideComponent,
-		TieredMenuGuideComponent,
-		ChipGuideComponent,
-		TooltipGuideComponent,
-		SpinnerGuideComponent,
-		// Molecule Guide Components
-		FormFieldGuideComponent,
-		SearchBoxGuideComponent,
-		ToastGuideComponent,
-		DropdownGuideComponent,
-		SwitchGuideComponent,
-		DatepickerGuideComponent,
-		BreadcrumbGuideComponent,
-		FileUploadGuideComponent,
-		// Organism Guide Components
-		TableGuideComponent,
-		ModalGuideComponent,
-		TabsGuideComponent,
-		// Theme Guide Components
-		ThemeGuideComponent,
-	],
+    MainLayoutComponent,
+    AtomicDesignIntroComponent,
+    GuideHeaderComponent,
+    AvatarGuideComponent,
+    BadgeGuideComponent,
+    ButtonGuideComponent,
+    CardGuideComponent,
+    CheckboxGuideComponent,
+    IconGuideComponent,
+    InputGuideComponent,
+    LabelGuideComponent,
+    TieredMenuGuideComponent,
+    ChipGuideComponent,
+    TooltipGuideComponent,
+    SpinnerGuideComponent,
+    FormFieldGuideComponent,
+    SearchBoxGuideComponent,
+    ToastGuideComponent,
+    DropdownGuideComponent,
+    SwitchGuideComponent,
+    DatepickerGuideComponent,
+    BreadcrumbGuideComponent,
+    FileUploadGuideComponent,
+    TableGuideComponent,
+    ModalGuideComponent,
+    TabsGuideComponent,
+    ThemeGuideComponent
+],
 	templateUrl: './design-system-guide.html',
 	styleUrls: ['./design-system-guide.css'],
 })

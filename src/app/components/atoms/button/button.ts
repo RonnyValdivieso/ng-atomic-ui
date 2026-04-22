@@ -1,5 +1,5 @@
 import { Component, computed, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonModule } from 'primeng/button';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success';
@@ -21,7 +21,7 @@ export type ButtonSize = 'small' | 'medium' | 'large';
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [ButtonModule],
   templateUrl: './button.html',
   styleUrls: ['./button.css']
 })

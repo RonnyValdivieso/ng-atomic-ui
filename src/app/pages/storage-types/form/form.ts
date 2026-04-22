@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalComponent } from '@organisms/modal';
 import { ButtonComponent } from '@atoms/button';
@@ -9,7 +9,7 @@ import { AIStorageType } from '@interfaces/ai-storage-type.interface';
 @Component({
   selector: 'app-storage-type-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ModalComponent, ButtonComponent, FormFieldComponent],
+  imports: [ReactiveFormsModule, ModalComponent, ButtonComponent, FormFieldComponent],
   templateUrl: './form.html',
   styleUrls: ['./form.css']
 })

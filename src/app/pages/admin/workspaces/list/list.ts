@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { TableComponent } from '@organisms/table';
@@ -13,7 +13,7 @@ const PAGE_SIZE = 10;
 @Component({
   selector: 'app-admin-workspaces-list',
   standalone: true,
-  imports: [CommonModule, SharedModule, TableComponent, ButtonComponent],
+  imports: [SharedModule, TableComponent, ButtonComponent],
   templateUrl: './list.html'
 })
 export class AdminWorkspacesListComponent {

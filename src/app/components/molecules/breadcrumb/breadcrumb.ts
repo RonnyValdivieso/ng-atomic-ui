@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
 
@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [CommonModule, BreadcrumbModule],
+  imports: [BreadcrumbModule],
   templateUrl: './breadcrumb.html',
   styleUrls: ['./breadcrumb.css']
 })

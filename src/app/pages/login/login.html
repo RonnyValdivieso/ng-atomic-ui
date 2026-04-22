@@ -1,29 +1,31 @@
 <div class="login-container">
   <app-card header="Iniciar Sesión" class="login-card-wrapper" [elevation]="4">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <app-form-field 
-        label="Email" 
+      <app-form-field
+        label="Email"
         formControlName="email"
         type="email"
         placeholder="tu@email.com"
         [errorMessage]="loginForm.get('email')?.errors && loginForm.get('email')?.touched ? 'Email requerido' : ''">
       </app-form-field>
-      
-      <app-form-field 
-        label="Contraseña" 
+
+      <app-form-field
+        label="Contraseña"
         formControlName="password"
         type="password"
         placeholder="••••••••"
         [errorMessage]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'Contraseña requerida' : ''">
       </app-form-field>
-      
-      <div *ngIf="error" style="color: var(--red-500); font-size: 0.875rem; text-align: center;">
-        {{ error }}
-      </div>
 
-      <app-button 
-        label="Entrar" 
-        type="submit" 
+      @if (error) {
+        <div style="color: var(--red-500); font-size: 0.875rem; text-align: center;">
+          {{ error }}
+        </div>
+      }
+
+      <app-button
+        label="Entrar"
+        type="submit"
         [loading]="isLoading"
         [disabled]="loginForm.invalid || isLoading"
         style="width: 100%"

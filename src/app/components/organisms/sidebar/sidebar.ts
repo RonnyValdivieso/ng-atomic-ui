@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 export interface NavigationItem {
@@ -13,7 +13,7 @@ export interface NavigationItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <aside 
       class="fixed left-0 top-16 bottom-0 w-64 bg-surface-0 border-r border-surface-200 z-20 transition-all duration-300"

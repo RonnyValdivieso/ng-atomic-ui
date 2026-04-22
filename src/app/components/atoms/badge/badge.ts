@@ -1,5 +1,5 @@
 import { Component, computed, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IconComponent } from '@atoms/icon';
 
 export type BadgeVariant = 'solid' | 'outline' | 'soft' | 'dot';
@@ -21,7 +21,7 @@ export type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-
 @Component({
   selector: 'app-badge',
   standalone: true,
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
   templateUrl: './badge.html',
   styleUrls: ['./badge.css']
 })

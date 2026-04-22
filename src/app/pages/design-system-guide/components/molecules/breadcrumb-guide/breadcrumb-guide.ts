@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbComponent } from '@molecules/breadcrumb';
 
 @Component({
   selector: 'app-breadcrumb-guide',
   standalone: true,
-  imports: [CommonModule, BreadcrumbComponent],
+  imports: [BreadcrumbComponent],
   templateUrl: './breadcrumb-guide.html',
   styleUrls: ['./breadcrumb-guide.css']
 })

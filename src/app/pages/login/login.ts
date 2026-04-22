@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@shared/services/auth/auth.service';
@@ -12,12 +12,11 @@ import { CardComponent } from '@atoms/card';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     ButtonComponent,
     FormFieldComponent,
     CardComponent
-  ],
+],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })

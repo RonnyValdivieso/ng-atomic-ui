@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardComponent } from '@atoms/card';
@@ -14,14 +14,13 @@ import { AIStorageType, AIStorageTypeParameter } from '@interfaces/ai-storage-ty
   selector: 'app-storage-type-details',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     CardComponent,
     ButtonComponent,
     ModalComponent,
     FormFieldComponent,
     StorageTypeFormComponent
-  ],
+],
   templateUrl: './details.html',
   styleUrls: ['./details.css']
 })

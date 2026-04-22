@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet } from '@angular/router';
 import { MainLayoutComponent } from '@templates/main-layout';
 import { NavigationItem } from '@organisms/sidebar';
@@ -7,7 +7,7 @@ import { NavigationItem } from '@organisms/sidebar';
 @Component({
   selector: 'app-workspace-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MainLayoutComponent],
+  imports: [RouterOutlet, MainLayoutComponent],
   template: `
     <app-main-layout [navigationItems]="navigationItems">
       <router-outlet></router-outlet>
