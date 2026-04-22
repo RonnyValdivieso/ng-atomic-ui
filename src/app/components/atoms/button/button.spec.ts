@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ButtonComponent } from './button';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -9,7 +10,7 @@ describe('ButtonComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ButtonComponent], // ✅ imports for standalone component
-      providers: [provideAnimations()] // ✅ Required for PrimeNG
+      providers: [provideZonelessChangeDetection(), provideAnimations()] // ✅ Required for PrimeNG
     }).compileComponents();
 
     fixture = TestBed.createComponent(ButtonComponent);

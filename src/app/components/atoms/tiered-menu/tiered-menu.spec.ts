@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TieredMenuComponent } from './tiered-menu';
 import { MenuItem } from 'primeng/api';
@@ -27,7 +28,8 @@ describe('TieredMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TieredMenuComponent]
+      imports: [TieredMenuComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TieredMenuComponent);

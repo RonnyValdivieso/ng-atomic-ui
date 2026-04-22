@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StorageTypesComponent } from './list';
 import { AIStorageTypeService } from '@services/api/ai-storage-type.service';
@@ -18,6 +19,7 @@ describe('StorageTypesComponent', () => {
     await TestBed.configureTestingModule({
       imports: [StorageTypesComponent],
       providers: [
+        provideZonelessChangeDetection(),
         { provide: AIStorageTypeService, useValue: mockService },
         { provide: Router, useValue: mockRouter }
       ]

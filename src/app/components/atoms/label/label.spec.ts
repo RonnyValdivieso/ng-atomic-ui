@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { LabelComponent } from './label';
 
 // Test host component for testing inputs
 @Component({
+  standalone: true,
+  imports: [LabelComponent],
   template: `
-    <app-label 
+    <app-label
       [text]="text"
       [for]="for"
       [size]="size"
@@ -33,8 +35,8 @@ describe('LabelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LabelComponent],
-      declarations: [TestHostComponent]
+      imports: [LabelComponent, TestHostComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);

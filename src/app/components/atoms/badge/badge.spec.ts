@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+import { DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BadgeComponent, BadgeVariant, BadgeColor, BadgeSize, BadgePosition } from './badge';
 import { IconComponent } from '../icon';
@@ -11,7 +11,8 @@ describe('BadgeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BadgeComponent, IconComponent]
+      imports: [BadgeComponent, IconComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BadgeComponent);
