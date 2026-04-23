@@ -1,24 +1,24 @@
 <div class="p-6">
   <div class="flex justify-between items-center mb-6">
     <div>
-      <h1 class="text-2xl font-bold text-surface-900">Workspaces</h1>
-      <p class="text-muted-color text-sm mt-1">All instances across the platform.</p>
+      <h1 class="text-2xl font-bold text-surface-900">Organizaciones</h1>
+      <p class="text-muted-color text-sm mt-1">Todas las organizaciones de la plataforma.</p>
     </div>
   </div>
 
   <app-table
-    [data]="workspaces()"
+    [data]="organizations()"
     [columns]="columns"
     [loading]="loading()"
     [totalRecords]="totalRecords()"
     [rows]="pageSize()"
     (page)="onPage($event)">
-    <ng-template pTemplate="actions" let-workspace>
+    <ng-template pTemplate="actions" let-org>
       <div class="flex justify-end gap-2">
         <app-button
           icon="pi pi-eye"
           variant="secondary"
-          (clicked)="open(workspace)">
+          (clicked)="open(org)">
         </app-button>
       </div>
     </ng-template>

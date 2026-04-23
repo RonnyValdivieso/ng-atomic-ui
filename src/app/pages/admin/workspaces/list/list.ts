@@ -59,8 +59,7 @@ export class AdminWorkspacesListComponent {
     this.load(pageNumber);
   }
 
-  protected open(_workspace: Instance): void {
-    // TODO: pass workspace id once the workspace routes carry an :id segment.
-    this.router.navigate(['/workspace', 'storage-types']);
+  protected open(workspace: Instance): void {
+    this.router.navigate(['/admin/workspaces', workspace.id]);
   }
 }

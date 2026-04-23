@@ -1,0 +1,83 @@
+<div class="p-6 max-w-5xl mx-auto">
+  <div class="mb-6">
+    <app-button
+      label="Volver a Organizaciones"
+      icon="pi pi-arrow-left"
+      variant="secondary"
+      (clicked)="goBack()">
+    </app-button>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-center items-center h-64">
+      <div class="text-surface-500">Cargando organización…</div>
+    </div>
+  } @else if (error() || !organization()) {
+    <app-card>
+      <div class="text-center py-8">
+        <h2 class="text-xl font-bold text-red-500 mb-2">No se encontró la organización</h2>
+        <p class="text-surface-600 mb-4">Verifica el identificador o vuelve a la lista.</p>
+        <app-button label="Volver al listado" (clicked)="goBack()"></app-button>
+      </div>
+    </app-card>
+  } @else {
+    <div class="flex flex-col gap-6">
+      <div>
+        <h1 class="text-3xl font-bold text-surface-900 mb-2">{{ organization()!.name }}</h1>
+        <p class="text-surface-500 font-mono text-sm bg-surface-100 px-2 py-1 rounded inline-block">
+          ID: {{ organization()!.id }}
+        </p>
+      </div>
+
+      <app-card>
+        <div header>
+          <h3 class="text-lg font-semibold text-surface-900">Información</h3>
+        </div>
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+          <div class="flex flex-col gap-1 md:col-span-2">
+            <dt class="text-sm font-medium text-surface-500">Descripción</dt>
+            <dd class="text-base text-surface-900">{{ organization()!.description || '—' }}</dd>
+          </div>
+          <div class="flex flex-col gap-1">
+            <dt class="text-sm font-medium text-surface-500">Equipo de servicio</dt>
+            <dd class="text-base text-surface-900 font-mono text-xs">{{ organization()!.serviceTeamId || '—' }}</dd>
+          </div>
+        </dl>
+      </app-card>
+
+      <app-card>
+        <div header>
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-surface-900">Workspaces en esta organización</h3>
+            @if (!instancesLoading() && instances().length > 0) {
+              <span class="text-sm text-surface-500">{{ instances().length }}</span>
+            }
+          </div>
+        </div>
+        <div class="p-4">
+          @if (instancesLoading()) {
+            <div class="text-center text-surface-500 py-6">Cargando workspaces…</div>
+          } @else if (instances().length === 0) {
+            <div class="text-center text-surface-500 py-6">Esta organización no tiene workspaces.</div>
+          } @else {
+            <app-table
+              [data]="instances()"
+              [columns]="instanceColumns"
+              [loading]="false"
+              [paginator]="false">
+              <ng-template pTemplate="instanceActions" let-instance>
+                <div class="flex justify-end gap-2">
+                  <app-button
+                    icon="pi pi-eye"
+                    variant="secondary"
+                    (clicked)="openWorkspace(instance)">
+                  </app-button>
+                </div>
+              </ng-template>
+            </app-table>
+          }
+        </div>
+      </app-card>
+    </div>
+  }
+</div>

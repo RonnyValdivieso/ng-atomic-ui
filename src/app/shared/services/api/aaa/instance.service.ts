@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Instance, PaginatedList, SearchParams } from '@interfaces/aaa';
+import { Instance, InstanceDetail, PaginatedList, SearchParams } from '@interfaces/aaa';
 import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +19,7 @@ export class InstanceService {
     return this.http.get<PaginatedList<Instance>>(this.baseUrl, { params: httpParams });
   }
 
-  getById(id: string): Observable<Instance> {
-    return this.http.get<Instance>(`${this.baseUrl}/${id}`);
+  getById(id: string): Observable<InstanceDetail> {
+    return this.http.get<InstanceDetail>(`${this.baseUrl}/${id}`);
   }
 }

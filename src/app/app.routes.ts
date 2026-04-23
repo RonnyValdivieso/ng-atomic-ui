@@ -51,10 +51,22 @@ export const routes: Routes = [
             .then(m => m.AdminWorkspacesListComponent)
       },
       {
+        path: 'workspaces/:id',
+        loadComponent: () =>
+          import('./pages/admin/workspaces/details/details')
+            .then(m => m.AdminWorkspaceDetailsComponent)
+      },
+      {
         path: 'organizations',
         loadComponent: () =>
           import('./pages/admin/organizations/list/list')
             .then(m => m.AdminOrganizationsListComponent)
+      },
+      {
+        path: 'organizations/:id',
+        loadComponent: () =>
+          import('./pages/admin/organizations/details/details')
+            .then(m => m.AdminOrganizationDetailsComponent)
       },
       {
         path: 'service-teams',
