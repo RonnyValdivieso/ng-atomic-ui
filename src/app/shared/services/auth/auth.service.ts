@@ -178,7 +178,7 @@ export class AuthService {
     this._permissions.set(new Set());
     this._pendingChallenge.set(null);
     if (redirect) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/sign-in']);
     }
   }
 

@@ -4,7 +4,7 @@ import { superAdminGuard } from './shared/guards/super-admin.guard';
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: 'auth/sign-in',
     loadComponent: () =>
       import('./pages/login/login').then(m => m.LoginComponent)
   },

@@ -40,6 +40,11 @@
         ></app-button>
       </form>
 
+      <!--
+        SSO buttons hidden pending Azure App Registration fix (needs SPA
+        platform + http://localhost:4200 redirect URI). Wiring is in place
+        — re-enable by un-commenting this block.
+
       @if (googleEnabled || microsoftEnabled) {
         <div class="login-divider"><span>o</span></div>
 
@@ -68,6 +73,8 @@
           }
         </div>
       }
+      -->
+
     </app-card>
   }
 </div>

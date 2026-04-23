@@ -6,10 +6,10 @@ export const environment: Environment = {
   authUrl: 'https://auth-stg.brandbot.ch/api',
   defaultInstanceId: '00000000-0000-0000-0000-000000000000',
   google: {
-    clientId: 'REPLACE_WITH_STG_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+    clientId: '736197905669-69clqjduv9bbf65gnpd2ujembe62hlrl.apps.googleusercontent.com'
   },
   microsoft: {
-    clientId: 'REPLACE_WITH_STG_MS_CLIENT_ID',
-    tenantId: 'REPLACE_WITH_STG_MS_TENANT_GUID'
+    clientId: 'e1fa426f-bbd2-4c1c-8203-277d7921767b',
+    tenantId: '9edf92ee-68bb-4ddf-9490-945d3db5fb84'
   }
 };
