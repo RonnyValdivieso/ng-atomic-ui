@@ -47,3 +47,14 @@ export function getClaim<T = unknown>(token: string | null | undefined, name: st
   if (!payload) return undefined;
   return payload[name] as T | undefined;
 }
+
+/**
+ * Read the `provider` claim off a 2FA challenge JWT ("email", "authenticator",
+ * etc). Used by the login UI to tailor the code-entry copy. Defaults to
+ * `'email'` when the claim is missing or the token is unparseable — the UI
+ * should always have something to display.
+ */
+export function getProviderFromChallenge(token: string | null | undefined): string {
+  const provider = getClaim<string>(token, 'provider');
+  return provider && provider.length > 0 ? provider : 'email';
+}

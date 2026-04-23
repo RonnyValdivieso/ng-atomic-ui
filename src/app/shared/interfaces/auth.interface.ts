@@ -18,5 +18,20 @@ export interface UserDto {
 export interface InstanceDetailDto {
   id: string;
   name: string;
-  // Add other fields as needed based on Swagger
+}
+
+export interface TwoFactorChallengeDto {
+  twoFactorToken: string;
+  expiresAt: string;
+}
+
+export interface LoginResultDto {
+  requiresTwoFactor: boolean;
+  user: UserDto | null;
+  twoFactorChallenge: TwoFactorChallengeDto | null;
+}
+
+export interface VerifyTwoFactorDto {
+  twoFactorToken: string;
+  code: string;
 }

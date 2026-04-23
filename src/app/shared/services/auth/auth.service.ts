@@ -1,7 +1,12 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, computed, effect, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, of, switchMap, tap, throwError } from 'rxjs';
-import { LoginDto, UserDto } from '@interfaces/auth.interface';
+import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
+import {
+  LoginDto,
+  LoginResultDto,
+  TwoFactorChallengeDto,
+  UserDto
+} from '@interfaces/auth.interface';
 import { UserModule } from '@interfaces/aaa';
 import { AaaAuthApi } from '@services/api/aaa/auth.api';
 import { isExpired } from '@utils/jwt.util';
@@ -11,9 +16,19 @@ const USER_KEY = 'current_user';
 const PERMS_KEY = 'user_permissions';
 
 /**
+ * Discriminated outcome of `AuthService.login`. Forces callers to branch on
+ * `kind` so a 2FA challenge can't accidentally be treated as a successful
+ * login.
+ */
+export type LoginOutcome =
+  | { kind: 'success'; user: UserDto }
+  | { kind: 'two-factor'; challenge: TwoFactorChallengeDto };
+
+/**
  * Centralised auth state for the backoffice.
  *
- * Owns the JWT, the current user, and the loaded permission set. Surfaces
+ * Owns the JWT, the current user, the loaded permission set, and the
+ * short-lived 2FA challenge when the AAA API demands a code. Surfaces
  * reactive signals so guards, directives, and components can react to
  * authentication / authorisation changes without manual subscriptions.
  *
@@ -30,10 +45,13 @@ export class AuthService {
   private readonly _accessToken = signal<string | null>(this.readToken());
   private readonly _currentUser = signal<UserDto | null>(this.readUser());
   private readonly _permissions = signal<Set<string>>(this.readPermissions());
+  private readonly _pendingChallenge = signal<TwoFactorChallengeDto | null>(null);
+  private readonly _now = signal<number>(Date.now());
 
   readonly accessToken = this._accessToken.asReadonly();
   readonly currentUser = this._currentUser.asReadonly();
   readonly permissions = this._permissions.asReadonly();
+  readonly pendingChallenge = this._pendingChallenge.asReadonly();
 
   readonly isAuthenticated = computed(() => {
     const token = this._accessToken();
@@ -47,18 +65,73 @@ export class AuthService {
     return perms.has('module:Instances') || perms.has('module:ServiceTeams');
   });
 
-  login(dto: LoginDto): Observable<UserDto> {
+  /** Seconds remaining on the 2FA challenge; 0 when no challenge is active. */
+  readonly challengeRemainingSeconds = computed(() => {
+    const challenge = this._pendingChallenge();
+    if (!challenge) return 0;
+    const expiresMs = Date.parse(challenge.expiresAt);
+    if (Number.isNaN(expiresMs)) return 0;
+    const remainingMs = expiresMs - this._now();
+    return remainingMs > 0 ? Math.ceil(remainingMs / 1000) : 0;
+  });
+
+  constructor() {
+    // Tick `_now` every second while a challenge is pending so the UI
+    // countdown updates under zoneless change detection. Stops when the
+    // challenge clears.
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    effect(() => {
+      const hasChallenge = !!this._pendingChallenge();
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      if (hasChallenge) {
+        this._now.set(Date.now());
+        intervalId = setInterval(() => this._now.set(Date.now()), 1000);
+      }
+    });
+    inject(DestroyRef).onDestroy(() => {
+      if (intervalId !== null) clearInterval(intervalId);
+    });
+  }
+
+  login(dto: LoginDto): Observable<LoginOutcome> {
     return this.api.login(dto).pipe(
-      tap(user => this.acceptSession(user)),
-      switchMap(user =>
-        this.loadPermissions().pipe(
-          catchError(() => of(undefined)),
-          // Always emit the user, regardless of permission load outcome.
-          tap(() => undefined),
-          switchMap(() => of(user))
-        )
-      )
+      switchMap(result => this.acceptLoginResult(result))
     );
+  }
+
+  /**
+   * Complete a pending 2FA challenge with the user's code. Errors synchronously
+   * (via an observable) if there's no active challenge or it has already
+   * expired. On success, accepts the session and clears the challenge.
+   */
+  verify2fa(code: string): Observable<UserDto> {
+    const challenge = this._pendingChallenge();
+    if (!challenge) {
+      return throwError(() => new Error('NO_CHALLENGE'));
+    }
+    if (this.challengeRemainingSeconds() === 0) {
+      this._pendingChallenge.set(null);
+      return throwError(() => new Error('CHALLENGE_EXPIRED'));
+    }
+    return this.api
+      .verify2fa({ twoFactorToken: challenge.twoFactorToken, code })
+      .pipe(
+        switchMap(result => this.acceptLoginResult(result)),
+        switchMap(outcome => {
+          if (outcome.kind === 'success') {
+            return of(outcome.user);
+          }
+          // Backend re-issued a challenge — shouldn't happen but guard anyway.
+          return throwError(() => new Error('UNEXPECTED_CHALLENGE'));
+        })
+      );
+  }
+
+  clearPendingChallenge(): void {
+    this._pendingChallenge.set(null);
   }
 
   /**
@@ -80,12 +153,39 @@ export class AuthService {
     this._accessToken.set(null);
     this._currentUser.set(null);
     this._permissions.set(new Set());
+    this._pendingChallenge.set(null);
     if (redirect) {
       this.router.navigate(['/login']);
     }
   }
 
   // ---------- private helpers ----------
+
+  /**
+   * Branch a raw AAA login result into our discriminated `LoginOutcome`.
+   * On `requiresTwoFactor`, stores the challenge as pending state. On a
+   * fully authenticated response, persists the session and loads
+   * permissions. Treats malformed responses (neither branch populated) as
+   * hard errors.
+   */
+  private acceptLoginResult(result: LoginResultDto): Observable<LoginOutcome> {
+    if (result.requiresTwoFactor) {
+      if (!result.twoFactorChallenge) {
+        return throwError(() => new Error('MALFORMED_LOGIN_RESULT'));
+      }
+      this._pendingChallenge.set(result.twoFactorChallenge);
+      return of<LoginOutcome>({ kind: 'two-factor', challenge: result.twoFactorChallenge });
+    }
+    if (!result.user) {
+      return throwError(() => new Error('MALFORMED_LOGIN_RESULT'));
+    }
+    this._pendingChallenge.set(null);
+    this.acceptSession(result.user);
+    return this.loadPermissions().pipe(
+      catchError(() => of(undefined)),
+      map(() => ({ kind: 'success' as const, user: result.user as UserDto }))
+    );
+  }
 
   private acceptSession(user: UserDto): void {
     localStorage.setItem(TOKEN_KEY, user.accessToken);

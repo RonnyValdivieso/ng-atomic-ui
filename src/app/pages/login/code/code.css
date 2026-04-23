@@ -1,0 +1,44 @@
+.code-hint {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--p-text-muted-color, #64748b);
+    text-align: center;
+}
+
+.code-countdown {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--p-text-muted-color, #64748b);
+    text-align: center;
+}
+
+.code-countdown--expired {
+    color: var(--red-500, #ef4444);
+    font-weight: 600;
+}
+
+.code-error {
+    color: var(--red-500, #ef4444);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.code-cancel {
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    color: var(--p-primary-color, #3b82f6);
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.code-cancel:hover {
+    text-decoration: underline;
+}
+
+.code-cancel:focus-visible {
+    outline: 2px solid var(--p-primary-color, #3b82f6);
+    outline-offset: 2px;
+    border-radius: 4px;
+}

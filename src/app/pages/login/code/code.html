@@ -1,0 +1,33 @@
+<app-card header="Verificación en dos pasos" class="login-card-wrapper" [elevation]="4">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+    <p class="code-hint">{{ providerHint() }}</p>
+
+    <app-form-field
+      label="Código"
+      formControlName="code"
+      type="text"
+      placeholder="123456"
+      [errorMessage]="form.get('code')?.errors && form.get('code')?.touched ? 'Código requerido' : ''">
+    </app-form-field>
+
+    <p class="code-countdown" [class.code-countdown--expired]="expired()">
+      {{ countdownLabel() }}
+    </p>
+
+    @if (errorMessage()) {
+      <div class="code-error">{{ errorMessage() }}</div>
+    }
+
+    <app-button
+      label="Verificar"
+      type="submit"
+      [loading]="loading()"
+      [disabled]="form.invalid || loading() || expired()"
+      style="width: 100%">
+    </app-button>
+
+    <button type="button" class="code-cancel" (click)="onCancel()">
+      Usar otra cuenta
+    </button>
+  </form>
+</app-card>
