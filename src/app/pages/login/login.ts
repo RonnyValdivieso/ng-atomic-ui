@@ -141,12 +141,14 @@ export class LoginComponent {
   }
 
   private navigatePostLogin(_user: UserDto): void {
+    // Super-admin-only backoffice: keep the user inside /admin regardless of
+    // where the guard bounced them from. Only honor redirectTo when it's
+    // already an /admin/* path (deep-link support).
     const redirectTo = this.route.snapshot.queryParamMap.get('redirectTo');
-    if (redirectTo) {
+    if (redirectTo && redirectTo.startsWith('/admin')) {
       this.router.navigateByUrl(redirectTo);
       return;
     }
-    const target = this.auth.isSuperAdmin() ? '/admin' : '/workspace-selector';
-    this.router.navigateByUrl(target);
+    this.router.navigateByUrl('/admin');
   }
 }

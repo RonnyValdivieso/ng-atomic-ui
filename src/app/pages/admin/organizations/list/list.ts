@@ -29,8 +29,7 @@ export class AdminOrganizationsListComponent {
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
     { field: 'description', header: 'Descripción' },
-    { field: 'serviceTeamId', header: 'Equipo de servicio' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions' }
+    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right' }
   ];
 
   constructor() {

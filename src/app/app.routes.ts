@@ -33,7 +33,7 @@ export const routes: Routes = [
           import('./pages/workspace-selector/workspace-selector')
             .then(m => m.WorkspaceSelectorComponent)
       },
-      { path: '', redirectTo: 'workspace-selector', pathMatch: 'full' }
+      { path: '', redirectTo: '/admin', pathMatch: 'full' }
     ]
   },
   {
@@ -172,5 +172,5 @@ export const routes: Routes = [
         .then(m => m.ProjectLayoutComponent),
     children: []
   },
-  { path: '**', redirectTo: '/workspace-selector' }
+  { path: '**', redirectTo: '/admin' }
 ];

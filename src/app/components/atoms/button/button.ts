@@ -2,15 +2,18 @@ import { Component, computed, input, output } from '@angular/core';
 
 import { ButtonModule } from 'primeng/button';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success';
+export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success' | 'ghost';
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 /**
  * Enhanced button component powered by PrimeNG Button
  * Maintains our design system API while leveraging PrimeNG's robust functionality
+ * `variant="ghost"` renders the PrimeNG text-mode button — transparent background,
+ * subtle hover. Use for low-emphasis in-row actions where a full-filled button
+ * would be too heavy.
  * @example
- * <app-button 
- *   variant="primary" 
+ * <app-button
+ *   variant="primary"
  *   size="medium"
  *   icon="pi pi-save"
  *   [loading]="isLoading"
@@ -42,12 +45,15 @@ export class ButtonComponent {
   protected readonly severity = computed(() => {
     switch (this.variant()) {
       case 'primary': return 'primary';
-      case 'secondary': return 'secondary'; 
+      case 'secondary': return 'secondary';
       case 'danger': return 'danger';
       case 'success': return 'success';
+      case 'ghost': return 'secondary'; // PrimeNG severity base for the text-mode render
       default: return 'primary';
     }
   });
+
+  protected readonly textMode = computed(() => this.variant() === 'ghost');
 
   // ✅ protected computed for PrimeNG size mapping
   protected readonly primeSize = computed(() => {

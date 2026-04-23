@@ -33,7 +33,7 @@ export class AdminOrganizationDetailsComponent implements OnInit {
     { field: 'name', header: 'Nombre' },
     { field: 'domain', header: 'Dominio' },
     { field: 'status', header: 'Estado' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'instanceActions' }
+    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'instanceActions', styleClass: 'text-right' }
   ];
 
   ngOnInit(): void {

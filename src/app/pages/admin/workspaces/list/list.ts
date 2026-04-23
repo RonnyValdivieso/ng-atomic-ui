@@ -29,8 +29,7 @@ export class AdminWorkspacesListComponent {
     { field: 'name', header: 'Name', sortable: true },
     { field: 'domain', header: 'Domain' },
     { field: 'status', header: 'Status' },
-    { field: 'organizationId', header: 'Organization' },
-    { field: 'actions', header: 'Actions', type: 'template', templateRef: 'actions' }
+    { field: 'actions', header: 'Actions', type: 'template', templateRef: 'actions', styleClass: 'text-right' }
   ];
 
   constructor() {

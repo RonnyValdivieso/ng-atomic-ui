@@ -1,6 +1,7 @@
 <p-button
   [type]="type()"
   [severity]="severity()"
+  [text]="textMode()"
   [size]="primeSize()"
   [disabled]="disabled()"
   [loading]="loading()"
@@ -8,6 +9,6 @@
   [label]="label()"
   [attr.aria-label]="loading() ? 'Loading...' : null"
   (onClick)="handleButtonClick($event)">
-  
+
   <ng-content></ng-content>
 </p-button>
