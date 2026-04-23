@@ -28,9 +28,7 @@
         </app-form-field>
 
         @if (error()) {
-          <div style="color: var(--red-500); font-size: 0.875rem; text-align: center;">
-            {{ error() }}
-          </div>
+          <div class="login-error">{{ error() }}</div>
         }
 
         <app-button
@@ -41,6 +39,35 @@
           style="width: 100%"
         ></app-button>
       </form>
+
+      @if (googleEnabled || microsoftEnabled) {
+        <div class="login-divider"><span>o</span></div>
+
+        <div class="login-sso">
+          @if (microsoftEnabled) {
+            <app-button
+              label="Continuar con Microsoft"
+              variant="secondary"
+              icon="pi pi-microsoft"
+              [loading]="isLoading()"
+              [disabled]="isLoading()"
+              (clicked)="onMicrosoftSignIn()"
+              style="width: 100%">
+            </app-button>
+          }
+          @if (googleEnabled) {
+            <app-button
+              label="Continuar con Google"
+              variant="secondary"
+              icon="pi pi-google"
+              [loading]="isLoading()"
+              [disabled]="isLoading()"
+              (clicked)="onGoogleSignIn()"
+              style="width: 100%">
+            </app-button>
+          }
+        </div>
+      }
     </app-card>
   }
 </div>

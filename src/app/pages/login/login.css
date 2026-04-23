@@ -44,6 +44,48 @@
     padding-bottom: 0.5rem;
 }
 
+.login-error {
+    color: var(--red-500, #ef4444);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.login-divider {
+    position: relative;
+    margin: 1.5rem 0 1rem;
+    text-align: center;
+    color: var(--p-text-muted-color, #94a3b8);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--p-content-border-color, rgba(148, 163, 184, 0.35));
+}
+
+.login-divider::before { left: 0; }
+.login-divider::after  { right: 0; }
+
+.login-divider span {
+    display: inline-block;
+    padding: 0 0.6rem;
+    background: transparent;
+}
+
+.login-sso {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+}
+
 @keyframes fadein {
     from {
         opacity: 0;

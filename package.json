@@ -31,6 +31,7 @@
     "@angular/forms": "^21.2.9",
     "@angular/platform-browser": "^21.2.9",
     "@angular/router": "^21.2.9",
+    "@azure/msal-browser": "^3.30.0",
     "@primeng/themes": "^21.0.4",
     "@primeuix/themes": "^1.2.5",
     "@tailwindcss/postcss": "^4.1.17",

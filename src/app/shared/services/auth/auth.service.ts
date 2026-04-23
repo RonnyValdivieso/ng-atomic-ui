@@ -4,12 +4,14 @@ import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxj
 import {
   LoginDto,
   LoginResultDto,
+  LoginWithExternalDto,
   TwoFactorChallengeDto,
   UserDto
 } from '@interfaces/auth.interface';
 import { UserModule } from '@interfaces/aaa';
 import { AaaAuthApi } from '@services/api/aaa/auth.api';
 import { isExpired } from '@utils/jwt.util';
+import { environment } from '@env/environment';
 
 const TOKEN_KEY = 'access_token';
 const USER_KEY = 'current_user';
@@ -32,10 +34,17 @@ export type LoginOutcome =
  * reactive signals so guards, directives, and components can react to
  * authentication / authorisation changes without manual subscriptions.
  *
+ * Every successful login (password, SSO, or post-2FA) funnels through the
+ * same finalizeSession pipeline:
+ *   acceptSession -> loadPermissions -> assertSuperAdmin ->
+ *   refreshTokenForInstance(defaultInstanceId)
+ * which enforces the super-admin-only policy and normalises the token
+ * scope to the configured default instance.
+ *
  * SuperAdmin detection is pragmatic for now: we infer it from the loaded
  * module list (presence of system-only modules such as Instances or
- * ServiceTeams). See plan's open items — preferred long-term path is for the
- * AAA login response to surface roles directly.
+ * ServiceTeams). See plan's open items — preferred long-term path is for
+ * the AAA login response to surface roles directly.
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -97,7 +106,21 @@ export class AuthService {
   }
 
   login(dto: LoginDto): Observable<LoginOutcome> {
-    return this.api.login(dto).pipe(
+    const scoped: LoginDto = { ...dto, instanceId: environment.defaultInstanceId };
+    return this.api.login(scoped).pipe(
+      switchMap(result => this.acceptLoginResult(result))
+    );
+  }
+
+  /**
+   * Exchange a provider (Google/Microsoft) access token for an AAA session.
+   * Behaves like `login` — returns the same LoginOutcome union and funnels
+   * through the same finalizeSession pipeline. Because AAA's
+   * LoginWithExternalDto has no instanceId field, scoping to the default
+   * instance happens via the refreshTokenForInstance step.
+   */
+  loginWithExternal(dto: LoginWithExternalDto): Observable<LoginOutcome> {
+    return this.api.loginWithThirdParty(dto).pipe(
       switchMap(result => this.acceptLoginResult(result))
     );
   }
@@ -164,9 +187,9 @@ export class AuthService {
   /**
    * Branch a raw AAA login result into our discriminated `LoginOutcome`.
    * On `requiresTwoFactor`, stores the challenge as pending state. On a
-   * fully authenticated response, persists the session and loads
-   * permissions. Treats malformed responses (neither branch populated) as
-   * hard errors.
+   * fully authenticated response, persists the session and runs the
+   * finalize pipeline (permissions → super-admin gate → instance refresh).
+   * Treats malformed responses (neither branch populated) as hard errors.
    */
   private acceptLoginResult(result: LoginResultDto): Observable<LoginOutcome> {
     if (result.requiresTwoFactor) {
@@ -181,9 +204,48 @@ export class AuthService {
     }
     this._pendingChallenge.set(null);
     this.acceptSession(result.user);
+    return this.finalizeSession(result.user).pipe(
+      map(user => ({ kind: 'success' as const, user }))
+    );
+  }
+
+  /**
+   * Post-accept pipeline shared by every successful login (password, SSO,
+   * post-2FA). Loads permissions, gates on super-admin membership, then
+   * normalises the token scope to the configured default instance.
+   */
+  private finalizeSession(user: UserDto): Observable<UserDto> {
     return this.loadPermissions().pipe(
-      catchError(() => of(undefined)),
-      map(() => ({ kind: 'success' as const, user: result.user as UserDto }))
+      // A missing/forbidden modules endpoint shouldn't hard-fail login;
+      // the super-admin assert below is the actual gate.
+      catchError(() => of<UserModule[]>([])),
+      switchMap(() => {
+        if (!this.isSuperAdmin()) {
+          this.logout(false);
+          return throwError(() => new Error('SUPER_ADMIN_REQUIRED'));
+        }
+        const scopeId = environment.defaultInstanceId;
+        if (!scopeId) return of(user);
+        return this.refreshTokenForInstance(scopeId).pipe(
+          catchError(err => {
+            // Don't brick login on a transient refresh failure — the
+            // interceptor will push users to /login on 401 anyway.
+            console.warn('refresh-user-token failed, continuing with initial session:', err);
+            return of(user);
+          })
+        );
+      })
+    );
+  }
+
+  /**
+   * Re-mint the session token against the given instance ID and accept the
+   * refreshed session (access token, user, everything). The back-end
+   * returns a full UserDto with a fresh accessToken.
+   */
+  private refreshTokenForInstance(instanceId: string): Observable<UserDto> {
+    return this.api.refreshUserToken(instanceId).pipe(
+      tap(refreshed => this.acceptSession(refreshed))
     );
   }
 

@@ -35,3 +35,12 @@ export interface VerifyTwoFactorDto {
   twoFactorToken: string;
   code: string;
 }
+
+export interface LoginWithExternalDto {
+  provider: string;
+  userId: string;
+  accessToken: string;
+  language: string;
+  app?: string | null;
+  appType?: string | null;
+}
