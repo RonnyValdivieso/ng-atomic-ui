@@ -8,14 +8,29 @@
   display: inline-block;
 }
 
-/* PrimeNG Button base styles */
-::ng-deep .p-button.p-button-primary {
+/* PrimeNG Button base styles (filled variants only; text-mode overridden below). */
+::ng-deep .p-button.p-button-primary:not(.p-button-text) {
 	background-color: var(--p-surface-800);
 	color: var(--color-surface-0);
 	border: 1px solid var(--border-color);
 }
-::ng-deep .p-button.p-button-secondary {
+::ng-deep .p-button.p-button-secondary:not(.p-button-text) {
 	background-color: var(--p-surface-200);
 	color: var(--p-surface-800);
 	border: 1px solid var(--border-color);
+}
+
+/* Ghost variant: text-mode buttons are transparent at rest with a subtle hover. */
+::ng-deep .p-button.p-button-text {
+	background-color: transparent;
+	border-color: transparent;
+	box-shadow: none;
+}
+::ng-deep .p-button.p-button-text:hover,
+::ng-deep .p-button.p-button-text:focus-visible {
+	background-color: var(--p-surface-100);
+}
+:host-context(.p-dark) ::ng-deep .p-button.p-button-text:hover,
+:host-context(.p-dark) ::ng-deep .p-button.p-button-text:focus-visible {
+	background-color: var(--p-surface-800);
 }
