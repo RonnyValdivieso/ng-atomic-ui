@@ -20,6 +20,12 @@
 	border: 1px solid var(--border-color);
 }
 
+/* Icon-only buttons: drop PrimeNG's default icon margin-left (meant for
+ * icon + label layouts) so the glyph sits centred. */
+::ng-deep .p-button.p-button-icon-only .p-button-icon {
+	margin: 0;
+}
+
 /* Ghost variant: text-mode buttons are transparent at rest with a subtle hover. */
 ::ng-deep .p-button.p-button-text {
 	background-color: transparent;

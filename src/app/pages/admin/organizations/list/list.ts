@@ -28,8 +28,10 @@ export class AdminOrganizationsListComponent {
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
-    { field: 'description', header: 'Descripción' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right' }
+    { field: 'ownerName', header: 'Propietario' },
+    { field: 'email', header: 'Email' },
+    { field: 'status', header: 'Estado' },
+    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
   ];
 
   constructor() {
@@ -51,10 +53,11 @@ export class AdminOrganizationsListComponent {
   }
 
   protected onPage(event: TablePageEvent): void {
-    const pageNumber = (event.page ?? 0) + 1;
-    if (event.rows && event.rows !== this.pageSize()) {
-      this.pageSize.set(event.rows);
+    const rows = event.rows ?? this.pageSize();
+    if (rows !== this.pageSize()) {
+      this.pageSize.set(rows);
     }
+    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
     this.load(pageNumber);
   }
 

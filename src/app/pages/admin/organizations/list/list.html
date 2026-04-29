@@ -12,6 +12,7 @@
     [loading]="loading()"
     [totalRecords]="totalRecords()"
     [rows]="pageSize()"
+    [lazy]="true"
     (page)="onPage($event)">
     <ng-template pTemplate="actions" let-org>
       <div class="flex justify-end gap-2">

@@ -12,7 +12,11 @@
     [loading]="loading()"
     [totalRecords]="totalRecords()"
     [rows]="pageSize()"
+    [lazy]="true"
     (page)="onPage($event)">
+    <ng-template pTemplate="organization" let-workspace>
+      {{ workspace.organization?.name ?? '—' }}
+    </ng-template>
     <ng-template pTemplate="actions" let-workspace>
       <div class="flex justify-end gap-2">
         <app-button

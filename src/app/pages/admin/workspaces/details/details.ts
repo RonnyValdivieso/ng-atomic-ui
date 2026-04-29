@@ -36,6 +36,18 @@ export class AdminWorkspaceDetailsComponent implements OnInit {
     this.router.navigate(['/admin/workspaces']);
   }
 
+  /**
+   * Returns '—' for missing values. Also catches the literal string
+   * "null" which the staging API returns for some workspace fields
+   * (e.g. `domain: "null"`) instead of a proper JSON null.
+   */
+  protected orDash(value: unknown): string {
+    if (value === null || value === undefined) return '—';
+    const s = String(value).trim();
+    if (s === '' || s.toLowerCase() === 'null') return '—';
+    return s;
+  }
+
   private load(id: string): void {
     this.loading.set(true);
     this.error.set(false);

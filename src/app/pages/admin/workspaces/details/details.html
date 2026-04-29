@@ -36,23 +36,23 @@
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
           <div class="flex flex-col gap-1">
             <dt class="text-sm font-medium text-surface-500">Dominio</dt>
-            <dd class="text-base text-surface-900">{{ workspace()!.domain || '—' }}</dd>
+            <dd class="text-base text-surface-900">{{ orDash(workspace()!.domain) }}</dd>
           </div>
           <div class="flex flex-col gap-1">
             <dt class="text-sm font-medium text-surface-500">Estado</dt>
-            <dd class="text-base text-surface-900">{{ workspace()!.status || '—' }}</dd>
+            <dd class="text-base text-surface-900">{{ orDash(workspace()!.status) }}</dd>
           </div>
           <div class="flex flex-col gap-1">
             <dt class="text-sm font-medium text-surface-500">Idioma por defecto</dt>
-            <dd class="text-base text-surface-900">{{ workspace()!.defaultLanguage || '—' }}</dd>
+            <dd class="text-base text-surface-900">{{ orDash(workspace()!.defaultLanguage) }}</dd>
           </div>
           <div class="flex flex-col gap-1">
             <dt class="text-sm font-medium text-surface-500">Zona horaria</dt>
-            <dd class="text-base text-surface-900">{{ workspace()!.timeZoneReference || '—' }}</dd>
+            <dd class="text-base text-surface-900">{{ orDash(workspace()!.timeZoneReference) }}</dd>
           </div>
           <div class="flex flex-col gap-1 md:col-span-2">
             <dt class="text-sm font-medium text-surface-500">Descripción</dt>
-            <dd class="text-base text-surface-900">{{ workspace()!.description || '—' }}</dd>
+            <dd class="text-base text-surface-900">{{ orDash(workspace()!.description) }}</dd>
           </div>
         </dl>
       </app-card>

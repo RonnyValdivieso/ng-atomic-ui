@@ -33,7 +33,7 @@ export class AdminOrganizationDetailsComponent implements OnInit {
     { field: 'name', header: 'Nombre' },
     { field: 'domain', header: 'Dominio' },
     { field: 'status', header: 'Estado' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'instanceActions', styleClass: 'text-right' }
+    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'instanceActions', styleClass: 'text-right pr-4' }
   ];
 
   ngOnInit(): void {
@@ -54,6 +54,18 @@ export class AdminOrganizationDetailsComponent implements OnInit {
     this.router.navigate(['/admin/workspaces', instance.id]);
   }
 
+  /**
+   * Returns '—' for missing values. Also catches the literal string
+   * "null" that the staging API occasionally returns instead of a
+   * proper JSON null.
+   */
+  protected orDash(value: unknown): string {
+    if (value === null || value === undefined) return '—';
+    const s = String(value).trim();
+    if (s === '' || s.toLowerCase() === 'null') return '—';
+    return s;
+  }
+
   private load(id: string): void {
     this.loading.set(true);
     this.error.set(false);
@@ -72,9 +84,9 @@ export class AdminOrganizationDetailsComponent implements OnInit {
 
   private loadInstances(orgId: string): void {
     this.instancesLoading.set(true);
-    this.service.getInstances(orgId).subscribe({
-      next: list => {
-        this.instances.set(list ?? []);
+    this.service.getInstances(orgId, { pageNumber: 1, pageSize: 50 }).subscribe({
+      next: page => {
+        this.instances.set(page.items ?? []);
         this.instancesLoading.set(false);
       },
       error: () => {

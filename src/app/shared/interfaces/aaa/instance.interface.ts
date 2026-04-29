@@ -1,7 +1,10 @@
 import { OrganizationSummary } from './organization.interface';
 
 /**
- * List-row shape. The GET /v1/instance list endpoint returns these.
+ * Instance row as returned by `/v1/instance` (list) — derived from
+ * sampling the staging API. Note: the list endpoint inlines the parent
+ * `organization: OrganizationSummary` rather than a flat
+ * `organizationId`, same as the detail endpoint.
  */
 export interface Instance {
   id: string;
@@ -9,20 +12,18 @@ export interface Instance {
   domain?: string | null;
   description?: string | null;
   defaultLanguage?: string | null;
-  defaultCurrency?: string | null;
   status?: string | null;
   timeZoneReference?: string | null;
   picture?: string | null;
-  organizationId?: string | null;
   serviceTeamId?: string | null;
+  organization?: OrganizationSummary | null;
 }
 
 /**
- * Detail shape for GET /v1/instance/{id}. Mirrors `InstanceDetailDto`
- * in the AAA swagger: the parent organization is inlined as a
- * summary, not just an id.
+ * Detail shape for `/v1/instance/{id}`. Swagger pins this as
+ * `InstanceDetailDto` with one extra field (`preference`) on top of
+ * the list shape.
  */
-export interface InstanceDetail extends Omit<Instance, 'organizationId'> {
-  organization?: OrganizationSummary | null;
+export interface InstanceDetail extends Instance {
   preference?: string | null;
 }

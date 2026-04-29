@@ -52,6 +52,10 @@ export class TableComponent {
 	readonly currentPageReportTemplate = input<string>(
 		'Showing {first} to {last} of {totalRecords} entries'
 	);
+	/** Server-side pagination. When true, the caller is responsible for
+	 * fetching the right page in response to the (page) event. Default
+	 * false keeps the old client-side behaviour. */
+	readonly lazy = input<boolean>(false);
 
 	// Selection & Interaction
 	readonly selectionMode = input<'single' | 'multiple' | null>(null);

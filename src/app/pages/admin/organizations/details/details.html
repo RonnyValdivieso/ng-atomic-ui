@@ -34,13 +34,25 @@
           <h3 class="text-lg font-semibold text-surface-900">Información</h3>
         </div>
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-          <div class="flex flex-col gap-1 md:col-span-2">
-            <dt class="text-sm font-medium text-surface-500">Descripción</dt>
-            <dd class="text-base text-surface-900">{{ organization()!.description || '—' }}</dd>
+          <div class="flex flex-col gap-1">
+            <dt class="text-sm font-medium text-surface-500">Propietario</dt>
+            <dd class="text-base text-surface-900">{{ orDash(organization()!.ownerName) }}</dd>
+          </div>
+          <div class="flex flex-col gap-1">
+            <dt class="text-sm font-medium text-surface-500">Estado</dt>
+            <dd class="text-base text-surface-900">{{ orDash(organization()!.status) }}</dd>
+          </div>
+          <div class="flex flex-col gap-1">
+            <dt class="text-sm font-medium text-surface-500">Email</dt>
+            <dd class="text-base text-surface-900">{{ orDash(organization()!.email) }}</dd>
+          </div>
+          <div class="flex flex-col gap-1">
+            <dt class="text-sm font-medium text-surface-500">Teléfono</dt>
+            <dd class="text-base text-surface-900">{{ orDash(organization()!.phone) }}</dd>
           </div>
           <div class="flex flex-col gap-1">
             <dt class="text-sm font-medium text-surface-500">Equipo de servicio</dt>
-            <dd class="text-base text-surface-900 font-mono text-xs">{{ organization()!.serviceTeamId || '—' }}</dd>
+            <dd class="text-base text-surface-900 font-mono text-xs">{{ orDash(organization()!.serviceTeamId) }}</dd>
           </div>
         </dl>
       </app-card>

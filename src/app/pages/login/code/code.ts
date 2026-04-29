@@ -45,6 +45,13 @@ export class LoginCodeComponent {
     }
   });
 
+  /**
+   * TOTP codes rotate in the user's authenticator app every ~30s; there is no
+   * delivered code with a fixed shelf life. The countdown is meaningful only
+   * for providers that send a one-shot code (email, SMS).
+   */
+  protected readonly showCountdown = computed(() => this.provider() !== 'authenticator');
+
   protected readonly countdownLabel = computed(() => {
     const s = this.remainingSeconds();
     if (s <= 0) return 'Código expirado';
@@ -53,7 +60,9 @@ export class LoginCodeComponent {
     return `Válido por ${mm}:${ss}`;
   });
 
-  protected readonly expired = computed(() => this.remainingSeconds() <= 0);
+  protected readonly expired = computed(
+    () => this.showCountdown() && this.remainingSeconds() <= 0
+  );
 
   onSubmit(): void {
     if (this.form.invalid || this.loading() || this.expired()) return;

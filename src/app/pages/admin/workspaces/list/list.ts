@@ -27,9 +27,10 @@ export class AdminWorkspacesListComponent {
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Name', sortable: true },
-    { field: 'domain', header: 'Domain' },
+    { field: 'description', header: 'Description' },
+    { field: 'organization', header: 'Organization', type: 'template', templateRef: 'organization' },
     { field: 'status', header: 'Status' },
-    { field: 'actions', header: 'Actions', type: 'template', templateRef: 'actions', styleClass: 'text-right' }
+    { field: 'actions', header: 'Actions', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
   ];
 
   constructor() {
@@ -51,10 +52,11 @@ export class AdminWorkspacesListComponent {
   }
 
   protected onPage(event: TablePageEvent): void {
-    const pageNumber = (event.page ?? 0) + 1;
-    if (event.rows && event.rows !== this.pageSize()) {
-      this.pageSize.set(event.rows);
+    const rows = event.rows ?? this.pageSize();
+    if (rows !== this.pageSize()) {
+      this.pageSize.set(rows);
     }
+    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
     this.load(pageNumber);
   }
 

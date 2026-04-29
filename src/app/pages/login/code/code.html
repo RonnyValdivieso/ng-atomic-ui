@@ -10,9 +10,11 @@
       [errorMessage]="form.get('code')?.errors && form.get('code')?.touched ? 'Código requerido' : ''">
     </app-form-field>
 
-    <p class="code-countdown" [class.code-countdown--expired]="expired()">
-      {{ countdownLabel() }}
-    </p>
+    @if (showCountdown()) {
+      <p class="code-countdown" [class.code-countdown--expired]="expired()">
+        {{ countdownLabel() }}
+      </p>
+    }
 
     @if (errorMessage()) {
       <div class="code-error">{{ errorMessage() }}</div>

@@ -3,6 +3,7 @@
 		[totalRecords]="totalRecords()" [rowsPerPageOptions]="rowsPerPageOptions()"
 		[showCurrentPageReport]="showCurrentPageReport()" [currentPageReportTemplate]="currentPageReportTemplate()"
 		[selectionMode]="selectionMode()" [dataKey]="dataKey()" [rowHover]="rowHover()"
+		[lazy]="lazy()"
 		[tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-striped" (onPage)="onPageChange($event)"
 		(onSort)="onSortChange($event)" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
 
