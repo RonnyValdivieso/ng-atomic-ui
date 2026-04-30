@@ -1,10 +1,10 @@
 <div class="p-6 max-w-4xl mx-auto">
   <div class="mb-6">
     <app-button
-      label="Back to Service Teams"
-      icon="arrow_back"
+      label="Volver a Service Teams"
+      icon="pi pi-arrow-left"
       variant="secondary"
-      (click)="goBack()">
+      (clicked)="goBack()">
     </app-button>
   </div>
 
@@ -37,61 +37,71 @@
         </div>
         <div class="flex gap-2">
           <app-button
-            icon="edit"
-            label="Edit"
+            icon="pi pi-pencil"
+            label="Editar"
             variant="secondary"
-            (click)="openEdit()">
+            (clicked)="openEdit()">
           </app-button>
           <app-button
-            [icon]="team()!.status === 'Active' ? 'toggle_off' : 'toggle_on'"
-            [label]="team()!.status === 'Active' ? 'Deactivate' : 'Activate'"
+            [icon]="team()!.status === 'Active' ? 'pi pi-pause' : 'pi pi-play'"
+            [label]="team()!.status === 'Active' ? 'Desactivar' : 'Activar'"
             variant="secondary"
-            (click)="toggleStatus()">
+            (clicked)="toggleStatus()">
           </app-button>
           <app-button
-            icon="delete"
-            label="Delete"
+            icon="pi pi-trash"
+            label="Eliminar"
             variant="danger"
-            (click)="delete()">
+            (clicked)="delete()">
           </app-button>
         </div>
       </div>
 
       <app-card>
         <div header>
-          <h3 class="text-lg font-semibold text-surface-900">Information</h3>
+          <h3 class="text-lg font-semibold text-surface-900">Información</h3>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
           <div class="flex flex-col gap-1">
-            <span class="text-sm font-medium text-surface-500">Name</span>
+            <span class="text-sm font-medium text-surface-500">Nombre</span>
             <span class="text-base text-surface-900">{{ team()!.name }}</span>
           </div>
           <div class="flex flex-col gap-1">
-            <span class="text-sm font-medium text-surface-500">Status</span>
+            <span class="text-sm font-medium text-surface-500">Estado</span>
             <span class="text-base text-surface-900">{{ team()!.status }}</span>
           </div>
           <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">Email</span>
+            <span class="text-base text-surface-900">{{ team()!.email || '—' }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-sm font-medium text-surface-500">Teléfono</span>
+            <span class="text-base text-surface-900">{{ team()!.phone || '—' }}</span>
+          </div>
+          <div class="flex flex-col gap-1 md:col-span-2">
             <span class="text-sm font-medium text-surface-500">ID</span>
             <span class="text-base text-surface-900 font-mono bg-surface-50 p-1 rounded">{{ team()!.id }}</span>
           </div>
         </div>
       </app-card>
 
-      <app-card>
-        <div header>
-          <h3 class="text-lg font-semibold text-surface-900">Assignments</h3>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
-          <div class="flex flex-col gap-1">
-            <span class="text-sm font-medium text-surface-500">Organizations</span>
-            <span class="text-2xl font-bold text-surface-900">{{ team()!.organizationCount }}</span>
+      @if (team()!.organizationCount !== undefined || team()!.instanceCount !== undefined) {
+        <app-card>
+          <div header>
+            <h3 class="text-lg font-semibold text-surface-900">Asignaciones</h3>
           </div>
-          <div class="flex flex-col gap-1">
-            <span class="text-sm font-medium text-surface-500">Instances (Workspaces)</span>
-            <span class="text-2xl font-bold text-surface-900">{{ team()!.instanceCount }}</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+            <div class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-surface-500">Organizaciones</span>
+              <span class="text-2xl font-bold text-surface-900">{{ team()!.organizationCount ?? '—' }}</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-surface-500">Workspaces</span>
+              <span class="text-2xl font-bold text-surface-900">{{ team()!.instanceCount ?? '—' }}</span>
+            </div>
           </div>
-        </div>
-      </app-card>
+        </app-card>
+      }
 
     </div>
 

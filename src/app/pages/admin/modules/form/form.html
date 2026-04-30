@@ -1,0 +1,19 @@
+<app-modal
+  [visible]="visible"
+  (visibleChange)="closeModal()"
+  [header]="modalTitle"
+  [style]="{ width: '420px' }">
+
+  <form [formGroup]="form" class="flex flex-col gap-4 py-4">
+    <app-form-field
+      label="Nombre"
+      formControlName="name"
+      placeholder="ej. AIAgents">
+    </app-form-field>
+  </form>
+
+  <div footer class="flex justify-end gap-2">
+    <app-button label="Cancelar" variant="secondary" (clicked)="closeModal()"></app-button>
+    <app-button label="Guardar" (clicked)="onSave()" [loading]="saving"></app-button>
+  </div>
+</app-modal>

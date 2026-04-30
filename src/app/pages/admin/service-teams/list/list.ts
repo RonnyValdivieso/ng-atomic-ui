@@ -42,9 +42,10 @@ export class AdminServiceTeamsListComponent {
   protected currentTeam: ServiceTeam | null = null;
 
   protected readonly columns: TableColumn[] = [
-    { field: 'name', header: 'Name', sortable: true },
-    { field: 'status', header: 'Status', type: 'template', templateRef: 'status' },
-    { field: 'actions', header: 'Actions', type: 'template', templateRef: 'actions' }
+    { field: 'name', header: 'Nombre', sortable: true },
+    { field: 'email', header: 'Email' },
+    { field: 'status', header: 'Estado', type: 'template', templateRef: 'status' },
+    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
   ];
 
   constructor() {
@@ -67,10 +68,12 @@ export class AdminServiceTeamsListComponent {
   }
 
   protected onPage(event: TablePageEvent): void {
-    if (event.rows && event.rows !== this.pageSize()) {
-      this.pageSize.set(event.rows);
+    const rows = event.rows ?? this.pageSize();
+    if (rows !== this.pageSize()) {
+      this.pageSize.set(rows);
     }
-    this.load((event.page ?? 0) + 1);
+    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
+    this.load(pageNumber);
   }
 
   protected openCreate(): void {

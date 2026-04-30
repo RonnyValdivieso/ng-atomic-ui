@@ -25,6 +25,7 @@ export class AdminLayoutComponent {
         { label: 'Service Teams', icon: 'pi-sitemap', route: '/admin/service-teams' },
         { label: 'System Roles', icon: 'pi-id-card', route: '/admin/roles' },
         { label: 'Modules & Permissions', icon: 'pi-lock', route: '/admin/modules' },
+        { label: 'Notification Templates', icon: 'pi-envelope', route: '/admin/notification-templates' },
         { label: 'Authentication Log', icon: 'pi-history', route: '/admin/authentication-log' }
       ]
     },

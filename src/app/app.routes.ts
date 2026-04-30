@@ -87,10 +87,34 @@ export const routes: Routes = [
             .then(m => m.AdminRolesListComponent)
       },
       {
+        path: 'roles/:id',
+        loadComponent: () =>
+          import('./pages/admin/roles/details/details')
+            .then(m => m.AdminRoleDetailsComponent)
+      },
+      {
         path: 'modules',
         loadComponent: () =>
           import('./pages/admin/modules/list/list')
             .then(m => m.AdminModulesListComponent)
+      },
+      {
+        path: 'modules/:id',
+        loadComponent: () =>
+          import('./pages/admin/modules/details/details')
+            .then(m => m.AdminModuleDetailsComponent)
+      },
+      {
+        path: 'notification-templates',
+        loadComponent: () =>
+          import('./pages/admin/notification-templates/list/list')
+            .then(m => m.AdminNotificationTemplatesListComponent)
+      },
+      {
+        path: 'notification-templates/:id',
+        loadComponent: () =>
+          import('./pages/admin/notification-templates/details/details')
+            .then(m => m.AdminNotificationTemplateDetailsComponent)
       },
       {
         path: 'authentication-log',

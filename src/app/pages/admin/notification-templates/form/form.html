@@ -1,0 +1,30 @@
+<app-modal
+  [visible]="visible"
+  (visibleChange)="closeModal()"
+  [header]="modalTitle"
+  [style]="{ width: '720px' }">
+
+  <form [formGroup]="form" class="flex flex-col gap-4 py-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <app-form-field label="Nombre" formControlName="name" placeholder="ej. Bienvenida"></app-form-field>
+      <app-form-field label="Asset" formControlName="asset" placeholder="ej. WELCOME_EMAIL"></app-form-field>
+      <app-form-field label="Tipo" formControlName="type" placeholder="EMAIL"></app-form-field>
+      <app-form-field label="Idioma" formControlName="language" placeholder="en"></app-form-field>
+      <app-form-field label="Código" formControlName="code" placeholder="(opcional)"></app-form-field>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="text-sm font-medium text-surface-700">HTML del template</label>
+      <textarea
+        formControlName="template"
+        class="w-full font-mono text-sm border border-surface-300 rounded p-2 bg-surface-0"
+        rows="14"
+        placeholder="<p>HTML…</p>"></textarea>
+    </div>
+  </form>
+
+  <div footer class="flex justify-end gap-2">
+    <app-button label="Cancelar" variant="secondary" (clicked)="closeModal()"></app-button>
+    <app-button label="Guardar" (clicked)="onSave()" [loading]="saving"></app-button>
+  </div>
+</app-modal>

@@ -5,26 +5,24 @@ import { SharedModule } from 'primeng/api';
 
 import { ButtonComponent } from '@atoms/button';
 import { TableComponent } from '@organisms/table';
-import { PaginatedList, Role } from '@interfaces/aaa';
-import { RoleService } from '@services/api/aaa/role.service';
+import { NotificationTemplate, PaginatedList } from '@interfaces/aaa';
+import { NotificationTemplateService } from '@services/api/aaa/notification-template.service';
 import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
-import { RoleFormComponent, RoleFormValue } from '../form/form';
-import { environment } from '@env/environment';
+import { NotificationTemplateFormComponent, NotificationTemplateFormValue } from '../form/form';
 
 const PAGE_SIZE = 10;
-const GLOBAL_SCOPE = '00000000-0000-0000-0000-000000000000';
 
 @Component({
-  selector: 'app-admin-roles-list',
+  selector: 'app-admin-notification-templates-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent, RoleFormComponent],
+  imports: [SharedModule, TableComponent, ButtonComponent, NotificationTemplateFormComponent],
   templateUrl: './list.html'
 })
-export class AdminRolesListComponent {
-  private service = inject(RoleService);
+export class AdminNotificationTemplatesListComponent {
+  private service = inject(NotificationTemplateService);
   private router = inject(Router);
 
-  protected readonly roles = signal<Role[]>([]);
+  protected readonly templates = signal<NotificationTemplate[]>([]);
   protected readonly loading = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
   protected readonly totalRecords = signal<number>(0);
@@ -33,14 +31,13 @@ export class AdminRolesListComponent {
 
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
-  protected currentRole: Role | null = null;
+  protected currentTemplate: NotificationTemplate | null = null;
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
-    { field: 'scope', header: 'Ámbito', type: 'template', templateRef: 'scope' },
-    { field: 'permissionCount', header: 'Permisos' },
-    { field: 'moduleCount', header: 'Módulos' },
-    { field: 'status', header: 'Estado' },
+    { field: 'asset', header: 'Asset' },
+    { field: 'type', header: 'Tipo' },
+    { field: 'language', header: 'Idioma' },
     { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
   ];
 
@@ -48,16 +45,12 @@ export class AdminRolesListComponent {
     this.load(1);
   }
 
-  protected isGlobal(role: Role): boolean {
-    return !role.instanceId || role.instanceId === GLOBAL_SCOPE || role.instanceId === environment.defaultInstanceId;
-  }
-
   protected load(pageNumber: number): void {
     this.loading.set(true);
     this.pageNumber.set(pageNumber);
     this.service.getAll({ pageNumber, pageSize: this.pageSize() }).subscribe({
-      next: (page: PaginatedList<Role>) => {
-        this.roles.set(page.items ?? []);
+      next: (page: PaginatedList<NotificationTemplate>) => {
+        this.templates.set(page.items ?? []);
         this.totalRecords.set(page.totalItems ?? 0);
         this.loading.set(false);
       },
@@ -75,22 +68,22 @@ export class AdminRolesListComponent {
   }
 
   protected openCreate(): void {
-    this.currentRole = null;
+    this.currentTemplate = null;
     this.isEditing.set(false);
     this.isModalVisible.set(true);
   }
 
-  protected openEdit(role: Role): void {
-    this.currentRole = { ...role };
+  protected openEdit(t: NotificationTemplate): void {
+    this.currentTemplate = { ...t };
     this.isEditing.set(true);
     this.isModalVisible.set(true);
   }
 
-  protected viewDetails(role: Role): void {
-    this.router.navigate(['/admin/roles', role.id]);
+  protected viewDetails(t: NotificationTemplate): void {
+    this.router.navigate(['/admin/notification-templates', t.id]);
   }
 
-  protected save(value: RoleFormValue): void {
+  protected save(value: NotificationTemplateFormValue): void {
     this.saving.set(true);
     const onDone = () => {
       this.saving.set(false);
@@ -99,23 +92,23 @@ export class AdminRolesListComponent {
     };
     const onError = () => this.saving.set(false);
 
-    if (this.isEditing() && this.currentRole) {
-      this.service.update(this.currentRole.id, { name: value.name }).subscribe({
+    if (this.isEditing() && this.currentTemplate) {
+      this.service.update(this.currentTemplate.id, value).subscribe({
         next: onDone,
         error: onError
       });
     } else {
-      this.service.create({ name: value.name }).subscribe({
+      this.service.create(value).subscribe({
         next: onDone,
         error: onError
       });
     }
   }
 
-  protected delete(role: Role): void {
-    if (!confirm(`¿Eliminar el rol "${role.name}"?`)) return;
+  protected delete(t: NotificationTemplate): void {
+    if (!confirm(`¿Eliminar la plantilla "${t.name}"?`)) return;
     this.loading.set(true);
-    this.service.delete(role.id).subscribe({
+    this.service.delete(t.id).subscribe({
       next: () => this.load(this.pageNumber()),
       error: () => this.loading.set(false)
     });

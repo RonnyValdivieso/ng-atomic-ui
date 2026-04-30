@@ -1,0 +1,32 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-surface-900">Modules</h1>
+      <p class="text-muted-color text-sm mt-1">Sistema de módulos y permisos disponibles en la plataforma.</p>
+    </div>
+    <app-button label="Nuevo módulo" icon="pi pi-plus" (clicked)="openCreate()"></app-button>
+  </div>
+
+  <app-table
+    [data]="modules()"
+    [columns]="columns"
+    [loading]="loading()"
+    [paginator]="false">
+
+    <ng-template pTemplate="actions" let-mod>
+      <div class="flex justify-end gap-2">
+        <app-button icon="pi pi-eye" variant="ghost" (clicked)="viewDetails(mod)"></app-button>
+        <app-button icon="pi pi-pencil" variant="ghost" (clicked)="openEdit(mod)"></app-button>
+        <app-button icon="pi pi-trash" variant="ghost" (clicked)="delete(mod)"></app-button>
+      </div>
+    </ng-template>
+  </app-table>
+
+  <app-module-form
+    [(visible)]="isModalVisible"
+    [isEditing]="isEditing()"
+    [current]="currentModule"
+    [saving]="saving()"
+    (save)="save($event)">
+  </app-module-form>
+</div>
