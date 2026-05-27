@@ -1,0 +1,170 @@
+@if (searchable() || hasGrid()) {
+  <div class="toolbar">
+    @if (searchable()) {
+      <div class="tool-search">
+        <i class="pi pi-search ico-sm"></i>
+        <input
+          type="text"
+          [formControl]="searchControl"
+          [placeholder]="searchPlaceholder()"
+          aria-label="Search" />
+      </div>
+    }
+    <ng-content select="[data-table-toolbar]"></ng-content>
+    @if (hasGrid()) {
+      <div class="toolbar-spacer">
+        <div class="view-toggle" role="group" aria-label="View">
+          <button
+            type="button"
+            [class.active]="view() === 'table'"
+            (click)="setView('table')"
+            title="Table view"
+            aria-label="Table view">
+            <i class="pi pi-bars ico-sm"></i>
+          </button>
+          <button
+            type="button"
+            [class.active]="view() === 'grid'"
+            (click)="setView('grid')"
+            title="Grid view"
+            aria-label="Grid view">
+            <i class="pi pi-th-large ico-sm"></i>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+@if (hasGrid() && view() === 'grid') {
+  <div class="provider-grid">
+    @for (row of data(); track rowKey(row)) {
+      <ng-container
+        [ngTemplateOutlet]="gridCardTemplate()"
+        [ngTemplateOutletContext]="{ $implicit: row, row: row }">
+      </ng-container>
+    } @empty {
+      <div class="grid-empty">
+        @if (loading()) { Loading… } @else { {{ emptyMessage() }} }
+      </div>
+    }
+  </div>
+  <div class="pager-frame">
+    <ng-container [ngTemplateOutlet]="pager"></ng-container>
+  </div>
+} @else {
+  <div class="table-card">
+    <table class="tbl">
+      <thead>
+        <tr>
+          @for (col of columns(); track col.field) {
+            <th
+              [class.sortable]="col.sortable"
+              [class.sorted]="sortColumn() === col.field"
+              [style.text-align]="col.align || 'left'"
+              [style.width]="col.width || null"
+              (click)="col.sortable ? toggleSort(col.field) : null">
+              {{ col.header }}
+              @if (col.sortable) {
+                <span class="sort"><i class="pi pi-sort-alt ico-sm"></i></span>
+              }
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of data(); track rowKey(row)) {
+          <tr [class.clickable]="rowClickable()" (click)="onRowClick(row)">
+            @for (col of columns(); track col.field) {
+              <td [style.text-align]="col.align || 'left'">
+                @switch (col.type) {
+                  @case ('name') {
+                    <div class="name-cell">
+                      <div class="name-avatar">{{ initials(fieldValue(row, col.field)) }}</div>
+                      <div class="name-text">
+                        <div class="name-title">{{ fieldValue(row, col.field) }}</div>
+                        @if (col.sub) {
+                          <div class="name-sub">{{ fieldValue(row, col.sub) }}</div>
+                        }
+                      </div>
+                    </div>
+                  }
+                  @case ('status') {
+                    @if (statusOf(row, col) === 'ACTIVE') {
+                      <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+                    } @else {
+                      <span class="pill pill-off"><span class="dot"></span>{{ statusOf(row, col) || 'INACTIVE' }}</span>
+                    }
+                  }
+                  @case ('actions') {
+                    <div class="row-actions" (click)="$event.stopPropagation()">
+                      <button type="button" class="row-act-btn" aria-label="View" (click)="onRowClick(row)">
+                        <i class="pi pi-eye ico-sm"></i>
+                      </button>
+                      <button type="button" class="row-act-btn" aria-label="More" disabled title="Coming soon">
+                        <i class="pi pi-ellipsis-h ico-sm"></i>
+                      </button>
+                    </div>
+                  }
+                  @case ('template') {
+                    <ng-container
+                      [ngTemplateOutlet]="cellTemplate(col.field)"
+                      [ngTemplateOutletContext]="{ $implicit: row, row: row }">
+                    </ng-container>
+                  }
+                  @default {
+                    @if (text(row, col); as value) {
+                      {{ value }}
+                    } @else {
+                      <span class="empty-dash">—</span>
+                    }
+                  }
+                }
+              </td>
+            }
+          </tr>
+        } @empty {
+          <tr>
+            <td [attr.colspan]="columns().length" class="empty-row">
+              @if (loading()) { Loading… } @else { {{ emptyMessage() }} }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <ng-container [ngTemplateOutlet]="pager"></ng-container>
+  </div>
+}
+
+<ng-template #pager>
+  <div class="pager">
+    <div>Showing <strong>{{ from() }}–{{ to() }}</strong> of {{ totalRecords() }} entries</div>
+    <div class="pager-right">
+      <div class="pager-nums">
+        <button type="button" class="pg" [disabled]="pageNumber() === 1" (click)="goToPage(1)" aria-label="First">
+          <i class="pi pi-angle-double-left ico-sm"></i>
+        </button>
+        <button type="button" class="pg" [disabled]="pageNumber() === 1" (click)="goToPage(pageNumber() - 1)" aria-label="Prev">
+          <i class="pi pi-angle-left ico-sm"></i>
+        </button>
+        @for (n of pageNums(); track n) {
+          <button type="button" class="pg" [class.active]="n === pageNumber()" (click)="goToPage(n)">{{ n }}</button>
+        }
+        <button type="button" class="pg" [disabled]="pageNumber() === lastPage()" (click)="goToPage(pageNumber() + 1)" aria-label="Next">
+          <i class="pi pi-angle-right ico-sm"></i>
+        </button>
+        <button type="button" class="pg" [disabled]="pageNumber() === lastPage()" (click)="goToPage(lastPage())" aria-label="Last">
+          <i class="pi pi-angle-double-right ico-sm"></i>
+        </button>
+      </div>
+      <div class="pager-rows">
+        <span>Rows</span>
+        <select class="pager-select" [value]="pageSize()" (change)="setPerPage(+$any($event.target).value)">
+          @for (opt of pageSizeOptions(); track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+</ng-template>

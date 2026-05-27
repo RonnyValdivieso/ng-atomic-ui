@@ -1,21 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SharedModule } from 'primeng/api';
-
-import { ButtonComponent } from '@atoms/button';
-import { TableComponent } from '@organisms/table';
-import { Organization, PaginatedList } from '@interfaces/aaa';
+import { DataTableComponent, DataTableColumn } from '@organisms/data-table';
 import { OrganizationService } from '@services/api/aaa/organization.service';
-import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
-
-const PAGE_SIZE = 10;
+import { Organization, PaginatedList, SearchParams } from '@interfaces/aaa';
 
 @Component({
   selector: 'app-admin-organizations-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent],
-  templateUrl: './list.html'
+  imports: [DataTableComponent],
+  templateUrl: './list.html',
+  styleUrls: ['./list.css']
 })
 export class AdminOrganizationsListComponent {
   private service = inject(OrganizationService);
@@ -24,44 +19,28 @@ export class AdminOrganizationsListComponent {
   protected readonly organizations = signal<Organization[]>([]);
   protected readonly loading = signal<boolean>(false);
   protected readonly totalRecords = signal<number>(0);
-  protected readonly pageSize = signal<number>(PAGE_SIZE);
 
-  protected readonly columns: TableColumn[] = [
-    { field: 'name', header: 'Nombre', sortable: true },
-    { field: 'ownerName', header: 'Propietario' },
-    { field: 'email', header: 'Email' },
-    { field: 'status', header: 'Estado' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
+  protected readonly columns: DataTableColumn[] = [
+    { field: 'name', header: 'Name', sortable: true, type: 'name', sub: 'id' },
+    { field: 'ownerName', header: 'Owner', sortable: true, type: 'text' },
+    { field: 'email', header: 'Email', type: 'text' },
+    { field: 'status', header: 'Status', sortable: true, type: 'status' },
+    { field: 'actions', header: 'Actions', type: 'actions', align: 'right' }
   ];
 
-  constructor() {
-    this.load(1);
-  }
-
-  protected load(pageNumber: number, searchString?: string): void {
+  protected load(query: SearchParams): void {
     this.loading.set(true);
-    this.service
-      .getAll({ pageNumber, pageSize: this.pageSize(), searchString })
-      .subscribe({
-        next: (page: PaginatedList<Organization>) => {
-          this.organizations.set(page.items ?? []);
-          this.totalRecords.set(page.totalItems ?? 0);
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false)
-      });
+    this.service.getAll(query).subscribe({
+      next: (page: PaginatedList<Organization>) => {
+        this.organizations.set(page.items ?? []);
+        this.totalRecords.set(page.totalItems ?? 0);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
-  protected onPage(event: TablePageEvent): void {
-    const rows = event.rows ?? this.pageSize();
-    if (rows !== this.pageSize()) {
-      this.pageSize.set(rows);
-    }
-    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
-    this.load(pageNumber);
-  }
-
-  protected open(org: Organization): void {
-    this.router.navigate(['/admin/organizations', org.id]);
+  protected open(row: unknown): void {
+    this.router.navigate(['/admin/organizations', (row as Organization).id]);
   }
 }
