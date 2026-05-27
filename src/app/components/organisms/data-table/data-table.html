@@ -90,10 +90,10 @@
                     </div>
                   }
                   @case ('status') {
-                    @if (statusOf(row, col) === 'ACTIVE') {
-                      <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+                    @if (isActive(row, col)) {
+                      <span class="pill pill-ok"><span class="dot"></span>{{ statusLabel(row, col) }}</span>
                     } @else {
-                      <span class="pill pill-off"><span class="dot"></span>{{ statusOf(row, col) || 'INACTIVE' }}</span>
+                      <span class="pill pill-off"><span class="dot"></span>{{ statusLabel(row, col) }}</span>
                     }
                   }
                   @case ('actions') {

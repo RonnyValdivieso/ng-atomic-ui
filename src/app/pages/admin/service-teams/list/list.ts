@@ -1,32 +1,23 @@
 import { Component, inject, signal } from '@angular/core';
-
 import { Router } from '@angular/router';
-import { SharedModule } from 'primeng/api';
-import { TableComponent } from '@organisms/table';
-import { ButtonComponent } from '@atoms/button';
+
+import { DataTableComponent, DataTableColumn, DataTableCellDirective } from '@organisms/data-table';
 import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { ServiceTeamService } from '@services/api/aaa/service-team.service';
-import {
-  PagedResult,
-  ServiceTeam,
-  ServiceTeamStatus
-} from '@interfaces/aaa';
-import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
+import { PagedResult, ServiceTeam, ServiceTeamStatus, SearchParams } from '@interfaces/aaa';
 import { ServiceTeamFormComponent, ServiceTeamFormValue } from '../form/form';
-
-const PAGE_SIZE = 10;
 
 @Component({
   selector: 'app-admin-service-teams-list',
   standalone: true,
   imports: [
-    SharedModule,
-    TableComponent,
-    ButtonComponent,
+    DataTableComponent,
+    DataTableCellDirective,
     ServiceTeamFormComponent,
     ConfirmDialogComponent
-],
-  templateUrl: './list.html'
+  ],
+  templateUrl: './list.html',
+  styleUrls: ['./list.css']
 })
 export class AdminServiceTeamsListComponent {
   private service = inject(ServiceTeamService);
@@ -36,8 +27,6 @@ export class AdminServiceTeamsListComponent {
   protected readonly loading = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
   protected readonly totalRecords = signal<number>(0);
-  protected readonly pageSize = signal<number>(PAGE_SIZE);
-  protected readonly pageNumber = signal<number>(1);
 
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
@@ -48,43 +37,34 @@ export class AdminServiceTeamsListComponent {
   protected pendingDelete: ServiceTeam | null = null;
   protected get deleteMessage(): string {
     return this.pendingDelete
-      ? `¿Eliminar el equipo "${this.pendingDelete.name}"? Se rechazará si aún tiene organizaciones o workspaces asignados.`
+      ? `Delete the team "${this.pendingDelete.name}"? This is rejected if it still has organizations or workspaces assigned.`
       : '';
   }
 
-  protected readonly columns: TableColumn[] = [
-    { field: 'name', header: 'Nombre', sortable: true },
-    { field: 'email', header: 'Email' },
-    { field: 'status', header: 'Estado', type: 'template', templateRef: 'status' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
+  private lastQuery: SearchParams = { pageNumber: 1, pageSize: 10 };
+
+  protected readonly columns: DataTableColumn[] = [
+    { field: 'name', header: 'Name', sortable: true, type: 'name', sub: 'id' },
+    { field: 'email', header: 'Email', type: 'text' },
+    { field: 'status', header: 'Status', sortable: true, type: 'status' },
+    { field: 'actions', header: 'Actions', type: 'template', align: 'right' }
   ];
 
-  constructor() {
-    this.load(1);
-  }
-
-  protected load(pageNumber: number): void {
+  protected load(query: SearchParams): void {
+    this.lastQuery = query;
     this.loading.set(true);
-    this.pageNumber.set(pageNumber);
-    this.service
-      .search({ pageNumber, pageSize: this.pageSize() })
-      .subscribe({
-        next: (page: PagedResult<ServiceTeam>) => {
-          this.serviceTeams.set(page.items ?? []);
-          this.totalRecords.set(page.totalCount ?? 0);
-          this.loading.set(false);
-        },
-        error: () => this.loading.set(false)
-      });
+    this.service.search(query).subscribe({
+      next: (page: PagedResult<ServiceTeam>) => {
+        this.serviceTeams.set(page.items ?? []);
+        this.totalRecords.set(page.totalCount ?? 0);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
-  protected onPage(event: TablePageEvent): void {
-    const rows = event.rows ?? this.pageSize();
-    if (rows !== this.pageSize()) {
-      this.pageSize.set(rows);
-    }
-    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
-    this.load(pageNumber);
+  private reload(): void {
+    this.load(this.lastQuery);
   }
 
   protected openCreate(): void {
@@ -99,8 +79,8 @@ export class AdminServiceTeamsListComponent {
     this.isModalVisible.set(true);
   }
 
-  protected viewDetails(team: ServiceTeam): void {
-    this.router.navigate(['/admin/service-teams', team.id]);
+  protected viewDetails(team: unknown): void {
+    this.router.navigate(['/admin/service-teams', (team as ServiceTeam).id]);
   }
 
   protected save(value: ServiceTeamFormValue): void {
@@ -108,28 +88,20 @@ export class AdminServiceTeamsListComponent {
     const onDone = () => {
       this.saving.set(false);
       this.isModalVisible.set(false);
-      this.load(this.pageNumber());
+      this.reload();
     };
     const onError = () => this.saving.set(false);
 
     if (this.isEditing() && this.currentTeam) {
-      this.service.update(this.currentTeam.id, { name: value.name }).subscribe({
-        next: onDone,
-        error: onError
-      });
+      this.service.update(this.currentTeam.id, { name: value.name }).subscribe({ next: onDone, error: onError });
     } else {
-      this.service.create({ name: value.name }).subscribe({
-        next: onDone,
-        error: onError
-      });
+      this.service.create({ name: value.name }).subscribe({ next: onDone, error: onError });
     }
   }
 
   protected toggleStatus(team: ServiceTeam): void {
     const next: ServiceTeamStatus = team.status === 'Active' ? 'Inactive' : 'Active';
-    this.service.updateStatus(team.id, { status: next }).subscribe({
-      next: () => this.load(this.pageNumber())
-    });
+    this.service.updateStatus(team.id, { status: next }).subscribe({ next: () => this.reload() });
   }
 
   protected delete(team: ServiceTeam): void {
@@ -146,7 +118,7 @@ export class AdminServiceTeamsListComponent {
         this.deleting.set(false);
         this.isDeleteVisible.set(false);
         this.pendingDelete = null;
-        this.load(this.pageNumber());
+        this.reload();
       },
       error: () => this.deleting.set(false)
     });

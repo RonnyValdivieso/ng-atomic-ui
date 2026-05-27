@@ -1,72 +1,61 @@
-<div class="p-6">
-  <div class="flex justify-between items-center mb-6">
-    <div>
-      <h1 class="text-2xl font-bold text-surface-900">Service Teams</h1>
-      <p class="text-muted-color text-sm mt-1">Equipos internos responsables de organizaciones y workspaces.</p>
-    </div>
-    <app-button label="Nuevo equipo" icon="pi pi-plus" (clicked)="openCreate()"></app-button>
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Service Teams</h1>
+    <p class="page-sub">Internal teams responsible for operating the platform.</p>
   </div>
-
-  <app-table
-    [data]="serviceTeams()"
-    [columns]="columns"
-    [loading]="loading()"
-    [totalRecords]="totalRecords()"
-    [rows]="pageSize()"
-    [lazy]="true"
-    (page)="onPage($event)">
-
-    <ng-template pTemplate="status" let-team>
-      <span
-        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-        [class.bg-green-100]="team.status === 'Active'"
-        [class.text-green-700]="team.status === 'Active'"
-        [class.bg-surface-200]="team.status !== 'Active'"
-        [class.text-surface-700]="team.status !== 'Active'">
-        {{ team.status }}
-      </span>
-    </ng-template>
-
-    <ng-template pTemplate="actions" let-team>
-      <div class="flex justify-end gap-2">
-        <app-button
-          icon="pi pi-eye"
-          variant="ghost"
-          (clicked)="viewDetails(team)">
-        </app-button>
-        <app-button
-          icon="pi pi-pencil"
-          variant="ghost"
-          (clicked)="openEdit(team)">
-        </app-button>
-        <app-button
-          [icon]="team.status === 'Active' ? 'pi pi-pause' : 'pi pi-play'"
-          variant="ghost"
-          (clicked)="toggleStatus(team)">
-        </app-button>
-        <app-button
-          icon="pi pi-trash"
-          variant="ghost"
-          (clicked)="delete(team)">
-        </app-button>
-      </div>
-    </ng-template>
-  </app-table>
-
-  <app-service-team-form
-    [(visible)]="isModalVisible"
-    [isEditing]="isEditing()"
-    [current]="currentTeam"
-    [saving]="saving()"
-    (save)="save($event)">
-  </app-service-team-form>
-
-  <app-confirm-dialog
-    [(visible)]="isDeleteVisible"
-    title="Eliminar equipo"
-    [message]="deleteMessage"
-    confirmLabel="Eliminar"
-    [loading]="deleting()"
-    (confirmed)="confirmDelete()">
-  </app-confirm-dialog>
+  <div class="page-actions">
+    <button type="button" class="btn btn-primary" (click)="openCreate()">
+      <i class="pi pi-plus ico-sm"></i>New service team
+    </button>
+  </div>
 </div>
+
+<app-data-table
+  [columns]="columns"
+  [data]="serviceTeams()"
+  [loading]="loading()"
+  [totalRecords]="totalRecords()"
+  searchPlaceholder="Search by name or email…"
+  emptyMessage="No service teams found."
+  (query)="load($event)"
+  (rowClick)="viewDetails($event)">
+
+  <ng-template appDataCell="actions" let-team>
+    @let st = $any(team);
+    <div class="row-actions" (click)="$event.stopPropagation()">
+      <button type="button" class="row-act-btn" aria-label="View" (click)="viewDetails(st)">
+        <i class="pi pi-eye ico-sm"></i>
+      </button>
+      <button type="button" class="row-act-btn" aria-label="Edit" (click)="openEdit(st)">
+        <i class="pi pi-pencil ico-sm"></i>
+      </button>
+      <button
+        type="button"
+        class="row-act-btn"
+        [attr.aria-label]="st.status === 'Active' ? 'Deactivate' : 'Activate'"
+        (click)="toggleStatus(st)">
+        <i class="pi ico-sm" [class.pi-pause]="st.status === 'Active'" [class.pi-play]="st.status !== 'Active'"></i>
+      </button>
+      <button type="button" class="row-act-btn row-act-danger" aria-label="Delete" (click)="delete(st)">
+        <i class="pi pi-trash ico-sm"></i>
+      </button>
+    </div>
+  </ng-template>
+</app-data-table>
+
+<app-service-team-form
+  [(visible)]="isModalVisible"
+  [isEditing]="isEditing()"
+  [current]="currentTeam"
+  [saving]="saving()"
+  (save)="save($event)">
+</app-service-team-form>
+
+<app-confirm-dialog
+  [(visible)]="isDeleteVisible"
+  title="Delete service team"
+  [message]="deleteMessage"
+  confirmLabel="Delete"
+  [loading]="deleting()"
+  (confirmed)="confirmDelete()">
+</app-confirm-dialog>

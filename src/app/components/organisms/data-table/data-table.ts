@@ -147,9 +147,14 @@ export class DataTableComponent implements OnInit {
     return raw === null || raw === undefined || raw === '' ? null : String(raw);
   }
 
-  protected statusOf(row: unknown, col: DataTableColumn): string {
+  protected isActive(row: unknown, col: DataTableColumn): boolean {
     const raw = this.fieldValue(row, col.field);
-    return raw ? String(raw) : '';
+    return String(raw ?? '').toUpperCase() === 'ACTIVE';
+  }
+
+  protected statusLabel(row: unknown, col: DataTableColumn): string {
+    const raw = this.fieldValue(row, col.field);
+    return raw ? String(raw).toUpperCase() : 'INACTIVE';
   }
 
   protected initials(value: unknown): string {
