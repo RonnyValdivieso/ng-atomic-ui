@@ -1,32 +1,24 @@
-import { Component, computed, inject, output } from '@angular/core';
+import { Component, ElementRef, HostListener, computed, inject, signal } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuItem } from 'primeng/api';
-import { ThemeToggleComponent } from '@atoms/theme-toggle';
 import { AvatarComponent } from '@atoms/avatar';
-import { TieredMenuComponent } from '@atoms/tiered-menu';
 import { AuthService } from '@shared/services/auth/auth.service';
+import { ThemeService } from '@shared/services/theme.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    ButtonModule,
-    InputTextModule,
-    ThemeToggleComponent,
-    AvatarComponent,
-    TieredMenuComponent
-],
+  imports: [AvatarComponent],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class HeaderComponent {
   private router = inject(Router);
   private auth = inject(AuthService);
+  private host = inject(ElementRef<HTMLElement>);
+  protected theme = inject(ThemeService);
 
-  readonly menuClicked = output<void>();
+  protected readonly menuOpen = signal(false);
 
   constructor() {
     // Hydrate the user's name from the profile when the login response omitted it.
@@ -43,39 +35,40 @@ export class HeaderComponent {
     return emailInitial || '?';
   });
 
-  protected readonly userMenuModels = computed<MenuItem[]>(() => {
-    const items: MenuItem[] = [
-      {
-        label: 'My account',
-        icon: 'pi pi-user',
-        command: () => this.router.navigate(['/admin/account/profile'])
-      },
-      { separator: true }
-    ];
-    if (this.auth.isSuperAdmin()) {
-      items.push(
-        {
-          label: 'Administration',
-          icon: 'pi pi-shield',
-          command: () => this.router.navigate(['/admin'])
-        },
-        {
-          label: 'Workspaces',
-          icon: 'pi pi-th-large',
-          command: () => this.router.navigate(['/workspace-selector'])
-        },
-        { separator: true }
-      );
-    }
-    items.push({
-      label: 'Log out',
-      icon: 'pi pi-sign-out',
-      command: () => this.auth.logout()
-    });
-    return items;
+  protected readonly userName = computed(() => {
+    const user = this.auth.currentUser();
+    const name = [user?.firstName, user?.lastName].filter(Boolean).join(' ').trim();
+    return name || user?.email || 'Account';
   });
 
-  protected onMenuClick(): void {
-    this.menuClicked.emit();
+  protected readonly userEmail = computed(() => this.auth.currentUser()?.email ?? '');
+
+  protected readonly userRole = computed(() => (this.auth.isSuperAdmin() ? 'SUPER ADMIN' : 'OPERATOR'));
+
+  protected toggleMenu(event: Event): void {
+    event.stopPropagation();
+    this.menuOpen.update(open => !open);
+  }
+
+  protected go(path: string): void {
+    this.menuOpen.set(false);
+    this.router.navigate([path]);
+  }
+
+  protected logout(): void {
+    this.menuOpen.set(false);
+    this.auth.logout();
+  }
+
+  @HostListener('document:click', ['$event'])
+  protected onDocumentClick(event: MouseEvent): void {
+    if (this.menuOpen() && !this.host.nativeElement.contains(event.target as Node)) {
+      this.menuOpen.set(false);
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  protected onEscape(): void {
+    this.menuOpen.set(false);
   }
 }

@@ -1,41 +1,73 @@
-<header class="header">
-  <div class="header-container">
-    <!-- Left Section: Menu & Logo -->
-    <div class="left-section">
-      <p-button 
-        [text]="true" 
-        size="small"
-        icon="pi pi-bars"
-        (onClick)="onMenuClick()"
-        styleClass="menu-button">
-      </p-button>
-      
-      <div class="logo-container">
-        <div class="logo-icon">
-          <span>B</span>
-        </div>
-        <span class="logo-text">Brandbot</span>
-      </div>
-    </div>
+<div class="tb-search">
+  <i class="pi pi-search"></i>
+  <input type="text" placeholder="Search workspaces, orgs, users…" aria-label="Search" />
+  <span class="tb-kbd">⌘K</span>
+</div>
 
-    <!-- Right Section: Action Buttons -->
-    <div class="right-section">
-      <app-theme-toggle></app-theme-toggle>
-      
-      <div class="user-menu-container">
-        <div (click)="userMenu.toggle($event)" class="cursor-pointer">
-          <app-avatar
-            [initials]="userInitials()"
-            [clickable]="true">
-          </app-avatar>
-        </div>
-
-        <app-tiered-menu
-          #userMenu
-          [model]="userMenuModels()"
-          [popup]="true">
-        </app-tiered-menu>
-      </div>
-    </div>
+<div class="tb-right">
+  <div class="theme-pill" role="group" aria-label="Theme">
+    <button type="button" [class.active]="!theme.isDarkMode()" (click)="theme.setTheme(false)" aria-label="Light">
+      <i class="pi pi-sun"></i>
+    </button>
+    <button type="button" [class.active]="theme.isDarkMode()" (click)="theme.setTheme(true)" aria-label="Dark">
+      <i class="pi pi-moon"></i>
+    </button>
   </div>
-</header>
+
+  <button type="button" class="tb-icon has-badge" aria-label="Notifications">
+    <i class="pi pi-bell"></i>
+  </button>
+
+  <button type="button" class="tb-icon" aria-label="Help">
+    <i class="pi pi-question-circle"></i>
+  </button>
+
+  <div class="tb-user">
+    <button
+      type="button"
+      class="tb-avatar-btn"
+      [class.active]="menuOpen()"
+      (click)="toggleMenu($event)"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Account menu"
+      title="{{ userName() }}">
+      <app-avatar [initials]="userInitials()" size="sm"></app-avatar>
+    </button>
+
+    @if (menuOpen()) {
+      <div class="popover popover-menu" role="menu" aria-label="Account">
+        <div class="user-head">
+          <app-avatar [initials]="userInitials()" size="md"></app-avatar>
+          <div class="user-info">
+            <div class="user-name">{{ userName() }}</div>
+            @if (userEmail()) {
+              <div class="user-email">{{ userEmail() }}</div>
+            }
+            <span class="user-role">{{ userRole() }}</span>
+          </div>
+        </div>
+
+        <div class="menu-group">
+          <div class="menu-item" role="menuitem" tabindex="0" (click)="go('/admin/account/profile')">
+            <i class="pi pi-id-card ico"></i>
+            <span class="grow">Account settings</span>
+            <span class="shortcut">⌘,</span>
+          </div>
+          <div class="menu-item" role="menuitem" tabindex="0" (click)="go('/admin/account/security')">
+            <i class="pi pi-shield ico"></i>
+            <span class="grow">Two-step verification</span>
+          </div>
+        </div>
+
+        <div class="menu-divider"></div>
+
+        <div class="menu-group">
+          <div class="menu-item danger" role="menuitem" tabindex="0" (click)="logout()">
+            <i class="pi pi-sign-out ico"></i>
+            <span class="grow">Sign out</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

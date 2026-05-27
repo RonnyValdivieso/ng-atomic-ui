@@ -1,14 +1,14 @@
 .layout-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   min-height: 100vh;
-  background-color: var(--surface-ground, #f9fafb);
+  padding: 10px;
+  background-color: var(--p-surface-50, #faf9f6);
 }
 
 .layout-main {
   flex: 1;
-  padding-top: 4rem; /* Match header height */
-  transition: margin-left 0.2s;
 }
 
 .layout-content {

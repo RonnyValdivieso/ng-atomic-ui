@@ -1,0 +1,60 @@
+<div class="sidebar-brand">
+  <span class="sb-mark">
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
+      <circle cx="5.5" cy="8" r="2.4" fill="currentColor" />
+      <circle cx="11" cy="8" r="1.4" fill="currentColor" opacity=".55" />
+    </svg>
+  </span>
+  <span class="sb-name">Brandbot</span>
+  <button
+    type="button"
+    class="sb-toggle"
+    (click)="toggleCollapse.emit()"
+    [attr.aria-label]="collapsed() ? 'Expand menu' : 'Collapse menu'"
+    [title]="collapsed() ? 'Expand menu' : 'Collapse menu'">
+    <i class="pi" [class.pi-angle-double-right]="collapsed()" [class.pi-angle-double-left]="!collapsed()"></i>
+  </button>
+</div>
+
+@for (section of navigationItems(); track section.label) {
+  @if (section.children && section.children.length) {
+    <div class="nav-section">
+      <div class="nav-label">
+        <i class="pi {{ section.icon }} ico"></i>
+        <span>{{ section.label }}</span>
+      </div>
+      @for (item of section.children; track item.label) {
+        <a
+          class="nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [title]="collapsed() ? item.label : null">
+          <i class="pi {{ item.icon }} ico"></i>
+          <span class="grow">{{ item.label }}</span>
+          @if (item.badge != null) {
+            <span class="count">{{ item.badge }}</span>
+          }
+        </a>
+      }
+    </div>
+  } @else if (section.route) {
+    <div class="nav-section">
+      <a
+        class="nav-item"
+        [routerLink]="section.route"
+        routerLinkActive="active"
+        [title]="collapsed() ? section.label : null">
+        <i class="pi {{ section.icon }} ico"></i>
+        <span class="grow">{{ section.label }}</span>
+        @if (section.badge != null) {
+          <span class="count">{{ section.badge }}</span>
+        }
+      </a>
+    </div>
+  }
+}
+
+<div class="sidebar-foot">
+  <span>© Brandbot</span>
+  <span class="sb-ver">v0.0.1</span>
+</div>

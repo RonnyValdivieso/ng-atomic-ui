@@ -1,0 +1,233 @@
+:host {
+  --ink: #0b0b0f;
+  --ink-2: #1a1a22;
+  --muted: #6b6b78;
+  --muted-2: #9a9aa8;
+  --line: #e7e6e3;
+  --paper: #faf9f6;
+  --paper-2: #f3f2ee;
+  --surface: #ffffff;
+  --shadow-card: 0 1px 0 rgba(15, 15, 30, .04), 0 1px 2px rgba(15, 15, 30, .04);
+
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  padding: 14px 10px 18px;
+  overflow-y: auto;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+:host-context(.p-dark) {
+  --ink: #f5f4f0;
+  --ink-2: #d8d6d0;
+  --muted: #8a8a96;
+  --muted-2: #5e5e6a;
+  --line: #26262e;
+  --paper: #0c0c10;
+  --paper-2: #14141a;
+  --surface: #16161c;
+  --shadow-card: 0 1px 0 rgba(0, 0, 0, .4), 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+/* ---------- brand ---------- */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 4px 8px 14px;
+  margin: 0 0 6px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+
+.sb-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--surface);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.sb-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.sb-toggle {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: background .12s, color .12s;
+}
+
+.sb-toggle .pi {
+  font-size: 13px;
+}
+
+.sb-toggle:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+/* ---------- nav ---------- */
+.nav-section {
+  margin-top: 8px;
+}
+
+.nav-section:first-of-type {
+  margin-top: 0;
+}
+
+.nav-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  color: var(--muted-2);
+  padding: 8px 10px 6px;
+  text-transform: uppercase;
+}
+
+.nav-label .ico {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-size: 13.5px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background .12s, color .12s;
+}
+
+.nav-item:hover {
+  background: var(--paper-2);
+}
+
+.nav-item.active {
+  background: var(--paper-2);
+  border-color: var(--line);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.nav-item .ico {
+  font-size: 15px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.nav-item.active .ico {
+  color: var(--ink);
+}
+
+.nav-item .grow {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-item .count {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.nav-item.active .count {
+  background: var(--surface);
+}
+
+/* ---------- footer ---------- */
+.sidebar-foot {
+  margin-top: auto;
+  padding: 12px 10px 4px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: .06em;
+  color: var(--muted-2);
+}
+
+.sidebar-foot .sb-ver {
+  color: var(--muted);
+}
+
+/* ---------- collapsed ---------- */
+:host(.collapsed) {
+  padding: 14px 8px;
+}
+
+:host(.collapsed) .sidebar-brand {
+  justify-content: center;
+  padding: 2px 0 14px;
+}
+
+:host(.collapsed) .sidebar-brand > *:not(.sb-toggle) {
+  display: none;
+}
+
+:host(.collapsed) .nav-label {
+  display: none;
+}
+
+:host(.collapsed) .nav-section {
+  margin-top: 4px;
+}
+
+:host(.collapsed) .nav-item {
+  justify-content: center;
+  gap: 0;
+  padding: 8px 0;
+}
+
+:host(.collapsed) .nav-item .grow,
+:host(.collapsed) .nav-item .count {
+  display: none;
+}
+
+:host(.collapsed) .sidebar-foot {
+  justify-content: center;
+  padding: 12px 0 4px;
+}
+
+:host(.collapsed) .sidebar-foot > span:first-child {
+  display: none;
+}
