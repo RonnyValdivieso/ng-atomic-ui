@@ -1,30 +1,199 @@
-<div class="p-6">
-  <div class="flex justify-between items-center mb-6">
-    <div>
-      <h1 class="text-2xl font-bold text-surface-900">Workspaces</h1>
-      <p class="text-muted-color text-sm mt-1">All instances across the platform.</p>
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Workspaces</h1>
+    <p class="page-sub">All instances across the platform.</p>
+  </div>
+  <div class="page-actions">
+    <button type="button" class="btn" disabled title="Coming soon">
+      <i class="pi pi-download ico-sm"></i>Export
+    </button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tool-search">
+    <i class="pi pi-search ico-sm"></i>
+    <input
+      type="text"
+      [formControl]="searchControl"
+      placeholder="Search by name, description, or ID…"
+      aria-label="Search workspaces" />
+  </div>
+  <button type="button" class="filter-chip" disabled title="Coming soon">
+    <span class="lab">Status</span><span class="val">Any</span>
+  </button>
+  <button type="button" class="filter-chip" disabled title="Coming soon">
+    <span class="lab">Organization</span><span class="val">Any</span>
+  </button>
+  <button type="button" class="filter-chip" disabled title="Coming soon">
+    <span class="lab">Created</span><span class="val">Any time</span>
+  </button>
+  <div class="toolbar-spacer">
+    <div class="view-toggle" role="group" aria-label="View">
+      <button
+        type="button"
+        [class.active]="view() === 'table'"
+        (click)="setView('table')"
+        title="Table view"
+        aria-label="Table view">
+        <i class="pi pi-bars ico-sm"></i>
+      </button>
+      <button
+        type="button"
+        [class.active]="view() === 'grid'"
+        (click)="setView('grid')"
+        title="Grid view"
+        aria-label="Grid view">
+        <i class="pi pi-th-large ico-sm"></i>
+      </button>
     </div>
   </div>
-
-  <app-table
-    [data]="workspaces()"
-    [columns]="columns"
-    [loading]="loading()"
-    [totalRecords]="totalRecords()"
-    [rows]="pageSize()"
-    [lazy]="true"
-    (page)="onPage($event)">
-    <ng-template pTemplate="organization" let-workspace>
-      {{ workspace.organization?.name ?? '—' }}
-    </ng-template>
-    <ng-template pTemplate="actions" let-workspace>
-      <div class="flex justify-end gap-2">
-        <app-button
-          icon="pi pi-eye"
-          variant="ghost"
-          (clicked)="open(workspace)">
-        </app-button>
-      </div>
-    </ng-template>
-  </app-table>
 </div>
+
+@if (view() === 'table') {
+  <div class="table-card">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="sortable" [class.sorted]="sortColumn() === 'name'" (click)="toggleSort('name')">
+            Name<span class="sort"><i class="pi pi-sort-alt ico-sm"></i></span>
+          </th>
+          <th class="sortable" [class.sorted]="sortColumn() === 'description'" (click)="toggleSort('description')">
+            Description<span class="sort"><i class="pi pi-sort-alt ico-sm"></i></span>
+          </th>
+          <th class="sortable" [class.sorted]="sortColumn() === 'organization'" (click)="toggleSort('organization')">
+            Organization<span class="sort"><i class="pi pi-sort-alt ico-sm"></i></span>
+          </th>
+          <th class="sortable" [class.sorted]="sortColumn() === 'status'" (click)="toggleSort('status')">
+            Status<span class="sort"><i class="pi pi-sort-alt ico-sm"></i></span>
+          </th>
+          <th style="text-align: right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (w of workspaces(); track w.id) {
+          <tr (click)="open(w)" style="cursor: pointer">
+            <td>
+              <div class="name-cell">
+                <div class="name-avatar">{{ initials(w.name) }}</div>
+                <div class="name-text">
+                  <div class="name-title">{{ w.name }}</div>
+                  <div class="name-sub">{{ w.id }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="desc-cell">
+              @if (w.description) { {{ w.description }} }
+              @else { <span class="empty-dash">—</span> }
+            </td>
+            <td>
+              @if (w.organization?.name) { {{ w.organization?.name }} }
+              @else { <span class="empty-dash">—</span> }
+            </td>
+            <td>
+              @if (w.status === 'ACTIVE') {
+                <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+              } @else {
+                <span class="pill pill-off"><span class="dot"></span>{{ w.status || 'INACTIVE' }}</span>
+              }
+            </td>
+            <td (click)="$event.stopPropagation()">
+              <div class="row-actions">
+                <button type="button" class="row-act-btn" aria-label="View" (click)="open(w)">
+                  <i class="pi pi-eye ico-sm"></i>
+                </button>
+                <button type="button" class="row-act-btn" aria-label="More" disabled title="Coming soon">
+                  <i class="pi pi-ellipsis-h ico-sm"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+        @empty {
+          <tr>
+            <td colspan="5" class="empty-row">
+              @if (loading()) { Loading… } @else { No workspaces found. }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <ng-container [ngTemplateOutlet]="pager"></ng-container>
+  </div>
+} @else {
+  <div class="provider-grid">
+    @for (w of workspaces(); track w.id) {
+      <div class="provider-card" (click)="open(w)">
+        <div class="pc-head">
+          <div class="pc-logo"><span class="glyph">{{ initials(w.name) }}</span></div>
+          <div class="pc-name-block">
+            <div class="pc-name">{{ w.name }}</div>
+            <div class="pc-code">{{ w.id }}</div>
+          </div>
+          @if (w.status === 'ACTIVE') {
+            <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+          } @else {
+            <span class="pill pill-off"><span class="dot"></span>{{ w.status || 'INACTIVE' }}</span>
+          }
+        </div>
+        <p class="pc-desc">
+          @if (w.description) { {{ w.description }} }
+          @else { <span class="empty-dash">No description.</span> }
+        </p>
+        <div class="pc-foot">
+          <span>{{ w.organization?.name || '— NO ORGANIZATION' }}</span>
+          <div class="pc-foot-acts" (click)="$event.stopPropagation()">
+            <button type="button" class="row-act-btn" aria-label="View" (click)="open(w)">
+              <i class="pi pi-eye ico-sm"></i>
+            </button>
+            <button type="button" class="row-act-btn" aria-label="More" disabled title="Coming soon">
+              <i class="pi pi-ellipsis-h ico-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+    @empty {
+      <div class="grid-empty">
+        @if (loading()) { Loading… } @else { No workspaces found. }
+      </div>
+    }
+  </div>
+  <div class="pager-frame">
+    <ng-container [ngTemplateOutlet]="pager"></ng-container>
+  </div>
+}
+
+<ng-template #pager>
+  <div class="pager">
+    <div>Showing <strong>{{ from() }}–{{ to() }}</strong> of {{ totalRecords() }} entries</div>
+    <div class="pager-right">
+      <div class="pager-nums">
+        <button type="button" class="pg" [disabled]="pageNumber() === 1" (click)="goToPage(1)" aria-label="First">
+          <i class="pi pi-angle-double-left ico-sm"></i>
+        </button>
+        <button type="button" class="pg" [disabled]="pageNumber() === 1" (click)="goToPage(pageNumber() - 1)" aria-label="Prev">
+          <i class="pi pi-angle-left ico-sm"></i>
+        </button>
+        @for (n of pageNums(); track n) {
+          <button type="button" class="pg" [class.active]="n === pageNumber()" (click)="goToPage(n)">{{ n }}</button>
+        }
+        <button type="button" class="pg" [disabled]="pageNumber() === lastPage()" (click)="goToPage(pageNumber() + 1)" aria-label="Next">
+          <i class="pi pi-angle-right ico-sm"></i>
+        </button>
+        <button type="button" class="pg" [disabled]="pageNumber() === lastPage()" (click)="goToPage(lastPage())" aria-label="Last">
+          <i class="pi pi-angle-double-right ico-sm"></i>
+        </button>
+      </div>
+      <div class="pager-rows">
+        <span>Rows</span>
+        <select class="pager-select" [value]="pageSize()" (change)="setPerPage(+$any($event.target).value)">
+          <option [value]="10">10</option>
+          <option [value]="20">20</option>
+          <option [value]="50">50</option>
+          <option [value]="100">100</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</ng-template>

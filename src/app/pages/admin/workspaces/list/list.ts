@@ -1,20 +1,23 @@
-import { Component, inject, signal } from '@angular/core';
-
+import { Component, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { SharedModule } from 'primeng/api';
-import { TableComponent } from '@organisms/table';
-import { ButtonComponent } from '@atoms/button';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+
 import { InstanceService } from '@services/api/aaa/instance.service';
 import { Instance, PaginatedList } from '@interfaces/aaa';
-import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
 
 const PAGE_SIZE = 10;
+type SortOrder = 'asc' | 'desc';
+type ViewMode = 'table' | 'grid';
 
 @Component({
   selector: 'app-admin-workspaces-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent],
-  templateUrl: './list.html'
+  imports: [ReactiveFormsModule, NgTemplateOutlet],
+  templateUrl: './list.html',
+  styleUrls: ['./list.css']
 })
 export class AdminWorkspacesListComponent {
   private service = inject(InstanceService);
@@ -23,24 +26,48 @@ export class AdminWorkspacesListComponent {
   protected readonly workspaces = signal<Instance[]>([]);
   protected readonly loading = signal<boolean>(false);
   protected readonly totalRecords = signal<number>(0);
+  protected readonly pageNumber = signal<number>(1);
   protected readonly pageSize = signal<number>(PAGE_SIZE);
+  protected readonly sortColumn = signal<string | null>(null);
+  protected readonly sortOrder = signal<SortOrder>('asc');
+  protected readonly view = signal<ViewMode>('table');
 
-  protected readonly columns: TableColumn[] = [
-    { field: 'name', header: 'Name', sortable: true },
-    { field: 'description', header: 'Description' },
-    { field: 'organization', header: 'Organization', type: 'template', templateRef: 'organization' },
-    { field: 'status', header: 'Status' },
-    { field: 'actions', header: 'Actions', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
-  ];
+  protected readonly searchControl = new FormControl<string>('', { nonNullable: true });
+
+  protected readonly lastPage = computed(() =>
+    Math.max(1, Math.ceil(this.totalRecords() / this.pageSize()))
+  );
+  protected readonly from = computed(() =>
+    this.totalRecords() === 0 ? 0 : (this.pageNumber() - 1) * this.pageSize() + 1
+  );
+  protected readonly to = computed(() =>
+    Math.min(this.totalRecords(), this.pageNumber() * this.pageSize())
+  );
+  protected readonly pageNums = computed(() => {
+    const last = this.lastPage();
+    const start = Math.max(1, Math.min(this.pageNumber() - 2, last - 4));
+    const nums: number[] = [];
+    for (let i = 0; i < 5 && start + i <= last; i++) nums.push(start + i);
+    return nums;
+  });
 
   constructor() {
-    this.load(1);
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged(), takeUntilDestroyed())
+      .subscribe(() => this.goToPage(1));
+    this.load();
   }
 
-  protected load(pageNumber: number, searchString?: string): void {
+  private load(): void {
     this.loading.set(true);
     this.service
-      .getAll({ pageNumber, pageSize: this.pageSize(), searchString })
+      .getAll({
+        pageNumber: this.pageNumber(),
+        pageSize: this.pageSize(),
+        searchString: this.searchControl.value.trim() || undefined,
+        sortColumn: this.sortColumn() ?? undefined,
+        sortOrder: this.sortColumn() ? this.sortOrder() : undefined
+      })
       .subscribe({
         next: (page: PaginatedList<Instance>) => {
           this.workspaces.set(page.items ?? []);
@@ -51,16 +78,39 @@ export class AdminWorkspacesListComponent {
       });
   }
 
-  protected onPage(event: TablePageEvent): void {
-    const rows = event.rows ?? this.pageSize();
-    if (rows !== this.pageSize()) {
-      this.pageSize.set(rows);
+  protected toggleSort(column: string): void {
+    if (this.sortColumn() === column) {
+      this.sortOrder.update(o => (o === 'asc' ? 'desc' : 'asc'));
+    } else {
+      this.sortColumn.set(column);
+      this.sortOrder.set('asc');
     }
-    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
-    this.load(pageNumber);
+    this.goToPage(1);
+  }
+
+  protected goToPage(page: number): void {
+    const target = Math.min(Math.max(1, page), this.lastPage());
+    this.pageNumber.set(target);
+    this.load();
+  }
+
+  protected setPerPage(rows: number): void {
+    this.pageSize.set(rows);
+    this.goToPage(1);
+  }
+
+  protected setView(view: ViewMode): void {
+    this.view.set(view);
   }
 
   protected open(workspace: Instance): void {
     this.router.navigate(['/admin/workspaces', workspace.id]);
+  }
+
+  protected initials(name: string | null | undefined): string {
+    const parts = (name ?? '').trim().split(/\s+|\./).filter(Boolean);
+    if (!parts.length) return '—';
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
   }
 }
