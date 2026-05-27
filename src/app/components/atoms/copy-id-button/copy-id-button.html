@@ -1,0 +1,9 @@
+<button
+  type="button"
+  class="row-act-btn"
+  [class.is-copied]="copied()"
+  (click)="copy($event)"
+  [attr.aria-label]="copied() ? 'ID copied' : label()"
+  [title]="copied() ? 'ID copied' : label() + ': ' + value()">
+  <i class="pi ico-sm" [class.pi-copy]="!copied()" [class.pi-check]="copied()"></i>
+</button>

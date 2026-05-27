@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataTableComponent, DataTableColumn, DataTableCellDirective } from '@organisms/data-table';
+import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { ServiceTeamService } from '@services/api/aaa/service-team.service';
 import { PagedResult, ServiceTeam, ServiceTeamStatus, SearchParams } from '@interfaces/aaa';
@@ -13,6 +14,7 @@ import { ServiceTeamFormComponent, ServiceTeamFormValue } from '../form/form';
   imports: [
     DataTableComponent,
     DataTableCellDirective,
+    CopyIdButtonComponent,
     ServiceTeamFormComponent,
     ConfirmDialogComponent
   ],
@@ -44,7 +46,7 @@ export class AdminServiceTeamsListComponent {
   private lastQuery: SearchParams = { pageNumber: 1, pageSize: 10 };
 
   protected readonly columns: DataTableColumn[] = [
-    { field: 'name', header: 'Name', sortable: true, type: 'name', sub: 'id' },
+    { field: 'name', header: 'Name', sortable: true, type: 'name' },
     { field: 'email', header: 'Email', type: 'text' },
     { field: 'status', header: 'Status', sortable: true, type: 'status' },
     { field: 'actions', header: 'Actions', type: 'template', align: 'right' }

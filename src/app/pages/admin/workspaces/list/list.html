@@ -37,7 +37,6 @@
         <div class="pc-logo"><span class="glyph">{{ initials(ws.name) }}</span></div>
         <div class="pc-name-block">
           <div class="pc-name">{{ ws.name }}</div>
-          <div class="pc-code">{{ ws.id }}</div>
         </div>
         @if (ws.status === 'ACTIVE') {
           <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
@@ -52,6 +51,7 @@
       <div class="pc-foot">
         <span>{{ ws.organization?.name || '— NO ORGANIZATION' }}</span>
         <div class="pc-foot-acts" (click)="$event.stopPropagation()">
+          <app-copy-id-button [value]="ws.id" />
           <button type="button" class="row-act-btn" aria-label="View" (click)="open(ws)">
             <i class="pi pi-eye ico-sm"></i>
           </button>

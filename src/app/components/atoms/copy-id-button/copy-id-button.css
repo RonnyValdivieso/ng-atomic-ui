@@ -1,0 +1,42 @@
+:host {
+  --ink: #0b0b0f;
+  --muted: #6b6b78;
+  --paper-2: #f3f2ee;
+  --ok: #138a4a;
+
+  display: inline-flex;
+}
+
+:host-context(.p-dark) {
+  --ink: #f5f4f0;
+  --muted: #8a8a96;
+  --paper-2: #14141a;
+  --ok: #4ade80;
+}
+
+.row-act-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .12s, color .12s;
+}
+
+.row-act-btn:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.row-act-btn.is-copied {
+  color: var(--ok);
+}
+
+.ico-sm {
+  font-size: 14px;
+  line-height: 1;
+}

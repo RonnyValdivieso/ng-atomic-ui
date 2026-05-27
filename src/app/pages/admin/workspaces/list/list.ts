@@ -6,13 +6,14 @@ import {
   DataTableColumn,
   DataTableGridCardDirective
 } from '@organisms/data-table';
+import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { InstanceService } from '@services/api/aaa/instance.service';
 import { Instance, PaginatedList, SearchParams } from '@interfaces/aaa';
 
 @Component({
   selector: 'app-admin-workspaces-list',
   standalone: true,
-  imports: [DataTableComponent, DataTableGridCardDirective],
+  imports: [DataTableComponent, DataTableGridCardDirective, CopyIdButtonComponent],
   templateUrl: './list.html',
   styleUrls: ['./list.css']
 })
@@ -25,7 +26,7 @@ export class AdminWorkspacesListComponent {
   protected readonly totalRecords = signal<number>(0);
 
   protected readonly columns: DataTableColumn[] = [
-    { field: 'name', header: 'Name', sortable: true, type: 'name', sub: 'id' },
+    { field: 'name', header: 'Name', sortable: true, type: 'name' },
     { field: 'description', header: 'Description', sortable: true, type: 'text' },
     {
       field: 'organization',

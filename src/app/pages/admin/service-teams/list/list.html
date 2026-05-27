@@ -23,6 +23,7 @@
   <ng-template appDataCell="actions" let-team>
     @let st = $any(team);
     <div class="row-actions" (click)="$event.stopPropagation()">
+      <app-copy-id-button [value]="st.id" />
       <button type="button" class="row-act-btn" aria-label="View" (click)="viewDetails(st)">
         <i class="pi pi-eye ico-sm"></i>
       </button>

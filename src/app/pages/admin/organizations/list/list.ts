@@ -21,7 +21,7 @@ export class AdminOrganizationsListComponent {
   protected readonly totalRecords = signal<number>(0);
 
   protected readonly columns: DataTableColumn[] = [
-    { field: 'name', header: 'Name', sortable: true, type: 'name', sub: 'id' },
+    { field: 'name', header: 'Name', sortable: true, type: 'name' },
     { field: 'ownerName', header: 'Owner', sortable: true, type: 'text' },
     { field: 'email', header: 'Email', type: 'text' },
     { field: 'status', header: 'Status', sortable: true, type: 'status' },

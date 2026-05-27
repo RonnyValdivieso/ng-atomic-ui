@@ -226,12 +226,6 @@
   white-space: nowrap;
 }
 
-.name-sub {
-  color: var(--muted-2);
-  font-size: 11.5px;
-  font-family: 'Geist Mono', ui-monospace, monospace;
-}
-
 .empty-dash {
   color: var(--muted-2);
 }

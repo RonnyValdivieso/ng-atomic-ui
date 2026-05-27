@@ -83,9 +83,6 @@
                       <div class="name-avatar">{{ initials(fieldValue(row, col.field)) }}</div>
                       <div class="name-text">
                         <div class="name-title">{{ fieldValue(row, col.field) }}</div>
-                        @if (col.sub) {
-                          <div class="name-sub">{{ fieldValue(row, col.sub) }}</div>
-                        }
                       </div>
                     </div>
                   }
@@ -98,6 +95,7 @@
                   }
                   @case ('actions') {
                     <div class="row-actions" (click)="$event.stopPropagation()">
+                      <app-copy-id-button [value]="idOf(row)" />
                       <button type="button" class="row-act-btn" aria-label="View" (click)="onRowClick(row)">
                         <i class="pi pi-eye ico-sm"></i>
                       </button>

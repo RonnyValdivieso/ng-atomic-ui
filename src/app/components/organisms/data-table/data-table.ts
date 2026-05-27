@@ -15,6 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { SearchParams } from '@interfaces/aaa';
+import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { DataTableColumn } from './data-table.interface';
 import { DataTableCellDirective, DataTableGridCardDirective } from './data-table.directives';
 
@@ -39,7 +40,7 @@ type ViewMode = 'table' | 'grid';
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [NgTemplateOutlet, ReactiveFormsModule],
+  imports: [NgTemplateOutlet, ReactiveFormsModule, CopyIdButtonComponent],
   templateUrl: './data-table.html',
   styleUrls: ['./data-table.css']
 })
@@ -166,6 +167,11 @@ export class DataTableComponent implements OnInit {
 
   protected rowKey(row: unknown): unknown {
     return this.fieldValue(row, this.dataKey()) ?? row;
+  }
+
+  protected idOf(row: unknown): string {
+    const raw = this.fieldValue(row, this.dataKey());
+    return raw === null || raw === undefined ? '' : String(raw);
   }
 
   protected fieldValue(row: unknown, field: string): unknown {
