@@ -74,5 +74,14 @@
       [saving]="saving()"
       (save)="save($event)">
     </app-notification-template-form>
+
+    <app-confirm-dialog
+      [(visible)]="isDeleteVisible"
+      title="Eliminar plantilla"
+      [message]="deleteMessage"
+      confirmLabel="Eliminar"
+      [loading]="deleting()"
+      (confirmed)="confirmDelete()">
+    </app-confirm-dialog>
   }
 </div>

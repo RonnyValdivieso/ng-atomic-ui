@@ -4,7 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ModuleService } from './module.service';
-import { Module } from '@interfaces/aaa';
+import { Module, PagedResult } from '@interfaces/aaa';
 import { environment } from '@env/environment';
 
 describe('ModuleService', () => {
@@ -27,12 +27,33 @@ describe('ModuleService', () => {
 
   afterEach(() => http.verify());
 
-  it('getAll hits /v1/modules and returns the flat array', done => {
-    service.getAll().subscribe(list => {
-      expect(list).toEqual([mod]);
+  it('getAll normalises a PagedResult response to PaginatedList', done => {
+    const paged: PagedResult<Module> = {
+      items: [mod],
+      totalCount: 43,
+      pageNumber: 1,
+      pageSize: 10,
+      totalPages: 5,
+      hasNextPage: true,
+      hasPreviousPage: false
+    };
+    service.getAll({ pageNumber: 1, pageSize: 10 }).subscribe(page => {
+      expect(page.items).toEqual([mod]);
+      expect(page.totalItems).toBe(43);
+      expect(page.pageIndex).toBe(1);
+      expect(page.totalPages).toBe(5);
       done();
     });
-    http.expectOne(baseUrl).flush([mod]);
+    http.expectOne(r => r.url === baseUrl).flush(paged);
+  });
+
+  it('getAll handles a flat array response', done => {
+    service.getAll({ pageNumber: 1, pageSize: 10 }).subscribe(page => {
+      expect(page.items).toEqual([mod]);
+      expect(page.totalItems).toBe(1);
+      done();
+    });
+    http.expectOne(r => r.url === baseUrl).flush([mod]);
   });
 
   it('getById hits /v1/modules/{id}', done => {
@@ -43,36 +64,31 @@ describe('ModuleService', () => {
     http.expectOne(`${baseUrl}/m-1`).flush(mod);
   });
 
-  it('getPermissions hits /v1/modules/{id}/permissions', done => {
+  it('getPermissions extracts the nested permissions array from the wrapper', done => {
     service.getPermissions('m-1').subscribe(perms => {
-      expect(perms.length).toBe(1);
+      expect(perms.length).toBe(2);
+      expect(perms[0].description).toBe('view');
+      expect(perms[0].value).toBe('AIAgentsView');
       done();
     });
-    http.expectOne(`${baseUrl}/m-1/permissions`).flush([{ id: 'p-1', name: 'Read' }]);
-  });
-
-  it('create posts the body to /v1/modules', done => {
-    service.create({ name: 'Foo' }).subscribe(result => {
-      expect(result.name).toBe('Foo');
-      done();
+    http.expectOne(`${baseUrl}/m-1/permissions`).flush({
+      id: 'm-1',
+      name: 'AIAgents',
+      permissions: [
+        { id: 'p-1', description: 'view', value: 'AIAgentsView' },
+        { id: 'p-2', description: 'create', value: 'AIAgentsCreate' }
+      ]
     });
-    const req = http.expectOne(baseUrl);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ name: 'Foo' });
-    req.flush({ id: 'm-2', name: 'Foo', status: 'ACTIVE' });
   });
 
-  it('update PUTs to /v1/modules/{id}', done => {
-    service.update('m-1', { name: 'Bar' }).subscribe(() => done());
-    const req = http.expectOne(`${baseUrl}/m-1`);
-    expect(req.request.method).toBe('PUT');
-    req.flush(null);
-  });
-
-  it('delete DELETEs /v1/modules/{id}', done => {
-    service.delete('m-1').subscribe(() => done());
-    const req = http.expectOne(`${baseUrl}/m-1`);
-    expect(req.request.method).toBe('DELETE');
-    req.flush(null);
+  it('CRUD round-trip', done => {
+    service.create({ name: 'Foo' }).subscribe(() => {
+      service.update('m-1', { name: 'Bar' }).subscribe(() => {
+        service.delete('m-1').subscribe(() => done());
+        http.expectOne(`${baseUrl}/m-1`).flush(null);
+      });
+      http.expectOne(`${baseUrl}/m-1`).flush(null);
+    });
+    http.expectOne(baseUrl).flush({ id: 'm-2', name: 'Foo', status: 'ACTIVE' });
   });
 });

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 
 import { ButtonComponent } from '@atoms/button';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { TableComponent } from '@organisms/table';
 import { PaginatedList, Role } from '@interfaces/aaa';
 import { RoleService } from '@services/api/aaa/role.service';
@@ -17,7 +18,7 @@ const GLOBAL_SCOPE = '00000000-0000-0000-0000-000000000000';
 @Component({
   selector: 'app-admin-roles-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent, RoleFormComponent],
+  imports: [SharedModule, TableComponent, ButtonComponent, RoleFormComponent, ConfirmDialogComponent],
   templateUrl: './list.html'
 })
 export class AdminRolesListComponent {
@@ -34,6 +35,13 @@ export class AdminRolesListComponent {
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
   protected currentRole: Role | null = null;
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected pendingDelete: Role | null = null;
+  protected get deleteMessage(): string {
+    return this.pendingDelete ? `¿Eliminar el rol "${this.pendingDelete.name}"?` : '';
+  }
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
@@ -113,11 +121,22 @@ export class AdminRolesListComponent {
   }
 
   protected delete(role: Role): void {
-    if (!confirm(`¿Eliminar el rol "${role.name}"?`)) return;
-    this.loading.set(true);
+    this.pendingDelete = role;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
+    const role = this.pendingDelete;
+    if (!role) return;
+    this.deleting.set(true);
     this.service.delete(role.id).subscribe({
-      next: () => this.load(this.pageNumber()),
-      error: () => this.loading.set(false)
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.pendingDelete = null;
+        this.load(this.pageNumber());
+      },
+      error: () => this.deleting.set(false)
     });
   }
 }

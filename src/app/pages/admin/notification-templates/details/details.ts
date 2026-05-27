@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ButtonComponent } from '@atoms/button';
 import { CardComponent } from '@atoms/card';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { NotificationTemplateService } from '@services/api/aaa/notification-template.service';
 import { NotificationTemplateDetail } from '@interfaces/aaa';
 import {
@@ -13,7 +14,7 @@ import {
 @Component({
   selector: 'app-admin-notification-template-details',
   standalone: true,
-  imports: [ButtonComponent, CardComponent, NotificationTemplateFormComponent],
+  imports: [ButtonComponent, CardComponent, NotificationTemplateFormComponent, ConfirmDialogComponent],
   templateUrl: './details.html',
   styleUrls: ['./details.css']
 })
@@ -28,6 +29,13 @@ export class AdminNotificationTemplateDetailsComponent implements OnInit {
 
   protected readonly isEditModalVisible = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected get deleteMessage(): string {
+    const t = this.template();
+    return t ? `¿Eliminar la plantilla "${t.name}"?` : '';
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -62,11 +70,21 @@ export class AdminNotificationTemplateDetailsComponent implements OnInit {
   }
 
   protected delete(): void {
+    if (!this.template()) return;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
     const current = this.template();
     if (!current) return;
-    if (!confirm(`¿Eliminar la plantilla "${current.name}"?`)) return;
+    this.deleting.set(true);
     this.service.delete(current.id).subscribe({
-      next: () => this.goBack()
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.goBack();
+      },
+      error: () => this.deleting.set(false)
     });
   }
 

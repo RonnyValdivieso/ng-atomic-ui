@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { TableComponent } from '@organisms/table';
 import { ButtonComponent } from '@atoms/button';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { ServiceTeamService } from '@services/api/aaa/service-team.service';
 import {
   PagedResult,
@@ -22,7 +23,8 @@ const PAGE_SIZE = 10;
     SharedModule,
     TableComponent,
     ButtonComponent,
-    ServiceTeamFormComponent
+    ServiceTeamFormComponent,
+    ConfirmDialogComponent
 ],
   templateUrl: './list.html'
 })
@@ -40,6 +42,15 @@ export class AdminServiceTeamsListComponent {
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
   protected currentTeam: ServiceTeam | null = null;
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected pendingDelete: ServiceTeam | null = null;
+  protected get deleteMessage(): string {
+    return this.pendingDelete
+      ? `¿Eliminar el equipo "${this.pendingDelete.name}"? Se rechazará si aún tiene organizaciones o workspaces asignados.`
+      : '';
+  }
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
@@ -122,13 +133,22 @@ export class AdminServiceTeamsListComponent {
   }
 
   protected delete(team: ServiceTeam): void {
-    if (!confirm(`Delete service team "${team.name}"?\n\nRejected if it still has organization or instance assignments.`)) {
-      return;
-    }
-    this.loading.set(true);
+    this.pendingDelete = team;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
+    const team = this.pendingDelete;
+    if (!team) return;
+    this.deleting.set(true);
     this.service.delete(team.id).subscribe({
-      next: () => this.load(this.pageNumber()),
-      error: () => this.loading.set(false)
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.pendingDelete = null;
+        this.load(this.pageNumber());
+      },
+      error: () => this.deleting.set(false)
     });
   }
 }

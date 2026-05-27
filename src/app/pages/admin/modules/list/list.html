@@ -11,7 +11,10 @@
     [data]="modules()"
     [columns]="columns"
     [loading]="loading()"
-    [paginator]="false">
+    [totalRecords]="totalRecords()"
+    [rows]="pageSize()"
+    [lazy]="true"
+    (page)="onPage($event)">
 
     <ng-template pTemplate="actions" let-mod>
       <div class="flex justify-end gap-2">
@@ -29,4 +32,13 @@
     [saving]="saving()"
     (save)="save($event)">
   </app-module-form>
+
+  <app-confirm-dialog
+    [(visible)]="isDeleteVisible"
+    title="Eliminar módulo"
+    [message]="deleteMessage"
+    confirmLabel="Eliminar"
+    [loading]="deleting()"
+    (confirmed)="confirmDelete()">
+  </app-confirm-dialog>
 </div>

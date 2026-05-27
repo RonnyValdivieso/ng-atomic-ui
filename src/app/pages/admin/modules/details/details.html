@@ -54,10 +54,18 @@
       <app-card>
         <div header>
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-surface-900">Permisos</h3>
-            @if (!permissionsLoading() && !permissionsForbidden() && permissions().length > 0) {
-              <span class="text-sm text-surface-500">{{ permissions().length }}</span>
-            }
+            <div class="flex items-center gap-2">
+              <h3 class="text-lg font-semibold text-surface-900">Permisos</h3>
+              @if (!permissionsLoading() && !permissionsForbidden() && permissions().length > 0) {
+                <span class="text-sm text-surface-500">{{ permissions().length }}</span>
+              }
+            </div>
+            <app-button
+              label="Nuevo permiso"
+              icon="pi pi-plus"
+              variant="secondary"
+              (clicked)="openCreatePermission()">
+            </app-button>
           </div>
         </div>
         <div class="p-4">
@@ -73,6 +81,12 @@
               [columns]="permissionColumns"
               [loading]="false"
               [paginator]="false">
+              <ng-template pTemplate="permissionActions" let-permission>
+                <div class="flex justify-end gap-2">
+                  <app-button icon="pi pi-pencil" variant="ghost" (clicked)="openEditPermission(permission)"></app-button>
+                  <app-button icon="pi pi-trash" variant="ghost" (clicked)="deletePermission(permission)"></app-button>
+                </div>
+              </ng-template>
             </app-table>
           }
         </div>
@@ -86,5 +100,31 @@
       [saving]="saving()"
       (save)="save($event)">
     </app-module-form>
+
+    <app-permission-form
+      [(visible)]="isPermissionModalVisible"
+      [isEditing]="isPermissionEditing()"
+      [current]="currentPermission"
+      [saving]="permissionSaving()"
+      (save)="savePermission($event)">
+    </app-permission-form>
+
+    <app-confirm-dialog
+      [(visible)]="isModuleDeleteVisible"
+      title="Eliminar módulo"
+      [message]="moduleDeleteMessage"
+      confirmLabel="Eliminar"
+      [loading]="moduleDeleting()"
+      (confirmed)="confirmModuleDelete()">
+    </app-confirm-dialog>
+
+    <app-confirm-dialog
+      [(visible)]="isPermissionDeleteVisible"
+      title="Eliminar permiso"
+      [message]="permissionDeleteMessage"
+      confirmLabel="Eliminar"
+      [loading]="permissionDeleting()"
+      (confirmed)="confirmPermissionDelete()">
+    </app-confirm-dialog>
   }
 </div>

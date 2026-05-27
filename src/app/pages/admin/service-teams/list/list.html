@@ -60,4 +60,13 @@
     [saving]="saving()"
     (save)="save($event)">
   </app-service-team-form>
+
+  <app-confirm-dialog
+    [(visible)]="isDeleteVisible"
+    title="Eliminar equipo"
+    [message]="deleteMessage"
+    confirmLabel="Eliminar"
+    [loading]="deleting()"
+    (confirmed)="confirmDelete()">
+  </app-confirm-dialog>
 </div>

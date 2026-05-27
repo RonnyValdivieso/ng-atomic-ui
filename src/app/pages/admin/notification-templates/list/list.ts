@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 
 import { ButtonComponent } from '@atoms/button';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { TableComponent } from '@organisms/table';
 import { NotificationTemplate, PaginatedList } from '@interfaces/aaa';
 import { NotificationTemplateService } from '@services/api/aaa/notification-template.service';
@@ -15,7 +16,7 @@ const PAGE_SIZE = 10;
 @Component({
   selector: 'app-admin-notification-templates-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent, NotificationTemplateFormComponent],
+  imports: [SharedModule, TableComponent, ButtonComponent, NotificationTemplateFormComponent, ConfirmDialogComponent],
   templateUrl: './list.html'
 })
 export class AdminNotificationTemplatesListComponent {
@@ -32,6 +33,13 @@ export class AdminNotificationTemplatesListComponent {
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
   protected currentTemplate: NotificationTemplate | null = null;
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected pendingDelete: NotificationTemplate | null = null;
+  protected get deleteMessage(): string {
+    return this.pendingDelete ? `¿Eliminar la plantilla "${this.pendingDelete.name}"?` : '';
+  }
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
@@ -106,11 +114,22 @@ export class AdminNotificationTemplatesListComponent {
   }
 
   protected delete(t: NotificationTemplate): void {
-    if (!confirm(`¿Eliminar la plantilla "${t.name}"?`)) return;
-    this.loading.set(true);
+    this.pendingDelete = t;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
+    const t = this.pendingDelete;
+    if (!t) return;
+    this.deleting.set(true);
     this.service.delete(t.id).subscribe({
-      next: () => this.load(this.pageNumber()),
-      error: () => this.loading.set(false)
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.pendingDelete = null;
+        this.load(this.pageNumber());
+      },
+      error: () => this.deleting.set(false)
     });
   }
 }

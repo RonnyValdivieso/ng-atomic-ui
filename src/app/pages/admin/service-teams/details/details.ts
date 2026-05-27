@@ -3,6 +3,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardComponent } from '@atoms/card';
 import { ButtonComponent } from '@atoms/button';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { ServiceTeamService } from '@services/api/aaa/service-team.service';
 import {
   ServiceTeamDetail,
@@ -16,7 +17,8 @@ import { ServiceTeamFormComponent, ServiceTeamFormValue } from '../form/form';
   imports: [
     CardComponent,
     ButtonComponent,
-    ServiceTeamFormComponent
+    ServiceTeamFormComponent,
+    ConfirmDialogComponent
 ],
   templateUrl: './details.html'
 })
@@ -31,6 +33,15 @@ export class AdminServiceTeamDetailsComponent implements OnInit {
 
   protected readonly isEditModalVisible = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected get deleteMessage(): string {
+    const t = this.team();
+    return t
+      ? `¿Eliminar el equipo "${t.name}"? Se rechazará si aún tiene organizaciones o workspaces asignados.`
+      : '';
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -89,15 +100,21 @@ export class AdminServiceTeamDetailsComponent implements OnInit {
   }
 
   protected delete(): void {
+    if (!this.team()) return;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
     const current = this.team();
     if (!current) return;
-    if (!confirm(`Delete service team "${current.name}"?\n\nRejected if it still has organization or instance assignments.`)) {
-      return;
-    }
-    this.loading.set(true);
+    this.deleting.set(true);
     this.service.delete(current.id).subscribe({
-      next: () => this.goBack(),
-      error: () => this.loading.set(false)
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.goBack();
+      },
+      error: () => this.deleting.set(false)
     });
   }
 }

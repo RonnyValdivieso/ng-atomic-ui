@@ -4,16 +4,19 @@ import { Router } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 
 import { ButtonComponent } from '@atoms/button';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { TableComponent } from '@organisms/table';
-import { Module } from '@interfaces/aaa';
+import { Module, PaginatedList } from '@interfaces/aaa';
 import { ModuleService } from '@services/api/aaa/module.service';
-import { TableColumn } from '@interfaces/table.interface';
+import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
 import { ModuleFormComponent, ModuleFormValue } from '../form/form';
+
+const PAGE_SIZE = 10;
 
 @Component({
   selector: 'app-admin-modules-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent, ModuleFormComponent],
+  imports: [SharedModule, TableComponent, ButtonComponent, ModuleFormComponent, ConfirmDialogComponent],
   templateUrl: './list.html'
 })
 export class AdminModulesListComponent {
@@ -23,10 +26,20 @@ export class AdminModulesListComponent {
   protected readonly modules = signal<Module[]>([]);
   protected readonly loading = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
+  protected readonly totalRecords = signal<number>(0);
+  protected readonly pageSize = signal<number>(PAGE_SIZE);
+  protected readonly pageNumber = signal<number>(1);
 
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
   protected currentModule: Module | null = null;
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected pendingDelete: Module | null = null;
+  protected get deleteMessage(): string {
+    return this.pendingDelete ? `¿Eliminar el módulo "${this.pendingDelete.name}"?` : '';
+  }
 
   protected readonly columns: TableColumn[] = [
     { field: 'name', header: 'Nombre', sortable: true },
@@ -35,18 +48,29 @@ export class AdminModulesListComponent {
   ];
 
   constructor() {
-    this.load();
+    this.load(1);
   }
 
-  protected load(): void {
+  protected load(pageNumber: number): void {
     this.loading.set(true);
-    this.service.getAll().subscribe({
-      next: list => {
-        this.modules.set(list ?? []);
+    this.pageNumber.set(pageNumber);
+    this.service.getAll({ pageNumber, pageSize: this.pageSize() }).subscribe({
+      next: (page: PaginatedList<Module>) => {
+        this.modules.set(page.items ?? []);
+        this.totalRecords.set(page.totalItems ?? 0);
         this.loading.set(false);
       },
       error: () => this.loading.set(false)
     });
+  }
+
+  protected onPage(event: TablePageEvent): void {
+    const rows = event.rows ?? this.pageSize();
+    if (rows !== this.pageSize()) {
+      this.pageSize.set(rows);
+    }
+    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
+    this.load(pageNumber);
   }
 
   protected openCreate(): void {
@@ -70,7 +94,7 @@ export class AdminModulesListComponent {
     const onDone = () => {
       this.saving.set(false);
       this.isModalVisible.set(false);
-      this.load();
+      this.load(this.pageNumber());
     };
     const onError = () => this.saving.set(false);
 
@@ -88,11 +112,22 @@ export class AdminModulesListComponent {
   }
 
   protected delete(mod: Module): void {
-    if (!confirm(`¿Eliminar el módulo "${mod.name}"?`)) return;
-    this.loading.set(true);
+    this.pendingDelete = mod;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
+    const mod = this.pendingDelete;
+    if (!mod) return;
+    this.deleting.set(true);
     this.service.delete(mod.id).subscribe({
-      next: () => this.load(),
-      error: () => this.loading.set(false)
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.pendingDelete = null;
+        this.load(this.pageNumber());
+      },
+      error: () => this.deleting.set(false)
     });
   }
 }

@@ -69,5 +69,14 @@
       [saving]="saving()"
       (save)="save($event)">
     </app-role-form>
+
+    <app-confirm-dialog
+      [(visible)]="isDeleteVisible"
+      title="Eliminar rol"
+      [message]="deleteMessage"
+      confirmLabel="Eliminar"
+      [loading]="deleting()"
+      (confirmed)="confirmDelete()">
+    </app-confirm-dialog>
   }
 </div>

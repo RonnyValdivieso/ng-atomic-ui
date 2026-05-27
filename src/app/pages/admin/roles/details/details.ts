@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ButtonComponent } from '@atoms/button';
 import { CardComponent } from '@atoms/card';
+import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
 import { RoleService } from '@services/api/aaa/role.service';
 import { RoleDetail } from '@interfaces/aaa';
 import { environment } from '@env/environment';
@@ -13,7 +14,7 @@ const GLOBAL_SCOPE = '00000000-0000-0000-0000-000000000000';
 @Component({
   selector: 'app-admin-role-details',
   standalone: true,
-  imports: [ButtonComponent, CardComponent, RoleFormComponent],
+  imports: [ButtonComponent, CardComponent, RoleFormComponent, ConfirmDialogComponent],
   templateUrl: './details.html',
   styleUrls: ['./details.css']
 })
@@ -28,6 +29,13 @@ export class AdminRoleDetailsComponent implements OnInit {
 
   protected readonly isEditModalVisible = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
+
+  protected readonly isDeleteVisible = signal<boolean>(false);
+  protected readonly deleting = signal<boolean>(false);
+  protected get deleteMessage(): string {
+    const r = this.role();
+    return r ? `¿Eliminar el rol "${r.name}"?` : '';
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -71,11 +79,21 @@ export class AdminRoleDetailsComponent implements OnInit {
   }
 
   protected delete(): void {
+    if (!this.role()) return;
+    this.isDeleteVisible.set(true);
+  }
+
+  protected confirmDelete(): void {
     const current = this.role();
     if (!current) return;
-    if (!confirm(`¿Eliminar el rol "${current.name}"?`)) return;
+    this.deleting.set(true);
     this.service.delete(current.id).subscribe({
-      next: () => this.goBack()
+      next: () => {
+        this.deleting.set(false);
+        this.isDeleteVisible.set(false);
+        this.goBack();
+      },
+      error: () => this.deleting.set(false)
     });
   }
 
