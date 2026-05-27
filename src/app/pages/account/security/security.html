@@ -1,0 +1,145 @@
+<div class="section-head">
+  <h2>Two-step verification</h2>
+  <p>Add a second factor to keep your account secure even if your password is compromised.</p>
+</div>
+
+@if (loading()) {
+  <p class="muted" style="font-size:13.5px">Loading security settings…</p>
+} @else {
+  <div class="settings-stack">
+    <div class="status-banner" [class.warn]="!enabled()">
+      <div class="badge">
+        <i class="pi" [class.pi-shield]="enabled()" [class.pi-exclamation-triangle]="!enabled()"></i>
+      </div>
+      <div class="body">
+        <strong>{{ enabled() ? 'Two-step verification is on' : 'Two-step verification is off' }}</strong>
+        <p>
+          {{ enabled()
+            ? 'Your account is protected with an authenticator app.'
+            : 'Anyone with your password can access your account. Add a second factor to protect it.' }}
+        </p>
+      </div>
+    </div>
+
+    <section class="card method-card">
+      <div class="card-head method-card-head">
+        <div>
+          <h3>Verification methods</h3>
+          <div class="muted">Configure an authenticator app to verify your identity.</div>
+        </div>
+      </div>
+
+      <div class="method-list">
+        @if (phase() === 'idle') {
+          <div class="method-row">
+            <div class="method-icon"><i class="pi pi-shield"></i></div>
+            <div class="method-body">
+              <div class="method-title">
+                Authenticator app
+                @if (!enabled()) {
+                  <span class="recommended-pill">RECOMMENDED</span>
+                } @else {
+                  <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+                }
+              </div>
+              <div class="method-sub">
+                Use an app like Google Authenticator or 1Password to generate verification codes.
+              </div>
+            </div>
+            @if (enabled()) {
+              <button class="btn" type="button" (click)="beginDisable()">Disable</button>
+            } @else {
+              <button class="btn btn-primary" type="button" [disabled]="working()" (click)="beginSetup()">
+                <i class="pi pi-plus ico-sm"></i>{{ working() ? 'Starting…' : 'Set up' }}
+              </button>
+            }
+          </div>
+        } @else {
+          <div class="method-row expanded">
+            <div class="method-summary">
+              <div class="method-icon"><i class="pi pi-shield"></i></div>
+              <div class="method-body">
+                <div class="method-title">{{ phase() === 'setup' ? 'Set up authenticator app' : 'Disable authenticator app' }}</div>
+                <div class="method-sub">{{ phase() === 'setup' ? 'Follow the steps to link your app.' : 'Confirm with a current code.' }}</div>
+              </div>
+              <button class="btn btn-ghost" type="button" (click)="cancel()" [disabled]="working()">
+                <i class="pi pi-times ico-sm"></i>Cancel
+              </button>
+            </div>
+
+            <div class="method-expand-body">
+              @if (phase() === 'setup' && setupData(); as data) {
+                <div class="setup-grid">
+                  <div class="qr-frame">
+                    <app-qr-code [data]="data.authenticatorUri" [size]="148" alt="Authenticator QR code" />
+                  </div>
+                  <div class="setup-steps">
+                    <div class="setup-step">
+                      <div class="num">1</div>
+                      <div class="text">
+                        Open your authenticator app and <strong>scan the QR code</strong>.
+                        <div class="muted setup-secret">
+                          Can't scan?
+                          <button class="link-btn" type="button" (click)="copySecret()">
+                            <code>{{ data.sharedKey }}</code>
+                            <i class="pi {{ secretCopied() ? 'pi-check' : 'pi-copy' }} ico-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="setup-step">
+                      <div class="num">2</div>
+                      <div class="text">
+                        Enter the 6-digit code shown in your app.
+                        <div class="setup-otp">
+                          <app-otp-input
+                            [value]="code()"
+                            [invalid]="!!error()"
+                            [disabled]="working()"
+                            (valueChange)="onCode($event)"
+                            (completed)="confirmEnable()" />
+                        </div>
+                        @if (error()) {
+                          <div class="bb-error setup-err">{{ error() }}</div>
+                        }
+                        <div class="setup-actions">
+                          <button class="btn btn-primary" type="button"
+                            [disabled]="code().length !== 6 || working()" (click)="confirmEnable()">
+                            {{ working() ? 'Verifying…' : 'Activate 2FA' }}
+                          </button>
+                          <button class="btn btn-ghost" type="button" (click)="cancel()" [disabled]="working()">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              } @else if (phase() === 'disable') {
+                <div class="disable-body">
+                  <p class="disable-copy">
+                    Enter a current code from your authenticator app to turn off two-step verification.
+                  </p>
+                  <app-otp-input
+                    [value]="code()"
+                    [invalid]="!!error()"
+                    [disabled]="working()"
+                    (valueChange)="onCode($event)"
+                    (completed)="confirmDisable()" />
+                  @if (error()) {
+                    <div class="bb-error setup-err">{{ error() }}</div>
+                  }
+                  <div class="setup-actions">
+                    <button class="btn btn-danger" type="button"
+                      [disabled]="code().length !== 6 || working()" (click)="confirmDisable()">
+                      {{ working() ? 'Disabling…' : 'Disable two-step verification' }}
+                    </button>
+                    <button class="btn btn-ghost" type="button" (click)="cancel()" [disabled]="working()">Cancel</button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+}

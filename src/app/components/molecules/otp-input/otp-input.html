@@ -1,0 +1,17 @@
+<div class="otp-row" (paste)="onPaste($event)">
+  @for (i of cells(); track i) {
+    <input
+      #cell
+      class="otp-input"
+      [class.filled]="digit(i)"
+      [class.err]="invalid()"
+      type="text"
+      inputmode="numeric"
+      maxlength="6"
+      [disabled]="disabled()"
+      [autocomplete]="i === 0 ? 'one-time-code' : 'off'"
+      [attr.aria-label]="'Digit ' + (i + 1)"
+      (input)="onInput(i, $event)"
+      (keydown)="onKeydown(i, $event)" />
+  }
+</div>

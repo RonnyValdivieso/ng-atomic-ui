@@ -1,0 +1,309 @@
+:host {
+  --ink: #0b0b0f;
+  --ink-2: #1a1a22;
+  --muted: #6b6b78;
+  --muted-2: #9a9aa8;
+  --line: #e7e6e3;
+  --line-2: #ededea;
+  --paper: #faf9f6;
+  --paper-2: #f3f2ee;
+  --surface: #ffffff;
+  --primary: #4f3cf0;
+  --primary-ink: #2a1fb8;
+  --primary-soft: #ecebff;
+  --ok: #138a4a;
+  --ok-soft: #d8f0e1;
+  --warn: #9c6b00;
+  --warn-soft: #fbeec4;
+  --err: #b8351f;
+  --err-soft: #fbe2dc;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --shadow-card: 0 1px 0 rgba(15, 15, 30, .04), 0 1px 2px rgba(15, 15, 30, .04);
+
+  display: block;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+:host-context(.p-dark) {
+  --ink: #f5f4f0;
+  --ink-2: #d8d6d0;
+  --muted: #8a8a96;
+  --muted-2: #5e5e6a;
+  --line: #26262e;
+  --line-2: #1d1d24;
+  --paper: #0c0c10;
+  --paper-2: #14141a;
+  --surface: #16161c;
+  --primary: #8b7bff;
+  --primary-ink: #a99dff;
+  --primary-soft: #1f1c3a;
+  --ok: #4ade80;
+  --ok-soft: #163524;
+  --warn: #facc15;
+  --warn-soft: #3a2e0a;
+  --err: #ff6b5b;
+  --err-soft: #3a1a16;
+  --shadow-card: 0 1px 0 rgba(0, 0, 0, .4), 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background .12s, border-color .12s, transform .06s, filter .12s;
+}
+
+.btn:hover {
+  background: var(--paper-2);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.btn-primary:not(:disabled):hover {
+  filter: brightness(.9);
+  background: var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-2);
+}
+
+.btn-ghost:not(:disabled):hover {
+  background: var(--paper-2);
+}
+
+.btn-danger {
+  color: var(--err);
+  border-color: var(--err-soft);
+  background: var(--err-soft);
+}
+
+.btn-danger:not(:disabled):hover {
+  filter: brightness(.95);
+  background: var(--err-soft);
+}
+
+.btn-sm {
+  height: 30px;
+  padding: 0 10px;
+  font-size: 12.5px;
+}
+
+.ico-sm {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ---------- card ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.card-head h3 {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  color: var(--ink);
+}
+
+.card-head .head-act {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- pills ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  border: 1px solid transparent;
+}
+
+.pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pill-ok {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.pill-ok .dot {
+  background: var(--ok);
+}
+
+/* ---------- section head ---------- */
+.section-head {
+  margin-bottom: 20px;
+}
+
+.section-head h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -.015em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.section-head p {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 4px 0 0;
+}
+
+/* ---------- fields (view mode) ---------- */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 36px;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.field dt {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.field dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.field dd.dash {
+  color: var(--muted-2);
+}
+
+/* ---------- form (edit mode) ---------- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.input {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  padding: 0 12px;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--ink);
+  width: 100%;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+
+.input::placeholder {
+  color: var(--muted-2);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ink) 10%, transparent);
+}
+
+.input:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.form-hint {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: -2px;
+}
+
+.setup-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.bb-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--err);
+}

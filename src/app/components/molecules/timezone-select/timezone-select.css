@@ -1,0 +1,151 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.tz-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #e7e6e3);
+  background-color: var(--surface, #fff);
+  padding: 0 12px;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--ink, #0b0b0f);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.tz-trigger:focus-visible,
+.tz.open .tz-trigger {
+  outline: none;
+  border-color: var(--ink, #0b0b0f);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ink, #0b0b0f) 10%, transparent);
+}
+
+.tz-trigger:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.tz-trigger.placeholder {
+  color: var(--muted-2, #9a9aa8);
+}
+
+.tz-trigger-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tz-chevron {
+  font-size: 12px;
+  color: var(--muted, #6b6b78);
+  flex-shrink: 0;
+  transition: transform .15s;
+}
+
+.tz.open .tz-chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------- panel ---------- */
+.tz-panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface, #fff);
+  border: 1px solid var(--line, #e7e6e3);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px -12px rgba(15, 15, 30, .25), 0 2px 6px rgba(15, 15, 30, .08);
+  overflow: hidden;
+}
+
+.tz-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line, #e7e6e3);
+  color: var(--muted, #6b6b78);
+}
+
+.tz-search .pi {
+  font-size: 13px;
+}
+
+.tz-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--ink, #0b0b0f);
+}
+
+.tz-search input::placeholder {
+  color: var(--muted-2, #9a9aa8);
+}
+
+.tz-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  max-height: 256px;
+  overflow-y: auto;
+}
+
+.tz-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13.5px;
+  color: var(--ink, #0b0b0f);
+}
+
+.tz-option:hover {
+  background: var(--paper-2, #f3f2ee);
+}
+
+.tz-option.selected {
+  background: var(--paper-2, #f3f2ee);
+  font-weight: 500;
+}
+
+.tz-option-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tz-option-gmt {
+  flex-shrink: 0;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted, #6b6b78);
+}
+
+.tz-status {
+  padding: 10px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted, #6b6b78);
+}
+
+.tz-status-err {
+  color: var(--err, #b8351f);
+}

@@ -1,80 +1,132 @@
-<div class="login-container">
-  @if (auth.pendingChallenge(); as challenge) {
-    <app-login-code
-      [challenge]="challenge"
-      [remainingSeconds]="auth.challengeRemainingSeconds()"
-      [loading]="isLoading()"
-      [errorMessage]="codeError() ?? ''"
-      (submitted)="onCodeSubmitted($event)"
-      (cancelled)="onCodeCancelled()">
-    </app-login-code>
-  } @else {
-    <app-card header="Iniciar Sesión" class="login-card-wrapper" [elevation]="4">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        <app-form-field
-          label="Email"
-          formControlName="email"
-          type="email"
-          placeholder="tu@email.com"
-          [errorMessage]="loginForm.get('email')?.errors && loginForm.get('email')?.touched ? 'Email requerido' : ''">
-        </app-form-field>
+<div class="bb-login">
+  <div class="theme-toggle" role="group" aria-label="Theme">
+    <button
+      type="button"
+      [class.active]="!theme.isDarkMode()"
+      (click)="theme.setTheme(false)"
+      aria-label="Light">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="8" cy="8" r="3" />
+        <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3 3l1 1M12 12l1 1M13 3l-1 1M4 12l-1 1" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      [class.active]="theme.isDarkMode()"
+      (click)="theme.setTheme(true)"
+      aria-label="Dark">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M13 9.5A5.5 5.5 0 0 1 6.5 3a5.5 5.5 0 1 0 6.5 6.5z" />
+      </svg>
+    </button>
+  </div>
 
-        <app-form-field
-          label="Contraseña"
-          formControlName="password"
-          type="password"
-          placeholder="••••••••"
-          [errorMessage]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'Contraseña requerida' : ''">
-        </app-form-field>
+  <div class="bb-shell">
+    <div class="bb-brand">
+      <span class="bb-brand-mark">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="5.5" cy="8" r="2.4" fill="currentColor" />
+          <circle cx="11" cy="8" r="1.4" fill="currentColor" opacity=".55" />
+        </svg>
+      </span>
+      <span class="bb-brand-name">Brandbot</span>
+      <span class="bb-brand-badge">BACKOFFICE</span>
+    </div>
 
-        @if (error()) {
-          <div class="login-error">{{ error() }}</div>
+    <div class="bb-card">
+      @if (auth.pendingChallenge(); as challenge) {
+        <app-login-code
+          [challenge]="challenge"
+          [email]="loginForm.get('email')?.value ?? ''"
+          [remainingSeconds]="auth.challengeRemainingSeconds()"
+          [loading]="isLoading()"
+          [errorMessage]="codeError() ?? ''"
+          (submitted)="onCodeSubmitted($event)"
+          (cancelled)="onCodeCancelled()">
+        </app-login-code>
+      } @else {
+        <div class="bb-eyebrow">Super Admin · Sign in</div>
+        <h1 class="bb-title">Welcome back</h1>
+        <p class="bb-subtitle">Operator credentials required to access the back office.</p>
+
+        @if (microsoftEnabled) {
+          <button
+            class="bb-btn bb-btn-ghost bb-btn-block"
+            type="button"
+            [disabled]="isLoading()"
+            (click)="onMicrosoftSignIn()"
+            style="margin-bottom:14px">
+            <svg class="ico" viewBox="0 0 18 18" aria-hidden="true">
+              <rect x="1" y="1" width="7.5" height="7.5" fill="#F25022" />
+              <rect x="9.5" y="1" width="7.5" height="7.5" fill="#7FBA00" />
+              <rect x="1" y="9.5" width="7.5" height="7.5" fill="#00A4EF" />
+              <rect x="9.5" y="9.5" width="7.5" height="7.5" fill="#FFB900" />
+            </svg>
+            Continue with Microsoft
+          </button>
+          <div class="bb-divider">or with email</div>
         }
 
-        <app-button
-          label="Entrar"
-          type="submit"
-          [loading]="isLoading()"
-          [disabled]="loginForm.invalid || isLoading()"
-          style="width: 100%"
-        ></app-button>
-      </form>
+        <form class="bb-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="bb-field">
+            <label class="bb-label" for="login-email">Work email</label>
+            <input
+              id="login-email"
+              class="bb-input"
+              type="email"
+              formControlName="email"
+              placeholder="you@brand.co"
+              autocomplete="email" />
+          </div>
 
-      <!--
-        SSO buttons hidden pending Azure App Registration fix (needs SPA
-        platform + http://localhost:4200 redirect URI). Wiring is in place
-        — re-enable by un-commenting this block.
+          <div class="bb-field">
+            <div class="bb-label-row">
+              <label class="bb-label" for="login-pass">Password</label>
+            </div>
+            <div class="bb-input-row">
+              <input
+                id="login-pass"
+                class="bb-input"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="••••••••••"
+                autocomplete="current-password" />
+              <button
+                type="button"
+                class="bb-eye"
+                (click)="togglePassword()"
+                [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+                <svg class="ico-sm" viewBox="0 0 18 18" aria-hidden="true">
+                  <path d="M1 9s3-5.5 8-5.5S17 9 17 9s-3 5.5-8 5.5S1 9 1 9z" fill="none" stroke="currentColor" stroke-width="1.4" />
+                  <circle cx="9" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-      @if (googleEnabled || microsoftEnabled) {
-        <div class="login-divider"><span>o</span></div>
-
-        <div class="login-sso">
-          @if (microsoftEnabled) {
-            <app-button
-              label="Continuar con Microsoft"
-              variant="secondary"
-              icon="pi pi-microsoft"
-              [loading]="isLoading()"
-              [disabled]="isLoading()"
-              (clicked)="onMicrosoftSignIn()"
-              style="width: 100%">
-            </app-button>
+          @if (error()) {
+            <div class="bb-error">{{ error() }}</div>
           }
-          @if (googleEnabled) {
-            <app-button
-              label="Continuar con Google"
-              variant="secondary"
-              icon="pi pi-google"
-              [loading]="isLoading()"
-              [disabled]="isLoading()"
-              (clicked)="onGoogleSignIn()"
-              style="width: 100%">
-            </app-button>
-          }
-        </div>
+
+          <label class="bb-check">
+            <input type="checkbox" checked />
+            Keep me signed in
+          </label>
+
+          <button
+            class="bb-btn bb-btn-primary bb-btn-block"
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading()"
+            style="margin-top:8px">
+            {{ isLoading() ? 'Signing in…' : 'Sign in' }}
+            <svg class="ico-sm" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </form>
       }
-      -->
+    </div>
+  </div>
 
-    </app-card>
-  }
+  <div class="bb-legal">© 2026 Brandbot, Inc. · Terms · Privacy · Status</div>
 </div>

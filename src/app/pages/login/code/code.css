@@ -1,44 +1,236 @@
-.code-hint {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--p-text-muted-color, #64748b);
-    text-align: center;
+:host {
+  --ink: #0b0b0f;
+  --ink-2: #1a1a22;
+  --muted: #6b6b78;
+  --muted-2: #9a9aa8;
+  --line: #e7e6e3;
+  --paper-2: #f3f2ee;
+  --surface: #ffffff;
+  --primary: #4f3cf0;
+  --err: #b8351f;
+  --r-md: 10px;
+  display: block;
 }
 
-.code-countdown {
-    margin: 0;
-    font-size: 0.8rem;
-    color: var(--p-text-muted-color, #64748b);
-    text-align: center;
+:host-context(.p-dark) {
+  --ink: #f5f4f0;
+  --ink-2: #d8d6d0;
+  --muted: #8a8a96;
+  --muted-2: #5e5e6a;
+  --line: #26262e;
+  --paper-2: #14141a;
+  --surface: #16161c;
+  --primary: #8b7bff;
+  --err: #ff6b5b;
 }
 
-.code-countdown--expired {
-    color: var(--red-500, #ef4444);
-    font-weight: 600;
+/* ---------- back link ---------- */
+.bb-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+  transition: color .12s;
 }
 
-.code-error {
-    color: var(--red-500, #ef4444);
-    font-size: 0.875rem;
-    text-align: center;
+.bb-back:hover {
+  color: var(--ink);
 }
 
-.code-cancel {
-    background: transparent;
-    border: none;
-    padding: 0.5rem;
-    color: var(--p-primary-color, #3b82f6);
-    font-size: 0.875rem;
-    cursor: pointer;
-    text-align: center;
+.bb-back svg {
+  width: 12px;
+  height: 12px;
 }
 
-.code-cancel:hover {
-    text-decoration: underline;
+/* ---------- card headings ---------- */
+.bb-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
-.code-cancel:focus-visible {
-    outline: 2px solid var(--p-primary-color, #3b82f6);
-    outline-offset: 2px;
-    border-radius: 4px;
+.bb-title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin: 6px 0 4px;
+  color: var(--ink);
+}
+
+.bb-subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+/* ---------- method chip ---------- */
+.method-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  margin: 0 0 18px;
+}
+
+.method-chip .ico {
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.method-chip-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.method-chip-label {
+  font-size: 11.5px;
+  color: var(--muted);
+  letter-spacing: .02em;
+}
+
+.method-chip-target {
+  margin-top: 2px;
+  color: var(--ink);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+
+/* ---------- OTP boxes ---------- */
+.bb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bb-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: .01em;
+}
+
+.otp-row {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.otp-input {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 52px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  color: var(--ink);
+  text-align: center;
+  font: inherit;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+
+.otp-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+
+.otp-input.filled {
+  border-color: var(--ink);
+}
+
+.otp-input.err {
+  border-color: var(--err);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--err) 18%, transparent);
+}
+
+.otp-gap {
+  width: 4px;
+  flex-shrink: 0;
+  align-self: center;
+  height: 1.5px;
+  background: var(--line);
+  border-radius: 1px;
+}
+
+/* ---------- verify button ---------- */
+.bb-btn {
+  height: 44px;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform .06s ease, filter .15s;
+  padding: 0 16px;
+}
+
+.bb-btn:active {
+  transform: translateY(1px);
+}
+
+.bb-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.bb-btn-primary {
+  background-color: var(--ink);
+  color: var(--surface);
+}
+
+.bb-btn-primary:not(:disabled):hover {
+  filter: brightness(.9);
+}
+
+.bb-btn-block {
+  width: 100%;
+}
+
+.ico-sm {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ---------- error + countdown ---------- */
+.bb-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--err);
+}
+
+.otp-countdown {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.otp-countdown--expired {
+  color: var(--err);
+  font-weight: 500;
 }

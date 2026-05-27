@@ -1,0 +1,47 @@
+<div class="tz" [class.open]="open()">
+  <button
+    type="button"
+    class="tz-trigger"
+    [class.placeholder]="!selectedLabel()"
+    [disabled]="disabled()"
+    (click)="toggle()"
+    [attr.aria-expanded]="open()">
+    <span class="tz-trigger-label">{{ selectedLabel() || placeholder() }}</span>
+    <i class="pi pi-chevron-down tz-chevron"></i>
+  </button>
+
+  @if (open()) {
+    <div class="tz-panel">
+      <div class="tz-search">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          [value]="query()"
+          (input)="onSearch($event)"
+          placeholder="Search time zones…"
+          autocomplete="off"
+          autofocus />
+      </div>
+
+      <ul class="tz-list" (scroll)="onScroll($event)">
+        @for (tz of items(); track tz.timezoneName ?? tz.name) {
+          <li
+            class="tz-option"
+            [class.selected]="(tz.timezoneName ?? tz.name) === value()"
+            (click)="select(tz)">
+            <span class="tz-option-name">{{ label(tz) }}</span>
+            <span class="tz-option-gmt">{{ gmtLabel(tz) }}</span>
+          </li>
+        }
+
+        @if (loading()) {
+          <li class="tz-status">Loading…</li>
+        } @else if (error()) {
+          <li class="tz-status tz-status-err">Could not load time zones.</li>
+        } @else if (items().length === 0) {
+          <li class="tz-status">No matches.</li>
+        }
+      </ul>
+    </div>
+  }
+</div>

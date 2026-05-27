@@ -123,6 +123,26 @@ export const routes: Routes = [
             .then(m => m.AdminAuthenticationLogListComponent)
       },
       {
+        path: 'account',
+        loadComponent: () =>
+          import('./pages/account/account').then(m => m.AccountComponent),
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          {
+            path: 'profile',
+            loadComponent: () =>
+              import('./pages/account/profile/profile')
+                .then(m => m.AccountProfileComponent)
+          },
+          {
+            path: 'security',
+            loadComponent: () =>
+              import('./pages/account/security/security')
+                .then(m => m.AccountSecurityComponent)
+          }
+        ]
+      },
+      {
         path: 'platform',
         children: [
           { path: '', redirectTo: 'inference-provider-types', pathMatch: 'full' },

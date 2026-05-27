@@ -28,16 +28,30 @@ export class HeaderComponent {
 
   readonly menuClicked = output<void>();
 
+  constructor() {
+    // Hydrate the user's name from the profile when the login response omitted it.
+    this.auth.ensureDisplayName();
+  }
+
   protected readonly userInitials = computed(() => {
     const user = this.auth.currentUser();
-    const first = user?.firstName?.charAt(0) ?? '';
-    const last = user?.lastName?.charAt(0) ?? '';
+    const first = user?.firstName?.trim().charAt(0) ?? '';
+    const last = user?.lastName?.trim().charAt(0) ?? '';
     const initials = `${first}${last}`.toUpperCase();
-    return initials || '?';
+    if (initials) return initials;
+    const emailInitial = user?.email?.trim().charAt(0).toUpperCase() ?? '';
+    return emailInitial || '?';
   });
 
   protected readonly userMenuModels = computed<MenuItem[]>(() => {
-    const items: MenuItem[] = [];
+    const items: MenuItem[] = [
+      {
+        label: 'My account',
+        icon: 'pi pi-user',
+        command: () => this.router.navigate(['/admin/account/profile'])
+      },
+      { separator: true }
+    ];
     if (this.auth.isSuperAdmin()) {
       items.push(
         {

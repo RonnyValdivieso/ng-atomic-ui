@@ -10,6 +10,7 @@ import {
 } from '@interfaces/auth.interface';
 import { UserModule } from '@interfaces/aaa';
 import { AaaAuthApi } from '@services/api/aaa/auth.api';
+import { AaaAccountApi } from '@services/api/aaa/account.api';
 import { isExpired } from '@utils/jwt.util';
 import { environment } from '@env/environment';
 
@@ -49,7 +50,9 @@ export type LoginOutcome =
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private api = inject(AaaAuthApi);
+  private account = inject(AaaAccountApi);
   private router = inject(Router);
+  private profileNameRequested = false;
 
   private readonly _accessToken = signal<string | null>(this.readToken());
   private readonly _currentUser = signal<UserDto | null>(this.readUser());
@@ -254,6 +257,44 @@ export class AuthService {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
     this._accessToken.set(user.accessToken);
     this._currentUser.set(user);
+  }
+
+  /**
+   * Patch the cached user's display fields after a self-service profile edit,
+   * so the header initials / name reflect the change without a re-login.
+   * The profile endpoint does not return a fresh token, so the session token
+   * is left untouched.
+   */
+  patchCurrentUser(
+    changes: Partial<Pick<UserDto, 'firstName' | 'lastName' | 'defaultLanguage'>>
+  ): void {
+    const current = this._currentUser();
+    if (!current) return;
+    const updated: UserDto = { ...current, ...changes };
+    localStorage.setItem(USER_KEY, JSON.stringify(updated));
+    this._currentUser.set(updated);
+  }
+
+  /**
+   * Some login responses omit the user's name, leaving the UI without
+   * initials to display. When that happens, lazily hydrate the name from the
+   * account profile endpoint (once) so avatars/menus can render properly.
+   */
+  ensureDisplayName(): void {
+    if (this.profileNameRequested) return;
+    const user = this._currentUser();
+    if (!user || !this.isAuthenticated()) return;
+    if (user.firstName?.trim() || user.lastName?.trim()) return;
+
+    this.profileNameRequested = true;
+    this.account.getProfile().subscribe({
+      next: profile => this.patchCurrentUser({
+        firstName: profile.firstName ?? '',
+        lastName: profile.lastName ?? '',
+        defaultLanguage: profile.defaultLanguage ?? user.defaultLanguage
+      }),
+      error: () => { this.profileNameRequested = false; }
+    });
   }
 
   private loadPermissions(instanceId?: string): Observable<UserModule[]> {

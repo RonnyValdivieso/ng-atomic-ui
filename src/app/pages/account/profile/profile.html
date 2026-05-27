@@ -1,0 +1,99 @@
+<div class="section-head">
+  <h2>Profile</h2>
+  <p>Your personal information visible across the back office.</p>
+</div>
+
+<section class="card">
+  <div class="card-head">
+    <div><h3>Personal information</h3></div>
+    <div class="head-act">
+      @if (saved()) {
+        <span class="pill pill-ok"><span class="dot"></span>SAVED</span>
+      }
+      @if (mode() === 'view' && !loading() && profile()) {
+        <button class="btn btn-ghost btn-sm" type="button" (click)="startEdit()">
+          <i class="pi pi-pencil ico-sm"></i>Edit
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (loading()) {
+    <p class="muted" style="font-size:13.5px">Loading your profile…</p>
+  } @else if (error() && !profile()) {
+    <div class="bb-error">{{ error() }}</div>
+  } @else if (profile(); as p) {
+    <div class="profile-identity">
+      <app-avatar [initials]="initials()" size="xl"></app-avatar>
+      <div>
+        <div class="profile-identity-name">{{ fullName() }}</div>
+        <div class="profile-identity-email">{{ p.email || '—' }}</div>
+      </div>
+    </div>
+
+    @if (mode() === 'view') {
+      <dl class="field-grid">
+        <div class="field">
+          <dt>Full name</dt>
+          <dd [class.dash]="fullName() === '—'">{{ fullName() }}</dd>
+        </div>
+        <div class="field">
+          <dt>Email</dt>
+          <dd [class.dash]="!p.email">{{ p.email || '—' }}</dd>
+        </div>
+        <div class="field">
+          <dt>Language</dt>
+          <dd [class.dash]="!p.defaultLanguage">{{ languageLabel() || '—' }}</dd>
+        </div>
+        <div class="field">
+          <dt>Time zone</dt>
+          <dd [class.dash]="!p.defaultTimeZone">{{ p.defaultTimeZone || '—' }}</dd>
+        </div>
+      </dl>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="field-grid">
+          <div class="form-field">
+            <label class="form-label" for="pf-first">First name</label>
+            <input id="pf-first" class="input" type="text" formControlName="firstName" autocomplete="given-name" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="pf-last">Last name</label>
+            <input id="pf-last" class="input" type="text" formControlName="lastName" autocomplete="family-name" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="pf-email">Email</label>
+            <input id="pf-email" class="input" type="email" [value]="p.email || ''" disabled />
+            <div class="form-hint">Contact an administrator to change your email.</div>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="pf-lang">Language</label>
+            <select id="pf-lang" class="input" formControlName="defaultLanguage">
+              <option value="">Select a language</option>
+              @for (lang of languages(); track lang.id) {
+                <option [value]="lang.code">{{ lang.description || lang.code }}</option>
+              }
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="pf-tz">Time zone</label>
+            <app-timezone-select
+              [value]="form.controls.defaultTimeZone.value ?? ''"
+              (valueChange)="form.controls.defaultTimeZone.setValue($event)" />
+          </div>
+        </div>
+
+        @if (error()) {
+          <div class="bb-error" style="margin-top:14px">{{ error() }}</div>
+        }
+
+        <div class="setup-actions" style="margin-top:20px">
+          <button class="btn btn-primary" type="submit" [disabled]="saving()">
+            {{ saving() ? 'Saving…' : 'Save changes' }}
+          </button>
+          <button class="btn btn-ghost" type="button" (click)="cancelEdit()" [disabled]="saving()">Cancel</button>
+        </div>
+      </form>
+    }
+  }
+</section>

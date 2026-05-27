@@ -253,8 +253,9 @@
 }
 
 .avatar--has-initials {
-  background: linear-gradient(135deg, var(--p-primary-100), var(--p-primary-200));
-  color: var(--p-primary-800);
+  background: linear-gradient(135deg, #4f3cf0, #a99dff);
+  color: #ffffff;
+  border-color: transparent;
 }
 
 .avatar--placeholder {
@@ -284,8 +285,8 @@
 }
 
 [data-theme="dark"] .avatar--has-initials {
-  background: linear-gradient(135deg, var(--p-primary-900), var(--p-primary-800));
-  color: var(--p-primary-100);
+  background: linear-gradient(135deg, #4f3cf0, #a99dff);
+  color: #ffffff;
 }
 
 [data-theme="dark"] .avatar--placeholder {

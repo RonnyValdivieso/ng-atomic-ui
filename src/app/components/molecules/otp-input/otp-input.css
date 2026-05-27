@@ -1,0 +1,40 @@
+.otp-row {
+  display: flex;
+  gap: 8px;
+}
+
+.otp-input {
+  width: 44px;
+  min-width: 0;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid var(--line, #e7e6e3);
+  background-color: var(--surface, #fff);
+  color: var(--ink, #0b0b0f);
+  text-align: center;
+  font: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.otp-input:focus {
+  outline: none;
+  border-color: var(--ink, #0b0b0f);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ink, #0b0b0f) 12%, transparent);
+}
+
+.otp-input.filled {
+  border-color: var(--ink, #0b0b0f);
+}
+
+.otp-input.err {
+  border-color: var(--err, #b8351f);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--err, #b8351f) 18%, transparent);
+}
+
+.otp-input:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}

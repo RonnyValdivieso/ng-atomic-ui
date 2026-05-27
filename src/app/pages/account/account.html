@@ -1,0 +1,29 @@
+<div class="account-page">
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">My account</h1>
+      <p class="page-sub">Manage your personal details and account security.</p>
+    </div>
+  </div>
+
+  <div class="account-layout">
+    <aside class="account-sidenav">
+      @for (group of nav; track group.group) {
+        <div class="group-label">{{ group.group }}</div>
+        @for (item of group.items; track item.id) {
+          <a
+            class="account-navitem"
+            [routerLink]="['/admin/account', item.id]"
+            routerLinkActive="active">
+            <i class="pi {{ item.icon }} ico"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      }
+    </aside>
+
+    <div class="account-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

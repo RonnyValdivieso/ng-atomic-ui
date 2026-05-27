@@ -4,12 +4,10 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, LoginOutcome } from '@shared/services/auth/auth.service';
 import { SocialAuthService } from '@shared/services/auth/social-auth.service';
+import { ThemeService } from '@shared/services/theme.service';
 import { isGoogleConfigured } from '@shared/services/auth/providers/google.provider';
 import { isMicrosoftConfigured } from '@shared/services/auth/providers/msal.provider';
 import { LoginDto, UserDto } from '@interfaces/auth.interface';
-import { ButtonComponent } from '@atoms/button';
-import { FormFieldComponent } from '@molecules/form-field';
-import { CardComponent } from '@atoms/card';
 import { LoginCodeComponent } from './code/code';
 
 @Component({
@@ -17,9 +15,6 @@ import { LoginCodeComponent } from './code/code';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    ButtonComponent,
-    FormFieldComponent,
-    CardComponent,
     LoginCodeComponent
   ],
   templateUrl: './login.html',
@@ -28,6 +23,7 @@ import { LoginCodeComponent } from './code/code';
 export class LoginComponent {
   private fb = inject(FormBuilder);
   protected auth = inject(AuthService);
+  protected theme = inject(ThemeService);
   private social = inject(SocialAuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
@@ -40,9 +36,14 @@ export class LoginComponent {
   protected readonly isLoading = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly codeError = signal<string | null>(null);
+  protected readonly showPassword = signal(false);
 
   protected readonly googleEnabled = isGoogleConfigured();
   protected readonly microsoftEnabled = isMicrosoftConfigured();
+
+  protected togglePassword(): void {
+    this.showPassword.update(v => !v);
+  }
 
   onSubmit(): void {
     if (!this.loginForm.valid) return;
@@ -82,15 +83,15 @@ export class LoginComponent {
         const message = err?.message;
         if (message === 'CHALLENGE_EXPIRED' || message === 'NO_CHALLENGE') {
           this.auth.clearPendingChallenge();
-          this.error.set('El código expiró. Inicia sesión de nuevo.');
+          this.error.set('Your code expired. Please sign in again.');
           return;
         }
         if (message === 'SUPER_ADMIN_REQUIRED') {
           this.auth.clearPendingChallenge();
-          this.error.set('Esta aplicación requiere permisos de administrador.');
+          this.error.set('This application requires administrator permissions.');
           return;
         }
-        this.codeError.set('Código inválido o expirado.');
+        this.codeError.set('Invalid or expired code.');
         console.error('2FA verify error:', err);
       }
     });
@@ -116,12 +117,12 @@ export class LoginComponent {
         this.isLoading.set(false);
         const message = err?.message;
         if (message === 'SUPER_ADMIN_REQUIRED') {
-          this.error.set('Esta aplicación requiere permisos de administrador.');
+          this.error.set('This application requires administrator permissions.');
           return;
         }
         if (source === 'google') {
           if (message === 'GOOGLE_POPUP_CLOSED') return; // silent
-          this.error.set('No se pudo iniciar sesión con Google.');
+          this.error.set('Could not sign in with Google.');
           console.error('Google sign-in error:', err);
           return;
         }
@@ -130,11 +131,11 @@ export class LoginComponent {
           // user-cancelled popups surface as 'user_cancelled'.
           const msalName = err?.errorCode || err?.name;
           if (msalName === 'user_cancelled' || message?.includes('user_cancelled')) return;
-          this.error.set('No se pudo iniciar sesión con Microsoft.');
+          this.error.set('Could not sign in with Microsoft.');
           console.error('Microsoft sign-in error:', err);
           return;
         }
-        this.error.set('Credenciales inválidas. Inténtalo de nuevo.');
+        this.error.set('Invalid credentials. Please try again.');
         console.error('Login error:', err);
       }
     });
