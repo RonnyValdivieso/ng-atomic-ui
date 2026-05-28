@@ -1,0 +1,124 @@
+:host {
+  --ink: #0b0b0f;
+  --ink-2: #1a1a22;
+  --muted: #6b6b78;
+  --line: #e7e6e3;
+  --paper-2: #f3f2ee;
+  --surface: #ffffff;
+  --err: #b8351f;
+  --err-soft: #fbe2dc;
+
+  display: block;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+:host-context(.p-dark) {
+  --ink: #f5f4f0;
+  --ink-2: #d8d6d0;
+  --muted: #8a8a96;
+  --line: #26262e;
+  --paper-2: #14141a;
+  --surface: #16161c;
+  --err: #ff6b5b;
+  --err-soft: #3a1a16;
+}
+
+/* ---------- page head ---------- */
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin: 0;
+}
+
+.page-sub {
+  color: var(--muted);
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background .12s, border-color .12s, transform .06s, filter .12s;
+}
+
+.btn:not(:disabled):hover {
+  background: var(--paper-2);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.btn-primary:not(:disabled):hover {
+  filter: brightness(.9);
+  background: var(--ink);
+}
+
+.ico-sm {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ---------- row actions (projected cell) ---------- */
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.row-act-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.row-act-btn:not(:disabled):hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.row-act-btn.row-act-danger:not(:disabled):hover {
+  background: var(--err-soft);
+  color: var(--err);
+}
