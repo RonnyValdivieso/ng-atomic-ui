@@ -1,23 +1,25 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SharedModule } from 'primeng/api';
-
-import { ButtonComponent } from '@atoms/button';
+import { DataTableComponent, DataTableColumn, DataTableCellDirective } from '@organisms/data-table';
+import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
-import { TableComponent } from '@organisms/table';
-import { Module, PaginatedList } from '@interfaces/aaa';
+import { Module, PaginatedList, SearchParams } from '@interfaces/aaa';
 import { ModuleService } from '@services/api/aaa/module.service';
-import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
 import { ModuleFormComponent, ModuleFormValue } from '../form/form';
-
-const PAGE_SIZE = 10;
 
 @Component({
   selector: 'app-admin-modules-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent, ModuleFormComponent, ConfirmDialogComponent],
-  templateUrl: './list.html'
+  imports: [
+    DataTableComponent,
+    DataTableCellDirective,
+    CopyIdButtonComponent,
+    ModuleFormComponent,
+    ConfirmDialogComponent
+  ],
+  templateUrl: './list.html',
+  styleUrls: ['./list.css']
 })
 export class AdminModulesListComponent {
   private service = inject(ModuleService);
@@ -27,8 +29,6 @@ export class AdminModulesListComponent {
   protected readonly loading = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
   protected readonly totalRecords = signal<number>(0);
-  protected readonly pageSize = signal<number>(PAGE_SIZE);
-  protected readonly pageNumber = signal<number>(1);
 
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
@@ -38,23 +38,21 @@ export class AdminModulesListComponent {
   protected readonly deleting = signal<boolean>(false);
   protected pendingDelete: Module | null = null;
   protected get deleteMessage(): string {
-    return this.pendingDelete ? `¿Eliminar el módulo "${this.pendingDelete.name}"?` : '';
+    return this.pendingDelete ? `Delete the module "${this.pendingDelete.name}"?` : '';
   }
 
-  protected readonly columns: TableColumn[] = [
-    { field: 'name', header: 'Nombre', sortable: true },
-    { field: 'status', header: 'Estado' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
+  private lastQuery: SearchParams = { pageNumber: 1, pageSize: 10 };
+
+  protected readonly columns: DataTableColumn[] = [
+    { field: 'name', header: 'Name', sortable: true, type: 'name' },
+    { field: 'status', header: 'Status', sortable: true, type: 'status' },
+    { field: 'actions', header: 'Actions', type: 'template', align: 'right' }
   ];
 
-  constructor() {
-    this.load(1);
-  }
-
-  protected load(pageNumber: number): void {
+  protected load(query: SearchParams): void {
+    this.lastQuery = query;
     this.loading.set(true);
-    this.pageNumber.set(pageNumber);
-    this.service.getAll({ pageNumber, pageSize: this.pageSize() }).subscribe({
+    this.service.getAll(query).subscribe({
       next: (page: PaginatedList<Module>) => {
         this.modules.set(page.items ?? []);
         this.totalRecords.set(page.totalItems ?? 0);
@@ -64,13 +62,8 @@ export class AdminModulesListComponent {
     });
   }
 
-  protected onPage(event: TablePageEvent): void {
-    const rows = event.rows ?? this.pageSize();
-    if (rows !== this.pageSize()) {
-      this.pageSize.set(rows);
-    }
-    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
-    this.load(pageNumber);
+  private reload(): void {
+    this.load(this.lastQuery);
   }
 
   protected openCreate(): void {
@@ -85,8 +78,8 @@ export class AdminModulesListComponent {
     this.isModalVisible.set(true);
   }
 
-  protected viewDetails(mod: Module): void {
-    this.router.navigate(['/admin/modules', mod.id]);
+  protected viewDetails(mod: unknown): void {
+    this.router.navigate(['/admin/modules', (mod as Module).id]);
   }
 
   protected save(value: ModuleFormValue): void {
@@ -94,20 +87,14 @@ export class AdminModulesListComponent {
     const onDone = () => {
       this.saving.set(false);
       this.isModalVisible.set(false);
-      this.load(this.pageNumber());
+      this.reload();
     };
     const onError = () => this.saving.set(false);
 
     if (this.isEditing() && this.currentModule) {
-      this.service.update(this.currentModule.id, { name: value.name }).subscribe({
-        next: onDone,
-        error: onError
-      });
+      this.service.update(this.currentModule.id, { name: value.name }).subscribe({ next: onDone, error: onError });
     } else {
-      this.service.create({ name: value.name }).subscribe({
-        next: onDone,
-        error: onError
-      });
+      this.service.create({ name: value.name }).subscribe({ next: onDone, error: onError });
     }
   }
 
@@ -125,7 +112,7 @@ export class AdminModulesListComponent {
         this.deleting.set(false);
         this.isDeleteVisible.set(false);
         this.pendingDelete = null;
-        this.load(this.pageNumber());
+        this.reload();
       },
       error: () => this.deleting.set(false)
     });
