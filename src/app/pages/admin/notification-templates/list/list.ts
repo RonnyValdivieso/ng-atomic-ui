@@ -1,23 +1,25 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SharedModule } from 'primeng/api';
-
-import { ButtonComponent } from '@atoms/button';
+import { DataTableComponent, DataTableColumn, DataTableCellDirective } from '@organisms/data-table';
+import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
-import { TableComponent } from '@organisms/table';
-import { NotificationTemplate, PaginatedList } from '@interfaces/aaa';
+import { NotificationTemplate, PaginatedList, SearchParams } from '@interfaces/aaa';
 import { NotificationTemplateService } from '@services/api/aaa/notification-template.service';
-import { TableColumn, TablePageEvent } from '@interfaces/table.interface';
 import { NotificationTemplateFormComponent, NotificationTemplateFormValue } from '../form/form';
-
-const PAGE_SIZE = 10;
 
 @Component({
   selector: 'app-admin-notification-templates-list',
   standalone: true,
-  imports: [SharedModule, TableComponent, ButtonComponent, NotificationTemplateFormComponent, ConfirmDialogComponent],
-  templateUrl: './list.html'
+  imports: [
+    DataTableComponent,
+    DataTableCellDirective,
+    CopyIdButtonComponent,
+    NotificationTemplateFormComponent,
+    ConfirmDialogComponent
+  ],
+  templateUrl: './list.html',
+  styleUrls: ['./list.css']
 })
 export class AdminNotificationTemplatesListComponent {
   private service = inject(NotificationTemplateService);
@@ -27,8 +29,6 @@ export class AdminNotificationTemplatesListComponent {
   protected readonly loading = signal<boolean>(false);
   protected readonly saving = signal<boolean>(false);
   protected readonly totalRecords = signal<number>(0);
-  protected readonly pageSize = signal<number>(PAGE_SIZE);
-  protected readonly pageNumber = signal<number>(1);
 
   protected readonly isModalVisible = signal<boolean>(false);
   protected readonly isEditing = signal<boolean>(false);
@@ -38,25 +38,23 @@ export class AdminNotificationTemplatesListComponent {
   protected readonly deleting = signal<boolean>(false);
   protected pendingDelete: NotificationTemplate | null = null;
   protected get deleteMessage(): string {
-    return this.pendingDelete ? `¿Eliminar la plantilla "${this.pendingDelete.name}"?` : '';
+    return this.pendingDelete ? `Delete the template "${this.pendingDelete.name}"?` : '';
   }
 
-  protected readonly columns: TableColumn[] = [
-    { field: 'name', header: 'Nombre', sortable: true },
-    { field: 'asset', header: 'Asset' },
-    { field: 'type', header: 'Tipo' },
-    { field: 'language', header: 'Idioma' },
-    { field: 'actions', header: 'Acciones', type: 'template', templateRef: 'actions', styleClass: 'text-right pr-4' }
+  private lastQuery: SearchParams = { pageNumber: 1, pageSize: 10 };
+
+  protected readonly columns: DataTableColumn[] = [
+    { field: 'name', header: 'Name', sortable: true, type: 'name' },
+    { field: 'asset', header: 'Asset', type: 'text' },
+    { field: 'type', header: 'Type', type: 'text' },
+    { field: 'language', header: 'Language', type: 'text' },
+    { field: 'actions', header: 'Actions', type: 'template', align: 'right' }
   ];
 
-  constructor() {
-    this.load(1);
-  }
-
-  protected load(pageNumber: number): void {
+  protected load(query: SearchParams): void {
+    this.lastQuery = query;
     this.loading.set(true);
-    this.pageNumber.set(pageNumber);
-    this.service.getAll({ pageNumber, pageSize: this.pageSize() }).subscribe({
+    this.service.getAll(query).subscribe({
       next: (page: PaginatedList<NotificationTemplate>) => {
         this.templates.set(page.items ?? []);
         this.totalRecords.set(page.totalItems ?? 0);
@@ -66,13 +64,8 @@ export class AdminNotificationTemplatesListComponent {
     });
   }
 
-  protected onPage(event: TablePageEvent): void {
-    const rows = event.rows ?? this.pageSize();
-    if (rows !== this.pageSize()) {
-      this.pageSize.set(rows);
-    }
-    const pageNumber = Math.floor((event.first ?? 0) / rows) + 1;
-    this.load(pageNumber);
+  private reload(): void {
+    this.load(this.lastQuery);
   }
 
   protected openCreate(): void {
@@ -87,8 +80,8 @@ export class AdminNotificationTemplatesListComponent {
     this.isModalVisible.set(true);
   }
 
-  protected viewDetails(t: NotificationTemplate): void {
-    this.router.navigate(['/admin/notification-templates', t.id]);
+  protected viewDetails(t: unknown): void {
+    this.router.navigate(['/admin/notification-templates', (t as NotificationTemplate).id]);
   }
 
   protected save(value: NotificationTemplateFormValue): void {
@@ -96,20 +89,14 @@ export class AdminNotificationTemplatesListComponent {
     const onDone = () => {
       this.saving.set(false);
       this.isModalVisible.set(false);
-      this.load(this.pageNumber());
+      this.reload();
     };
     const onError = () => this.saving.set(false);
 
     if (this.isEditing() && this.currentTemplate) {
-      this.service.update(this.currentTemplate.id, value).subscribe({
-        next: onDone,
-        error: onError
-      });
+      this.service.update(this.currentTemplate.id, value).subscribe({ next: onDone, error: onError });
     } else {
-      this.service.create(value).subscribe({
-        next: onDone,
-        error: onError
-      });
+      this.service.create(value).subscribe({ next: onDone, error: onError });
     }
   }
 
@@ -127,7 +114,7 @@ export class AdminNotificationTemplatesListComponent {
         this.deleting.set(false);
         this.isDeleteVisible.set(false);
         this.pendingDelete = null;
-        this.load(this.pageNumber());
+        this.reload();
       },
       error: () => this.deleting.set(false)
     });
