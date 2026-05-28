@@ -1,0 +1,251 @@
+:host {
+  --ink: #0b0b0f;
+  --ink-2: #1a1a22;
+  --muted: #6b6b78;
+  --muted-2: #9a9aa8;
+  --line: #e7e6e3;
+  --line-2: #ededea;
+  --paper-2: #f3f2ee;
+  --surface: #ffffff;
+  --r-lg: 14px;
+  --shadow-card: 0 1px 0 rgba(15, 15, 30, .04), 0 1px 2px rgba(15, 15, 30, .04);
+  --err: #b8351f;
+  --err-soft: #fbe2dc;
+
+  display: block;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+:host-context(.p-dark) {
+  --ink: #f5f4f0;
+  --ink-2: #d8d6d0;
+  --muted: #8a8a96;
+  --muted-2: #5e5e6a;
+  --line: #26262e;
+  --line-2: #1d1d24;
+  --paper-2: #14141a;
+  --surface: #16161c;
+  --shadow-card: 0 1px 0 rgba(0, 0, 0, .4), 0 1px 2px rgba(0, 0, 0, .2);
+  --err: #ff6b5b;
+  --err-soft: #3a1a16;
+}
+
+/* ---------- page head ---------- */
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin: 0;
+}
+
+.page-sub {
+  color: var(--muted);
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background .12s, border-color .12s, transform .06s, filter .12s;
+}
+
+.btn:not(:disabled):hover {
+  background: var(--paper-2);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.btn-primary:not(:disabled):hover {
+  filter: brightness(.9);
+  background: var(--ink);
+}
+
+.ico-sm {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ---------- toolbar count (projected right side) ---------- */
+.types-count {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: .04em;
+}
+
+/* ---------- projected cells ---------- */
+.code-cell {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.row-act-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.row-act-btn:not(:disabled):hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.row-act-btn.row-act-danger:not(:disabled):hover {
+  background: var(--err-soft);
+  color: var(--err);
+}
+
+/* ---------- grid card ---------- */
+.provider-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 18px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color .12s, box-shadow .12s;
+  cursor: pointer;
+}
+
+.provider-card:hover {
+  border-color: color-mix(in oklab, var(--ink) 30%, var(--line));
+  box-shadow: var(--shadow-card);
+}
+
+.pc-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pc-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.pc-logo .glyph {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: .02em;
+}
+
+.pc-name-block {
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-name {
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 14.5px;
+  letter-spacing: -.005em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pc-code {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .04em;
+  margin-top: 2px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+
+.pc-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(1.5em * 2);
+}
+
+.pc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-2);
+  font-size: 11.5px;
+  color: var(--muted);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: .03em;
+}
+
+.pc-foot-acts {
+  display: flex;
+  gap: 2px;
+}
+
+.empty-dash {
+  color: var(--muted-2);
+}
