@@ -53,6 +53,7 @@ export class DataTableComponent implements OnInit {
   readonly initialPageSize = input<number>(10);
   readonly searchable = input<boolean>(true);
   readonly searchPlaceholder = input<string>('Search…');
+  readonly initialView = input<ViewMode>('table');
   readonly rowClickable = input<boolean>(true);
   readonly dataKey = input<string>('id');
   readonly emptyMessage = input<string>('No records found.');
@@ -100,6 +101,7 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageSize.set(this.initialPageSize());
+    this.view.set(this.initialView());
     this.emit();
   }
 

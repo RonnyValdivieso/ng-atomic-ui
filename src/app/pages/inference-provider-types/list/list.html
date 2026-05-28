@@ -1,40 +1,92 @@
-<div class="p-6">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold text-surface-900">Inference Provider Types</h1>
-    <app-button label="Add Type" icon="add" (click)="openCreateModal()"></app-button>
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Inference Provider Types</h1>
+    <p class="page-sub">LLM and model providers configured for the platform.</p>
   </div>
-
-  <app-table
-    [data]="types()"
-    [columns]="columns"
-    [loading]="loading()">
-    <!-- Actions Column Template -->
-    <ng-template pTemplate="actions" let-type>
-      <div class="flex justify-end gap-2">
-        <app-button 
-          icon="visibility" 
-          variant="primary" 
-          (click)="viewDetails(type)">
-        </app-button>
-        <app-button 
-          icon="edit" 
-          variant="secondary" 
-          (click)="openEditModal(type)">
-        </app-button>
-        <app-button 
-          icon="delete" 
-          variant="danger" 
-          (click)="deleteType(type)">
-        </app-button>
-      </div>
-    </ng-template>
-  </app-table>
-
-  <app-inference-provider-type-form
-    [(visible)]="isModalVisible"
-    [isEditing]="isEditing()"
-    [currentType]="currentType"
-    [saving]="saving()"
-    (save)="saveType($event)">
-  </app-inference-provider-type-form>
+  <div class="page-actions">
+    <button type="button" class="btn" disabled title="Coming soon">
+      <i class="pi pi-download ico-sm"></i>Export
+    </button>
+    <button type="button" class="btn btn-primary" (click)="openCreate()">
+      <i class="pi pi-plus ico-sm"></i>New provider type
+    </button>
+  </div>
 </div>
+
+<app-data-table
+  [columns]="columns"
+  [data]="pagedTypes()"
+  [loading]="loading()"
+  [totalRecords]="totalRecords()"
+  searchPlaceholder="Search by code or name…"
+  emptyMessage="No provider types found."
+  initialView="grid"
+  (query)="load($event)"
+  (rowClick)="onRowClick($event)">
+
+  <span data-table-toolbar-right class="types-count">
+    {{ totalRecords() }} of {{ totalCount() }} types
+  </span>
+
+  <ng-template appDataCell="code" let-p>
+    @let pt = $any(p);
+    <span class="code-cell">{{ pt.code }}</span>
+  </ng-template>
+
+  <ng-template appDataCell="actions" let-p>
+    @let pt = $any(p);
+    <div class="row-actions" (click)="$event.stopPropagation()">
+      <button type="button" class="row-act-btn" aria-label="Edit" (click)="openEdit(pt)">
+        <i class="pi pi-pencil ico-sm"></i>
+      </button>
+      <button type="button" class="row-act-btn row-act-danger" aria-label="Delete" (click)="delete(pt)">
+        <i class="pi pi-trash ico-sm"></i>
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template appDataGridCard let-p>
+    @let pt = $any(p);
+    <div class="provider-card" (click)="openEdit(pt)">
+      <div class="pc-head">
+        <div class="pc-logo"><span class="glyph">{{ glyphFor(pt.name) }}</span></div>
+        <div class="pc-name-block">
+          <div class="pc-name">{{ pt.name }}</div>
+          <div class="pc-code">{{ pt.code }}</div>
+        </div>
+      </div>
+      <p class="pc-desc">
+        @if (pt.description) { {{ pt.description }} }
+        @else { <span class="empty-dash">No description.</span> }
+      </p>
+      <div class="pc-foot">
+        <span>{{ pt.code }}</span>
+        <div class="pc-foot-acts" (click)="$event.stopPropagation()">
+          <button type="button" class="row-act-btn" aria-label="Edit" (click)="openEdit(pt)">
+            <i class="pi pi-pencil ico-sm"></i>
+          </button>
+          <button type="button" class="row-act-btn row-act-danger" aria-label="Delete" (click)="delete(pt)">
+            <i class="pi pi-trash ico-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</app-data-table>
+
+<app-inference-provider-type-form
+  [(visible)]="isModalVisible"
+  [isEditing]="isEditing()"
+  [currentType]="currentType"
+  [saving]="saving()"
+  (save)="saveType($event)">
+</app-inference-provider-type-form>
+
+<app-confirm-dialog
+  [(visible)]="isDeleteVisible"
+  title="Delete provider type"
+  [message]="deleteMessage"
+  confirmLabel="Delete"
+  [loading]="deleting()"
+  (confirmed)="confirmDelete()">
+</app-confirm-dialog>

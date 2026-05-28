@@ -11,8 +11,9 @@
       </div>
     }
     <ng-content select="[data-table-toolbar]"></ng-content>
-    @if (hasGrid()) {
-      <div class="toolbar-spacer">
+    <div class="toolbar-spacer">
+      <ng-content select="[data-table-toolbar-right]"></ng-content>
+      @if (hasGrid()) {
         <div class="view-toggle" role="group" aria-label="View">
           <button
             type="button"
@@ -31,8 +32,8 @@
             <i class="pi pi-th-large ico-sm"></i>
           </button>
         </div>
-      </div>
-    }
+      }
+    </div>
   </div>
 }
 
