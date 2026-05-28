@@ -15,7 +15,7 @@ import { environment } from '@env/environment';
 @Injectable({ providedIn: 'root' })
 export class ServiceTeamService {
   private http = inject(HttpClient);
-  private readonly baseUrl = `${environment.authUrl}/v1/ServiceTeams`;
+  private readonly baseUrl = `${environment.authUrl}/v1/service-teams`;
 
   search(params: SearchParams): Observable<PagedResult<ServiceTeam>> {
     let httpParams = new HttpParams()
