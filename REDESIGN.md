@@ -39,17 +39,38 @@ Reference files (not in this repo):
   `molecules/otp-input`, `molecules/timezone-select`.
 - [x] `AuthService.patchCurrentUser` / `ensureDisplayName` (header initials when login
   payload omits the name).
+- [x] **Admin list pattern** — shared organism `organisms/data-table` (table-card +
+  toolbar + sortable headers + custom pager + optional grid view; emits a single
+  `(query)` event so the parent only fetches and feeds back `data`/`totalRecords`).
+  Built-in cell types (`name`, `status`, `text`, `actions`, `template`) + projected
+  templates via `*appDataCell="field"` and `appDataGridCard`. Per-design change: the
+  row id moved out of the name cell into a compact `atoms/copy-id-button` inside the
+  row/card actions.
+- [x] **Workspaces** — list (table + grid card view, search, sortable headers, status
+  pill, filter chips as disabled placeholders, Export disabled). `pages/admin/workspaces/list/`.
+- [x] **Organizations** — list (table-only). `pages/admin/organizations/list/`.
+- [x] **Service Teams** — list (CRUD + toggle Active/Inactive). The status comparison
+  is case-insensitive so staging's `ACTIVE` doesn't flip the pause/play icon. The
+  endpoint URL is `/v1/service-teams` (kebab-case). `pages/admin/service-teams/list/`.
+- [x] **System Roles** — list with a derived `Scope` column (`Global` / `Instance`);
+  the raw `instanceId` GUID is never shown. `pages/admin/roles/list/`.
+- [x] **Modules & Permissions** — list (CRUD). `pages/admin/modules/list/`.
+- [x] **Notification Templates** — list (Name / Asset / Type / Language).
+  `pages/admin/notification-templates/list/`.
+- [x] **Inference Provider Types** — list (grid-default, table + grid, `X of Y types`
+  counter, Edit/Delete actions, native `confirm()` replaced by `app-confirm-dialog`).
+  Drove two organism extensions: `initialView` input and a `[data-table-toolbar-right]`
+  projection slot. `pages/inference-provider-types/list/`.
+- [x] **Storage Types** — mirrors the IPT redesign. `pages/storage-types/list/`.
+- [x] **Authentication Log** — labelled placeholder in the new style (no backend yet).
+  `pages/admin/authentication-log/list/`. The Tailwind `_coming-soon` helper was dropped.
 
 ## To do (design has these; not yet built)
-- [ ] **Workspaces** — list (`.table-card`/`.tbl`, toolbar, view toggle, pager) + detail.
-      Existing pages: `pages/admin/workspaces/{list,details}`.
-- [ ] **Organizations** — list + detail. `pages/admin/organizations/`
-- [ ] **Service Teams**, **System Roles**, **Modules & Permissions**,
-      **Notification Templates**, **Authentication Log** (under `pages/admin/`).
-- [ ] **Inference Provider Types**, **Storage Types** (under `pages/`).
+- [ ] **Workspace** detail. `pages/admin/workspaces/details/`
+- [ ] **Organization** detail. `pages/admin/organizations/details/`
 - [ ] **Workspace selector** (`pages/workspace-selector/`, root `/` shell).
 - [ ] Optional: 2FA section polish (SMS/passkey/trusted devices) — **needs backend**.
-- [ ] Specs (`*.spec.ts`) for new services/components (not added yet).
+- [ ] Specs (`*.spec.ts`) for new services/components (most not added yet).
 
 ## Gotchas
 - The **Playwright MCP browser holds the real logged-in session** — read-only is safe,
