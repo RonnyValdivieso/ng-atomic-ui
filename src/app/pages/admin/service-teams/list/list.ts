@@ -102,7 +102,8 @@ export class AdminServiceTeamsListComponent {
   }
 
   protected toggleStatus(team: ServiceTeam): void {
-    const next: ServiceTeamStatus = team.status === 'Active' ? 'Inactive' : 'Active';
+    const isActive = String(team.status ?? '').toUpperCase() === 'ACTIVE';
+    const next: ServiceTeamStatus = isActive ? 'Inactive' : 'Active';
     this.service.updateStatus(team.id, { status: next }).subscribe({ next: () => this.reload() });
   }
 
