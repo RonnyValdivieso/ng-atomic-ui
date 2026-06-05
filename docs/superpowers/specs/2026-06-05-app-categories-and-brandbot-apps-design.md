@@ -2,6 +2,19 @@
 
 Date: 2026-06-05 · Branch: `redesign`
 
+## Verified response shapes
+**Live probe (Task 0) inconclusive.** The browser session available during
+execution carried only a *mocked* token (`exp: 9999999999`, the seeded test
+token from the REDESIGN gotchas), so `GET /api/app-categories` and
+`GET /api/brandbot-apps` returned `401`. Response shapes therefore remain
+**assumption-based**: interfaces are written defensively (all non-key fields
+optional/nullable; status compared case-insensitively). **Open field-name risks
+to confirm against a real session** (during the per-page browser verification or
+when credentials are provided): the picture/logo field name on `BrandbotApp`
+(assumed `picture`), the picture multipart field name on `PUT /{id}/picture`
+(assumed `Picture`), and whether responses carry `id`/timestamps. Drop any
+assumed field the real response omits.
+
 Two new super-admin catalog modules, built as a faithful re-skin of the
 reference designs and wired to the real BrandBot main API. Both follow the
 established redesign patterns (shared `app-data-table` organism, native-modal
