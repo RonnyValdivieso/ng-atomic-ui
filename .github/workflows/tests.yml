@@ -1,0 +1,27 @@
+name: Unit Tests
+
+on:
+  pull_request:
+    branches: [main, redesign, staging]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      # `npm ci` is too strict for cross-platform lockfiles: when the lock
+      # was generated on macOS, some nested platform-specific install records
+      # aren't written, but on Linux npm needs them. Use `npm install
+      # --no-save --no-audit` so CI can resolve missing entries without
+      # bouncing. Restore `npm ci` via .github/workflows/regenerate-lockfile.yml
+      # once the lock is regenerated on Linux.
+      - run: npm install --no-save --no-audit --no-fund
+
+      - run: npx ng test --no-watch --browsers=ChromeHeadless

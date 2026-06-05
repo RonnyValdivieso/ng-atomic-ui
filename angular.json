@@ -50,6 +50,21 @@
                 }
               ]
             },
+            "staging": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kB",
+                  "maximumError": "20kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
@@ -74,6 +89,9 @@
           "configurations": {
             "production": {
               "buildTarget": "ng-atomic-ui:build:production"
+            },
+            "staging": {
+              "buildTarget": "ng-atomic-ui:build:staging"
             },
             "development": {
               "buildTarget": "ng-atomic-ui:build:development"
