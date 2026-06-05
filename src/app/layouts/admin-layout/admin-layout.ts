@@ -36,6 +36,14 @@ export class AdminLayoutComponent {
         { label: 'Inference Provider Types', icon: 'pi-microchip-ai', route: '/admin/platform/inference-provider-types' },
         { label: 'Storage Types', icon: 'pi-database', route: '/admin/platform/storage-types' }
       ]
+    },
+    {
+      label: 'Apps',
+      icon: 'pi-objects-column',
+      children: [
+        { label: 'App Categories', icon: 'pi-tags', route: '/admin/app-categories' },
+        { label: 'Brandbot Apps', icon: 'pi-objects-column', route: '/admin/brandbot-apps' }
+      ]
     }
   ];
 }
