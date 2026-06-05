@@ -1,0 +1,101 @@
+@if (visible()) {
+  <div class="modal-veil" role="presentation" (click)="close()">
+    <div class="modal modal-wide" role="dialog" aria-modal="true" [attr.aria-label]="title()" (click)="$event.stopPropagation()">
+
+      <div class="modal-head">
+        <h2>{{ title() }}</h2>
+        <button
+          type="button"
+          class="modal-x"
+          aria-label="Close"
+          [disabled]="saving()"
+          (click)="close()">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+
+      <form [formGroup]="form" class="modal-body" (ngSubmit)="submit()">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="ac-name">
+              <span class="form-label-main"><span>Name</span></span>
+            </label>
+            <input
+              id="ac-name"
+              class="input"
+              type="text"
+              formControlName="name"
+              placeholder="e.g., Customer Support"
+              autofocus
+              (input)="onNameInput($any($event.target).value)" />
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <p class="form-error">
+                @if (form.controls.name.errors?.['required']) {
+                  Name is required.
+                } @else {
+                  Name is too long (max 100 characters).
+                }
+              </p>
+            }
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="ac-code">
+              <span class="form-label-main">
+                <span>Code</span>
+                <span class="field-tip" tabindex="0" aria-label="Uppercase letters, numbers and underscores. Must be unique.">
+                  <i class="pi pi-info-circle"></i>
+                  <span class="field-tip-pop below" role="tooltip">Uppercase letters, numbers and underscores. Must be unique.</span>
+                </span>
+              </span>
+            </label>
+            <input
+              id="ac-code"
+              class="input mono"
+              type="text"
+              formControlName="code"
+              placeholder="e.g., CUSTOMER_SUPPORT"
+              (input)="onCodeInput($any($event.target).value)" />
+            @if (form.controls.code.touched && form.controls.code.invalid) {
+              <p class="form-error">
+                @if (form.controls.code.errors?.['required']) {
+                  Code is required.
+                } @else if (form.controls.code.errors?.['maxlength']) {
+                  Code is too long (max 60 characters).
+                } @else {
+                  Only uppercase letters, numbers and underscores.
+                }
+              </p>
+            }
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="ac-description">
+            <span class="form-label-main"><span>Description</span></span>
+            <span class="opt">Optional</span>
+          </label>
+          <textarea
+            id="ac-description"
+            class="textarea"
+            formControlName="description"
+            placeholder="What kinds of apps belong in this category?"></textarea>
+        </div>
+      </form>
+
+      <div class="modal-foot">
+        <button type="button" class="btn" [disabled]="saving()" (click)="close()">Cancel</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="form.invalid || saving()"
+          (click)="submit()">
+          @if (saving()) {
+            <i class="pi pi-spin pi-spinner ico-sm"></i>
+          }
+          <span>{{ isEditing() ? 'Save changes' : 'Create category' }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+}
