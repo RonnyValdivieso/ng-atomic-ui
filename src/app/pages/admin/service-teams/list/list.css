@@ -93,6 +93,24 @@
   line-height: 1;
 }
 
+/* ---------- code pill (projected cell) ---------- */
+.code-pill {
+  display: inline-block;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11.5px;
+  letter-spacing: .02em;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  border-radius: 5px;
+  padding: 2px 7px;
+  line-height: 1.4;
+}
+
+.empty-dash {
+  color: var(--muted);
+}
+
 /* ---------- row actions (projected cell) ---------- */
 .row-actions {
   display: flex;
@@ -111,14 +129,10 @@
   cursor: pointer;
   display: grid;
   place-items: center;
+  transition: background .12s, color .12s;
 }
 
 .row-act-btn:not(:disabled):hover {
   background: var(--paper-2);
   color: var(--ink);
-}
-
-.row-act-btn.row-act-danger:not(:disabled):hover {
-  background: var(--err-soft);
-  color: var(--err);
 }

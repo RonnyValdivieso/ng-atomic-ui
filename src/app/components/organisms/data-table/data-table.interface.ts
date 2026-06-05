@@ -18,4 +18,10 @@ export interface DataTableColumn<T = unknown> {
   type?: 'name' | 'status' | 'text' | 'actions' | 'template';
   /** Custom text accessor for `type: 'text'` (e.g. nested fields). */
   value?: (row: T) => string | null | undefined;
+  /**
+   * Only honored by `type: 'name'`. When set and the row has a truthy value at
+   * this field (typically a picture URL), the avatar renders an `<img>` instead
+   * of initials.
+   */
+  pictureField?: string;
 }

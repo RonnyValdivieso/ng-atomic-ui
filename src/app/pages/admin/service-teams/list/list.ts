@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DataTableComponent, DataTableColumn, DataTableCellDirective } from '@organisms/data-table';
 import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { ConfirmDialogComponent } from '@molecules/confirm-dialog/confirm-dialog';
+import { RowActionsMenuComponent, RowActionsMenuItem } from '@molecules/row-actions-menu';
 import { ServiceTeamService } from '@services/api/aaa/service-team.service';
 import { PagedResult, ServiceTeam, ServiceTeamStatus, SearchParams } from '@interfaces/aaa';
 import { ServiceTeamFormComponent, ServiceTeamFormValue } from '../form/form';
@@ -15,6 +16,7 @@ import { ServiceTeamFormComponent, ServiceTeamFormValue } from '../form/form';
     DataTableComponent,
     DataTableCellDirective,
     CopyIdButtonComponent,
+    RowActionsMenuComponent,
     ServiceTeamFormComponent,
     ConfirmDialogComponent
   ],
@@ -46,8 +48,10 @@ export class AdminServiceTeamsListComponent {
   private lastQuery: SearchParams = { pageNumber: 1, pageSize: 10 };
 
   protected readonly columns: DataTableColumn[] = [
-    { field: 'name', header: 'Name', sortable: true, type: 'name' },
+    { field: 'name', header: 'Name', sortable: true, type: 'name', pictureField: 'squarePicture' },
+    { field: 'code', header: 'Code', type: 'template' },
     { field: 'email', header: 'Email', type: 'text' },
+    { field: 'phone', header: 'Phone', type: 'text' },
     { field: 'status', header: 'Status', sortable: true, type: 'status' },
     { field: 'actions', header: 'Actions', type: 'template', align: 'right' }
   ];
@@ -95,9 +99,23 @@ export class AdminServiceTeamsListComponent {
     const onError = () => this.saving.set(false);
 
     if (this.isEditing() && this.currentTeam) {
-      this.service.update(this.currentTeam.id, { name: value.name }).subscribe({ next: onDone, error: onError });
+      this.service.update(this.currentTeam.id, {
+        name: value.name,
+        code: value.code,
+        email: value.email,
+        phone: value.phone,
+        address: value.address
+      }).subscribe({ next: onDone, error: onError });
     } else {
-      this.service.create({ name: value.name }).subscribe({ next: onDone, error: onError });
+      this.service.create({
+        name: value.name,
+        email: value.email,
+        phone: value.phone,
+        code: value.code,
+        address: value.address,
+        squarePicture: value.squarePicture,
+        rectangularPicture: value.rectangularPicture
+      }).subscribe({ next: onDone, error: onError });
     }
   }
 
@@ -105,6 +123,20 @@ export class AdminServiceTeamsListComponent {
     const isActive = String(team.status ?? '').toUpperCase() === 'ACTIVE';
     const next: ServiceTeamStatus = isActive ? 'Inactive' : 'Active';
     this.service.updateStatus(team.id, { status: next }).subscribe({ next: () => this.reload() });
+  }
+
+  protected menuFor(team: ServiceTeam): RowActionsMenuItem[] {
+    const isActive = String(team.status ?? '').toUpperCase() === 'ACTIVE';
+    return [
+      { label: 'Edit', icon: 'pi-pencil', action: () => this.openEdit(team) },
+      {
+        label: isActive ? 'Deactivate' : 'Activate',
+        icon: isActive ? 'pi-pause' : 'pi-play',
+        action: () => this.toggleStatus(team)
+      },
+      { divider: true },
+      { label: 'Delete', icon: 'pi-trash', danger: true, action: () => this.delete(team) }
+    ];
   }
 
   protected delete(team: ServiceTeam): void {

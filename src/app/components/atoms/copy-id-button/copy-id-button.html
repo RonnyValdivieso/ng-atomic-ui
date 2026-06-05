@@ -1,9 +1,22 @@
-<button
-  type="button"
-  class="row-act-btn"
-  [class.is-copied]="copied()"
-  (click)="copy($event)"
-  [attr.aria-label]="copied() ? 'ID copied' : label()"
-  [title]="copied() ? 'ID copied' : label() + ': ' + value()">
-  <i class="pi ico-sm" [class.pi-copy]="!copied()" [class.pi-check]="copied()"></i>
-</button>
+@if (compact()) {
+  <button
+    type="button"
+    class="row-act-btn"
+    [class.is-copied]="copied()"
+    (click)="copy($event)"
+    [attr.aria-label]="copied() ? 'ID copied' : label()"
+    [title]="copied() ? 'ID copied' : label() + ': ' + value()">
+    <i class="pi ico-sm" [class.pi-copy]="!copied()" [class.pi-check]="copied()"></i>
+  </button>
+} @else {
+  <button
+    type="button"
+    class="copy-id-btn"
+    [class.copied]="copied()"
+    (click)="copy($event)"
+    [attr.aria-label]="label()"
+    [title]="label() + ': ' + value()">
+    <i class="pi ico-sm" [class.pi-copy]="!copied()" [class.pi-check]="copied()"></i>
+    <span>{{ copied() ? 'ID copied' : label() }}</span>
+  </button>
+}

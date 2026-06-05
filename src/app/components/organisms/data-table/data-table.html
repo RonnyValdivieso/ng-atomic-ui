@@ -81,7 +81,16 @@
                 @switch (col.type) {
                   @case ('name') {
                     <div class="name-cell">
-                      <div class="name-avatar">{{ initials(fieldValue(row, col.field)) }}</div>
+                      @let pic = col.pictureField ? fieldValue(row, col.pictureField) : null;
+                      @if (pic) {
+                        <img
+                          class="name-avatar name-avatar-img"
+                          [src]="$any(pic)"
+                          [alt]="$any(fieldValue(row, col.field)) ?? ''"
+                          loading="lazy" />
+                      } @else {
+                        <div class="name-avatar">{{ initials(fieldValue(row, col.field)) }}</div>
+                      }
                       <div class="name-text">
                         <div class="name-title">{{ fieldValue(row, col.field) }}</div>
                       </div>

@@ -1,15 +1,16 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
-import { ButtonComponent } from '@atoms/button';
-import { CardComponent } from '@atoms/card';
+import { CopyIdButtonComponent } from '@atoms/copy-id-button';
 import { InstanceService } from '@services/api/aaa/instance.service';
 import { InstanceDetail } from '@interfaces/aaa';
+
+type DetailTab = 'info' | 'members' | 'settings' | 'activity';
 
 @Component({
   selector: 'app-admin-workspace-details',
   standalone: true,
-  imports: [ButtonComponent, CardComponent, RouterLink],
+  imports: [CopyIdButtonComponent, RouterLink],
   templateUrl: './details.html',
   styleUrls: ['./details.css']
 })
@@ -21,6 +22,12 @@ export class AdminWorkspaceDetailsComponent implements OnInit {
   protected readonly workspace = signal<InstanceDetail | undefined>(undefined);
   protected readonly loading = signal<boolean>(true);
   protected readonly error = signal<boolean>(false);
+  protected readonly tab = signal<DetailTab>('info');
+
+  /** Status comparison is case-insensitive (staging returns `ACTIVE`). */
+  protected readonly isActive = computed(
+    () => (this.workspace()?.status ?? '').trim().toLowerCase() === 'active'
+  );
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -36,6 +43,10 @@ export class AdminWorkspaceDetailsComponent implements OnInit {
     this.router.navigate(['/admin/workspaces']);
   }
 
+  protected setTab(tab: DetailTab): void {
+    this.tab.set(tab);
+  }
+
   /**
    * Returns '—' for missing values. Also catches the literal string
    * "null" which the staging API returns for some workspace fields
@@ -46,6 +57,15 @@ export class AdminWorkspaceDetailsComponent implements OnInit {
     const s = String(value).trim();
     if (s === '' || s.toLowerCase() === 'null') return '—';
     return s;
+  }
+
+  /** Short uppercased language code for the `lang-code` chip, or '' if absent. */
+  protected languageCode(): string {
+    const raw = this.workspace()?.defaultLanguage;
+    if (raw === null || raw === undefined) return '';
+    const s = String(raw).trim();
+    if (s === '' || s.toLowerCase() === 'null') return '';
+    return s.toUpperCase();
   }
 
   private load(id: string): void {

@@ -20,27 +20,23 @@
   (query)="load($event)"
   (rowClick)="viewDetails($event)">
 
+  <ng-template appDataCell="code" let-team>
+    @let code = $any(team).code;
+    @if (code) {
+      <span class="code-pill">{{ code }}</span>
+    } @else {
+      <span class="empty-dash">—</span>
+    }
+  </ng-template>
+
   <ng-template appDataCell="actions" let-team>
     @let st = $any(team);
-    @let active = (st.status || '').toUpperCase() === 'ACTIVE';
     <div class="row-actions" (click)="$event.stopPropagation()">
       <app-copy-id-button [value]="st.id" />
       <button type="button" class="row-act-btn" aria-label="View" (click)="viewDetails(st)">
         <i class="pi pi-eye ico-sm"></i>
       </button>
-      <button type="button" class="row-act-btn" aria-label="Edit" (click)="openEdit(st)">
-        <i class="pi pi-pencil ico-sm"></i>
-      </button>
-      <button
-        type="button"
-        class="row-act-btn"
-        [attr.aria-label]="active ? 'Deactivate' : 'Activate'"
-        (click)="toggleStatus(st)">
-        <i class="pi ico-sm" [class.pi-pause]="active" [class.pi-play]="!active"></i>
-      </button>
-      <button type="button" class="row-act-btn row-act-danger" aria-label="Delete" (click)="delete(st)">
-        <i class="pi pi-trash ico-sm"></i>
-      </button>
+      <app-row-actions-menu [items]="menuFor(st)" />
     </div>
   </ng-template>
 </app-data-table>

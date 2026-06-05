@@ -1,88 +1,172 @@
-<div class="p-6 max-w-4xl mx-auto">
-  <div class="mb-6">
-    <app-button
-      label="Volver a Workspaces"
-      icon="pi pi-arrow-left"
-      variant="secondary"
-      (clicked)="goBack()">
-    </app-button>
+<button type="button" class="back-link" (click)="goBack()">
+  <i class="pi pi-arrow-left ico-sm"></i>
+  Volver a Workspaces
+</button>
+
+@if (loading()) {
+  <div class="state-block">Cargando workspace…</div>
+} @else if (error() || !workspace()) {
+  <div class="placeholder">
+    <div class="stamp">ERROR · NOT_FOUND</div>
+    <h3>No se encontró el workspace</h3>
+    <p>Verifica el identificador o vuelve al listado.</p>
+  </div>
+} @else {
+  @let ws = workspace()!;
+
+  <div class="page-head">
+    <div style="min-width: 0">
+      <div class="title-row">
+        <h1 class="page-title">{{ ws.name }}</h1>
+        @if (isActive()) {
+          <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+        } @else {
+          <span class="pill pill-off"><span class="dot"></span>{{ orDash(ws.status) === '—' ? 'INACTIVE' : ws.status }}</span>
+        }
+      </div>
+    </div>
+    <div class="page-actions">
+      <app-copy-id-button [value]="ws.id" [compact]="false" label="Copy ID" />
+      <button type="button" class="btn" disabled title="Coming soon">
+        <i class="pi pi-pencil ico-sm"></i>Editar
+      </button>
+      <button type="button" class="btn btn-icon" aria-label="More" disabled title="Coming soon">
+        <i class="pi pi-ellipsis-h ico-sm"></i>
+      </button>
+    </div>
   </div>
 
-  @if (loading()) {
-    <div class="flex justify-center items-center h-64">
-      <div class="text-surface-500">Cargando workspace…</div>
-    </div>
-  } @else if (error() || !workspace()) {
-    <app-card>
-      <div class="text-center py-8">
-        <h2 class="text-xl font-bold text-red-500 mb-2">No se encontró el workspace</h2>
-        <p class="text-surface-600 mb-4">Verifica el identificador o vuelve a la lista.</p>
-        <app-button label="Volver al listado" (clicked)="goBack()"></app-button>
-      </div>
-    </app-card>
-  } @else {
-    <div class="flex flex-col gap-6">
-      <div>
-        <h1 class="text-3xl font-bold text-surface-900 mb-2">{{ workspace()!.name }}</h1>
-        <p class="text-surface-500 font-mono text-sm bg-surface-100 px-2 py-1 rounded inline-block">
-          ID: {{ workspace()!.id }}
-        </p>
-      </div>
+  <div class="tabs">
+    <button type="button" class="tab" [class.active]="tab() === 'info'" (click)="setTab('info')">Información</button>
+    <button type="button" class="tab" [class.active]="tab() === 'members'" (click)="setTab('members')">Miembros</button>
+    <button type="button" class="tab" [class.active]="tab() === 'settings'" (click)="setTab('settings')">Configuración</button>
+    <button type="button" class="tab" [class.active]="tab() === 'activity'" (click)="setTab('activity')">Actividad</button>
+  </div>
 
-      <app-card>
-        <div header>
-          <h3 class="text-lg font-semibold text-surface-900">Información</h3>
+  @if (tab() !== 'info') {
+    <div class="placeholder">
+      <div class="stamp">PENDING · DESIGN_IN_PROGRESS</div>
+      <h3>
+        @switch (tab()) {
+          @case ('members') { Miembros }
+          @case ('settings') { Configuración }
+          @default { Actividad }
+        }
+      </h3>
+      <p>Esta sección aún no está disponible. Vuelve a <em>Información</em> para ver el detalle actual.</p>
+    </div>
+  } @else {
+    <div class="detail-grid">
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <h3>Información</h3>
+            <div class="muted" style="margin-top: 2px">Detalles básicos del workspace.</div>
+          </div>
+          <div class="head-act">
+            <button type="button" class="btn btn-ghost btn-sm" disabled title="Coming soon">
+              <i class="pi pi-pencil ico-sm"></i>Editar
+            </button>
+          </div>
         </div>
-        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-          <div class="flex flex-col gap-1">
-            <dt class="text-sm font-medium text-surface-500">Dominio</dt>
-            <dd class="text-base text-surface-900">{{ orDash(workspace()!.domain) }}</dd>
+        <dl class="field-grid">
+          <div class="field">
+            <dt>Dominio</dt>
+            <dd [class.dash]="orDash(ws.domain) === '—'">{{ orDash(ws.domain) }}</dd>
           </div>
-          <div class="flex flex-col gap-1">
-            <dt class="text-sm font-medium text-surface-500">Estado</dt>
-            <dd class="text-base text-surface-900">{{ orDash(workspace()!.status) }}</dd>
+          <div class="field">
+            <dt>Estado</dt>
+            <dd>
+              @if (isActive()) {
+                <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+              } @else {
+                <span class="pill pill-off"><span class="dot"></span>{{ orDash(ws.status) === '—' ? 'INACTIVE' : ws.status }}</span>
+              }
+            </dd>
           </div>
-          <div class="flex flex-col gap-1">
-            <dt class="text-sm font-medium text-surface-500">Idioma por defecto</dt>
-            <dd class="text-base text-surface-900">{{ orDash(workspace()!.defaultLanguage) }}</dd>
+          <div class="field">
+            <dt>Idioma por defecto</dt>
+            <dd [class.dash]="!languageCode()">
+              @if (languageCode()) {
+                <span class="lang-code"><span class="code">{{ languageCode() }}</span></span>
+              } @else { — }
+            </dd>
           </div>
-          <div class="flex flex-col gap-1">
-            <dt class="text-sm font-medium text-surface-500">Zona horaria</dt>
-            <dd class="text-base text-surface-900">{{ orDash(workspace()!.timeZoneReference) }}</dd>
+          <div class="field">
+            <dt>Zona horaria</dt>
+            <dd [class.dash]="orDash(ws.timeZoneReference) === '—'">{{ orDash(ws.timeZoneReference) }}</dd>
           </div>
-          <div class="flex flex-col gap-1 md:col-span-2">
-            <dt class="text-sm font-medium text-surface-500">Descripción</dt>
-            <dd class="text-base text-surface-900">{{ orDash(workspace()!.description) }}</dd>
+          <div class="field">
+            <dt>Organización</dt>
+            <dd [class.dash]="!ws.organization">
+              @if (ws.organization) {
+                <a class="link" [routerLink]="['/admin/organizations', ws.organization.id]">{{ ws.organization.name }}</a>
+              } @else { — }
+            </dd>
+          </div>
+          <div class="field">
+            <dt>Equipo de servicio</dt>
+            <dd [class.dash]="orDash(ws.serviceTeamId) === '—'" class="mono">{{ orDash(ws.serviceTeamId) }}</dd>
+          </div>
+          <div class="field full">
+            <dt>Descripción</dt>
+            <dd [class.dash]="orDash(ws.description) === '—'">{{ orDash(ws.description) }}</dd>
           </div>
         </dl>
-      </app-card>
+      </section>
 
-      @if (workspace()!.organization) {
-        <app-card>
-          <div header>
-            <h3 class="text-lg font-semibold text-surface-900">Organización</h3>
+      <aside class="side">
+        <div class="card card-pad">
+          <div class="card-head card-head-tight">
+            <h3 class="h3-sm">Metadatos</h3>
           </div>
-          <div class="p-4">
-            <a
-              class="text-primary-500 hover:underline font-medium"
-              [routerLink]="['/admin/organizations', workspace()!.organization!.id]">
-              {{ workspace()!.organization!.name }}
-            </a>
-            <p class="text-surface-500 text-xs font-mono mt-1">{{ workspace()!.organization!.id }}</p>
+          <div class="meta-row">
+            <span class="k">Creado</span>
+            <span class="v dash">—</span>
           </div>
-        </app-card>
-      }
+          <div class="meta-row">
+            <span class="k">Actualizado</span>
+            <span class="v dash">—</span>
+          </div>
+          <div class="meta-row">
+            <span class="k">Creado por</span>
+            <span class="v dash">—</span>
+          </div>
+        </div>
 
-      @if (workspace()!.serviceTeamId) {
-        <app-card>
-          <div header>
-            <h3 class="text-lg font-semibold text-surface-900">Equipo de servicio</h3>
+        <div class="card card-pad">
+          <div class="card-head card-head-tight">
+            <h3 class="h3-sm">Acciones rápidas</h3>
           </div>
-          <div class="p-4">
-            <p class="text-surface-500 text-xs font-mono">{{ workspace()!.serviceTeamId }}</p>
+          <div class="zone-row">
+            <div class="text">
+              <div class="title">Desactivar workspace</div>
+              <div class="sub">Los usuarios no podrán acceder.</div>
+            </div>
+            <button type="button" class="btn btn-sm" disabled title="Coming soon">
+              <i class="pi pi-power-off ico-sm"></i>Desactivar
+            </button>
           </div>
-        </app-card>
-      }
+          <div class="zone-row">
+            <div class="text">
+              <div class="title">Archivar</div>
+              <div class="sub">Conserva los datos en sólo lectura.</div>
+            </div>
+            <button type="button" class="btn btn-sm" disabled title="Coming soon">
+              <i class="pi pi-inbox ico-sm"></i>Archivar
+            </button>
+          </div>
+          <div class="zone-row">
+            <div class="text">
+              <div class="title danger">Eliminar workspace</div>
+              <div class="sub">Esta acción no se puede deshacer.</div>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm" disabled title="Coming soon">
+              <i class="pi pi-trash ico-sm"></i>Eliminar
+            </button>
+          </div>
+        </div>
+      </aside>
     </div>
   }
-</div>
+}

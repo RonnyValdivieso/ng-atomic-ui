@@ -1,9 +1,10 @@
 import { Component, input, signal } from '@angular/core';
 
 /**
- * Compact icon button that copies an id to the clipboard, flipping to a green
- * check for ~1.2s as confirmation. Used inside table/card row actions in place
- * of showing the raw id as text.
+ * Button that copies an id to the clipboard, flipping to a green check for
+ * ~1.2s as confirmation. Two shapes: the default `compact` icon-only button
+ * used inside table/card row actions, and a labelled pill (`[compact]="false"`)
+ * used in page headers in place of showing the raw id as text.
  */
 @Component({
   selector: 'app-copy-id-button',
@@ -14,6 +15,8 @@ import { Component, input, signal } from '@angular/core';
 export class CopyIdButtonComponent {
   readonly value = input<string>('');
   readonly label = input<string>('Copy ID');
+  /** Icon-only row-action shape when true; labelled pill when false. */
+  readonly compact = input<boolean>(true);
 
   protected readonly copied = signal(false);
 

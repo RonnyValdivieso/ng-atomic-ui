@@ -1,27 +1,163 @@
-<app-modal
-  [visible]="visible"
-  (visibleChange)="closeModal()"
-  [header]="modalTitle"
-  [style]="{ width: '420px' }">
+@if (visible) {
+  <div class="modal-veil" role="presentation" (click)="onVeilClick($event)">
+    <div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="modalTitle">
+      <div class="modal-head">
+        <h2>{{ modalTitle }}</h2>
+        <button
+          type="button"
+          class="modal-x"
+          aria-label="Close"
+          [disabled]="saving"
+          (click)="closeModal()">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
 
-  <form [formGroup]="form" class="flex flex-col gap-4 py-4">
-    <app-form-field
-      label="Name"
-      formControlName="name"
-      placeholder="e.g., Platform Ops">
-    </app-form-field>
-  </form>
+      <form [formGroup]="form" class="modal-body" (ngSubmit)="onSave()">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="st-name">
+              <span class="form-label-main"><span>Name</span></span>
+            </label>
+            <input id="st-name" class="input" type="text" formControlName="name" placeholder="e.g., Customer Support" (input)="onNameInput()" />
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <p class="form-error">
+                @if (form.controls.name.errors?.['required']) {
+                  Name is required.
+                } @else {
+                  Name is too long (max 100 characters).
+                }
+              </p>
+            }
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="st-code">
+              <span class="form-label-main">
+                <span>Code</span>
+                <span class="field-tip" tabindex="0" aria-label="Lowercase letters, numbers and hyphens only. Must be unique.">
+                  <i class="pi pi-info-circle"></i>
+                  <span class="field-tip-pop below" role="tooltip">Lowercase letters, numbers and hyphens only. Must be unique.</span>
+                </span>
+              </span>
+            </label>
+            <input id="st-code" class="input mono" type="text" formControlName="code" placeholder="e.g., support" (input)="onCodeInput($event)" />
+            @if (form.controls.code.touched && form.controls.code.invalid) {
+              <p class="form-error">
+                @if (form.controls.code.errors?.['required']) {
+                  Code is required.
+                } @else {
+                  Code is too long (max 40 characters).
+                }
+              </p>
+            }
+          </div>
+        </div>
 
-  <div footer class="flex justify-end gap-2">
-    <app-button
-      label="Cancel"
-      variant="secondary"
-      (click)="closeModal()">
-    </app-button>
-    <app-button
-      label="Save"
-      (click)="onSave()"
-      [loading]="saving">
-    </app-button>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="st-email">
+              <span class="form-label-main"><span>Email</span></span>
+              <span class="opt">Optional</span>
+            </label>
+            <div class="input-icon">
+              <i class="pi pi-envelope"></i>
+              <input id="st-email" class="input" type="email" formControlName="email" placeholder="team@brandbot.io" />
+            </div>
+            @if (form.controls.email.touched && form.controls.email.errors?.['email']) {
+              <p class="form-error">Enter a valid email address.</p>
+            }
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="st-phone">
+              <span class="form-label-main"><span>Phone</span></span>
+              <span class="opt">Optional</span>
+            </label>
+            <div class="input-icon">
+              <i class="pi pi-phone"></i>
+              <input id="st-phone" class="input" type="tel" formControlName="phone" placeholder="+1 415 555 0100" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="st-address">
+            <span class="form-label-main"><span>Address</span></span>
+            <span class="opt">Optional</span>
+          </label>
+          <div class="input-icon">
+            <i class="pi pi-map-marker"></i>
+            <input id="st-address" class="input" type="text" formControlName="address" placeholder="Street, city, state" />
+          </div>
+        </div>
+
+        @if (!isEditing) {
+          <div class="form-divider"><span>Images</span></div>
+
+          <div class="form-row">
+            <div class="file-field">
+              <label class="form-label">Square picture <span class="opt">Optional</span></label>
+              <div class="file-row">
+                <div class="thumb thumb-square" aria-hidden="true">
+                  @if (squarePreview(); as src) {
+                    <img [src]="src" alt="" />
+                  } @else {
+                    <i class="pi pi-image"></i>
+                  }
+                </div>
+                <div class="file-actions">
+                  <label class="file-btn">
+                    <i class="pi pi-upload"></i>
+                    <span>{{ squareFile() ? 'Replace' : 'Choose file' }}</span>
+                    <input type="file" accept="image/*" (change)="onPickSquare($event)" />
+                  </label>
+                  @if (squareFile()) {
+                    <button type="button" class="file-clear" (click)="clearSquare()">Remove</button>
+                  }
+                </div>
+              </div>
+              @if (squareFile(); as f) {
+                <div class="file-name" title="{{ f.name }}">{{ f.name }}</div>
+              }
+            </div>
+
+            <div class="file-field">
+              <label class="form-label">Rectangular picture <span class="opt">Optional</span></label>
+              <div class="file-row">
+                <div class="thumb thumb-rect" aria-hidden="true">
+                  @if (rectPreview(); as src) {
+                    <img [src]="src" alt="" />
+                  } @else {
+                    <i class="pi pi-image"></i>
+                  }
+                </div>
+                <div class="file-actions">
+                  <label class="file-btn">
+                    <i class="pi pi-upload"></i>
+                    <span>{{ rectFile() ? 'Replace' : 'Choose file' }}</span>
+                    <input type="file" accept="image/*" (change)="onPickRect($event)" />
+                  </label>
+                  @if (rectFile()) {
+                    <button type="button" class="file-clear" (click)="clearRect()">Remove</button>
+                  }
+                </div>
+              </div>
+              @if (rectFile(); as f) {
+                <div class="file-name" title="{{ f.name }}">{{ f.name }}</div>
+              }
+            </div>
+          </div>
+        }
+      </form>
+
+      <div class="modal-foot">
+        <button type="button" class="btn" [disabled]="saving" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" [disabled]="saving" (click)="onSave()">
+          @if (saving) {
+            <i class="pi pi-spin pi-spinner ico-sm"></i>
+          }
+          <span>{{ isEditing ? 'Save changes' : 'Create team' }}</span>
+        </button>
+      </div>
+    </div>
   </div>
-</app-modal>
+}

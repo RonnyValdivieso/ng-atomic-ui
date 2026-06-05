@@ -1,0 +1,187 @@
+/*
+ * Row actions menu — global styles (component uses ViewEncapsulation.None
+ * because the popover view is teleported into document.body). All selectors
+ * are namespaced with `ram-` / `row-act-btn` to avoid collisions.
+ */
+
+app-row-actions-menu {
+  --ink: #0b0b0f;
+  --ink-2: #1a1a22;
+  --muted: #6b6b78;
+  --muted-2: #9a9aa8;
+  --line: #e7e6e3;
+  --paper-2: #f3f2ee;
+  --surface: #ffffff;
+  --err: #b8351f;
+  --err-soft: #fbe2dc;
+
+  position: relative;
+  display: inline-flex;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+app-row-actions-menu > .row-act-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .12s, color .12s;
+}
+
+app-row-actions-menu > .row-act-btn:not(:disabled):hover,
+app-row-actions-menu > .row-act-btn.active {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+app-row-actions-menu > .row-act-btn .ico-sm {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ---------- popover (teleported to <body>) ---------- */
+.ram-popover {
+  position: fixed;
+  min-width: 200px;
+  background: #ffffff;
+  border: 1px solid #e7e6e3;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 24px -4px rgba(15, 15, 30, .12),
+    0 16px 40px -8px rgba(15, 15, 30, .18);
+  padding: 4px;
+  z-index: 1000;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #1a1a22;
+  animation: ram-pop-in .12s cubic-bezier(.2, .7, .3, 1);
+  transform-origin: top right;
+}
+
+.ram-popover.ram-above {
+  transform-origin: bottom right;
+  animation-name: ram-pop-in-up;
+}
+
+.p-dark .ram-popover {
+  background: #16161c;
+  border-color: #26262e;
+  color: #d8d6d0;
+  box-shadow:
+    0 8px 24px -4px rgba(0, 0, 0, .5),
+    0 16px 40px -8px rgba(0, 0, 0, .6);
+}
+
+@keyframes ram-pop-in {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes ram-pop-in-up {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.ram-divider {
+  height: 1px;
+  background: #e7e6e3;
+  margin: 4px 0;
+}
+
+.p-dark .ram-divider {
+  background: #26262e;
+}
+
+/* ---------- items ---------- */
+.ram-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  background: transparent;
+  color: #1a1a22;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background .12s, color .12s;
+}
+
+.p-dark .ram-item {
+  color: #d8d6d0;
+}
+
+.ram-item:not(:disabled):hover {
+  background: #f3f2ee;
+  color: #0b0b0f;
+}
+
+.p-dark .ram-item:not(:disabled):hover {
+  background: #14141a;
+  color: #f5f4f0;
+}
+
+.ram-item:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.ram-item .ico {
+  font-size: 14px;
+  color: #6b6b78;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.p-dark .ram-item .ico {
+  color: #8a8a96;
+}
+
+.ram-item:not(:disabled):hover .ico {
+  color: #0b0b0f;
+}
+
+.p-dark .ram-item:not(:disabled):hover .ico {
+  color: #f5f4f0;
+}
+
+.ram-item .grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.ram-item.danger {
+  color: #b8351f;
+}
+
+.p-dark .ram-item.danger {
+  color: #ff6b5b;
+}
+
+.ram-item.danger:not(:disabled):hover {
+  background: #fbe2dc;
+  color: #b8351f;
+}
+
+.p-dark .ram-item.danger:not(:disabled):hover {
+  background: #3a1a16;
+  color: #ff6b5b;
+}
+
+.ram-item.danger .ico,
+.ram-item.danger:not(:disabled):hover .ico {
+  color: #b8351f;
+}
+
+.p-dark .ram-item.danger .ico,
+.p-dark .ram-item.danger:not(:disabled):hover .ico {
+  color: #ff6b5b;
+}

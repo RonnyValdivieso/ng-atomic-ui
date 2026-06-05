@@ -1,0 +1,40 @@
+<button
+  type="button"
+  class="row-act-btn"
+  [class.active]="open()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-expanded]="open()"
+  [attr.aria-haspopup]="'menu'"
+  (click)="toggle($event)">
+  <i class="pi pi-ellipsis-h ico-sm"></i>
+</button>
+
+<ng-template #popoverTpl>
+  @if (position(); as pos) {
+    <div
+      class="ram-popover"
+      [class.ram-above]="placement() === 'above'"
+      role="menu"
+      [attr.aria-label]="ariaLabel()"
+      [style.top.px]="pos.top"
+      [style.right.px]="pos.right"
+      (click)="$event.stopPropagation()">
+      @for (item of items(); track $index) {
+        @if (item.divider) {
+          <div class="ram-divider" aria-hidden="true"></div>
+        } @else {
+          <button
+            type="button"
+            class="ram-item"
+            [class.danger]="item.danger"
+            [disabled]="item.disabled"
+            role="menuitem"
+            (click)="run($event, item)">
+            <i class="pi ico {{ item.icon }}"></i>
+            <span class="grow">{{ item.label }}</span>
+          </button>
+        }
+      }
+    </div>
+  }
+</ng-template>

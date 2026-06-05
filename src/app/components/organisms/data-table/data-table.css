@@ -214,6 +214,14 @@
   flex-shrink: 0;
 }
 
+.name-avatar-img {
+  display: block;
+  object-fit: cover;
+  background: var(--paper-2);
+  /* override .name-avatar grid centering for <img> */
+  padding: 0;
+}
+
 .name-text {
   display: flex;
   flex-direction: column;
