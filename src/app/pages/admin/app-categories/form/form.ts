@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, model, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, computed, effect, inject, input, model, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppCategory, CreateAppCategoryDto, UpdateAppCategoryDto } from '@interfaces/app-category.interface';
 
@@ -43,7 +43,7 @@ export class AppCategoryFormComponent {
 
   private slug(s: string): string {
     return (s || '')
-      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .normalize('NFD').replace(/\p{M}/gu, '')
       .toUpperCase().replace(/[^A-Z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   }
 
@@ -58,7 +58,10 @@ export class AppCategoryFormComponent {
     this.form.controls.code.setValue(this.slug(value), { emitEvent: false });
   }
 
-  close(): void { this.visible.set(false); }
+  close(): void { if (this.saving()) return; this.visible.set(false); }
+
+  @HostListener('document:keydown.escape')
+  protected onEscape(): void { if (this.visible()) this.close(); }
 
   submit(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }

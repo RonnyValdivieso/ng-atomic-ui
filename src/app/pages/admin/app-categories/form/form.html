@@ -1,9 +1,9 @@
 @if (visible()) {
   <div class="modal-veil" role="presentation" (click)="close()">
-    <div class="modal modal-wide" role="dialog" aria-modal="true" [attr.aria-label]="title()" (click)="$event.stopPropagation()">
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="ac-form-title" (click)="$event.stopPropagation()">
 
       <div class="modal-head">
-        <h2>{{ title() }}</h2>
+        <h2 id="ac-form-title">{{ title() }}</h2>
         <button
           type="button"
           class="modal-x"
@@ -81,21 +81,20 @@
             formControlName="description"
             placeholder="What kinds of apps belong in this category?"></textarea>
         </div>
-      </form>
 
-      <div class="modal-foot">
-        <button type="button" class="btn" [disabled]="saving()" (click)="close()">Cancel</button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          [disabled]="form.invalid || saving()"
-          (click)="submit()">
-          @if (saving()) {
-            <i class="pi pi-spin pi-spinner ico-sm"></i>
-          }
-          <span>{{ isEditing() ? 'Save changes' : 'Create category' }}</span>
-        </button>
-      </div>
+        <div class="modal-foot">
+          <button type="button" class="btn" [disabled]="saving()" (click)="close()">Cancel</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid || saving()">
+            @if (saving()) {
+              <i class="pi pi-spin pi-spinner ico-sm"></i>
+            }
+            <span>{{ isEditing() ? 'Save changes' : 'Create category' }}</span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 }
