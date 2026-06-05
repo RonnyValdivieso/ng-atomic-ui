@@ -1,0 +1,95 @@
+<div class="page-head">
+  <div>
+    <h1 class="page-title">App Categories</h1>
+    <p class="page-sub">Buckets that group apps surfaced across the platform.</p>
+  </div>
+  <div class="page-actions">
+    <button type="button" class="btn" disabled title="Coming soon">
+      <i class="pi pi-download ico-sm"></i>Export
+    </button>
+    <button type="button" class="btn btn-primary" (click)="openCreate()">
+      <i class="pi pi-plus ico-sm"></i>New category
+    </button>
+  </div>
+</div>
+
+<app-data-table
+  [columns]="columns"
+  [data]="rows()"
+  [loading]="loading()"
+  [totalRecords]="totalRecords()"
+  searchPlaceholder="Search by name, code or description…"
+  emptyMessage="No categories match the current filters."
+  initialView="table"
+  (query)="load($event)"
+  (rowClick)="onRowClick($event)">
+
+  <button type="button" class="filter-chip" data-table-toolbar disabled title="Coming soon">
+    <span class="lab">Status</span><span class="val">Any</span>
+  </button>
+
+  <span data-table-toolbar-right class="types-count">
+    {{ totalRecords() }} categories
+  </span>
+
+  <ng-template appDataCell="code" let-row>
+    @let c = $any(row);
+    <span class="code-cell">{{ c.code }}</span>
+  </ng-template>
+
+  <ng-template appDataCell="actions" let-row>
+    @let c = $any(row);
+    <div class="row-actions" (click)="$event.stopPropagation()">
+      <button type="button" class="row-act-btn" aria-label="View" (click)="openDetail(c)">
+        <i class="pi pi-eye ico-sm"></i>
+      </button>
+      <app-row-actions-menu [items]="menuItems(c)" ariaLabel="Category actions" />
+    </div>
+  </ng-template>
+
+  <ng-template appDataGridCard let-row>
+    @let c = $any(row);
+    <div class="provider-card" (click)="openDetail(c)">
+      <div class="pc-head">
+        <div class="pc-logo"><i class="pi pi-tag glyph"></i></div>
+        <div class="pc-name-block">
+          <div class="pc-name">{{ c.name }}</div>
+          <div class="pc-code">{{ c.code }}</div>
+        </div>
+        @if (c.status?.toUpperCase() === 'ACTIVE') {
+          <span class="pill pill-ok"><span class="dot"></span>ACTIVE</span>
+        } @else {
+          <span class="pill pill-off"><span class="dot"></span>{{ c.status || 'INACTIVE' }}</span>
+        }
+      </div>
+      <p class="pc-desc">
+        @if (c.description) { {{ c.description }} }
+        @else { <span class="empty-dash">No description.</span> }
+      </p>
+      <div class="pc-foot">
+        <span>{{ c.code }}</span>
+        <div class="pc-foot-acts" (click)="$event.stopPropagation()">
+          <button type="button" class="row-act-btn" aria-label="View" (click)="openDetail(c)">
+            <i class="pi pi-eye ico-sm"></i>
+          </button>
+          <app-row-actions-menu [items]="menuItems(c)" ariaLabel="Category actions" />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</app-data-table>
+
+<app-app-category-form
+  [(visible)]="isModalVisible"
+  [isEditing]="isEditing()"
+  [current]="current()"
+  [saving]="saving()"
+  (save)="save($event)" />
+
+<app-confirm-dialog
+  [(visible)]="isDeleteVisible"
+  title="Delete category"
+  [message]="deleteMessage"
+  confirmLabel="Delete"
+  [loading]="deleting()"
+  (confirmed)="confirmDelete()" />
